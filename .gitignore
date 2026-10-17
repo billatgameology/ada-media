@@ -1,6 +1,3 @@
-# credentials
-.env
-
 # python
 .venv/
 __pycache__/
@@ -8,7 +5,3 @@ __pycache__/
 
 # os
 .DS_Store
-
-# state: keep the publish ledger, ignore token caches
-.state/*
-!.state/published.json

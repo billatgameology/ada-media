@@ -1,5 +1,5 @@
-# ada-media — project configuration
-# Edit once; the scripts, the site build and the previews all read from here.
+# ada-media — content studio configuration
+# Which platform files the outbox generates, and the few per-platform options.
 
 project:
   name: "ada-media"
@@ -9,44 +9,23 @@ project:
   main_url: ""            # optional: your project's main website/repo, if different from this repo
   author: "billatgameology"
 
-meta:
-  # Meta Graph API version (shared by Instagram / Threads / Facebook).
-  # The docs used v25.0 as current when this was set up. If you ever see a
-  # "version" error from Meta, bump this to the newest published version.
-  api_version: "v25.0"
-
 social:
   x:
     enabled: true
-    handle: ""            # e.g. "@yourhandle" — used in previews only
-    links_in_posts: false # keep false: $0.015/post without a link, $0.20 with one
+    include_link: false   # links reduce reach on X; the URL lives in your bio.
+                          # flip to true if you'd rather have it in the post.
     thread: false         # true = split the bullets into a numbered thread
-
   threads:
     enabled: true
-    handle: ""
-    topic_tag: ""         # optional single topic tag, without the "#"
-
   instagram:
     enabled: true
-    handle: ""
     hashtags: [devlog, buildinpublic, opensource]   # appended to IG captions
-
   facebook:
-    enabled: false        # flip to true after Meta App Review (see guide/PLAN.md)
-    page_name: ""
-
+    enabled: true
   tiktok:
     enabled: true
-    handle: ""
-    mode: inbox           # "inbox" = draft to your TikTok inbox (no audit needed)
-                          # "direct" = API posts publicly (requires a passed audit)
-    privacy_level: SELF_ONLY   # direct mode only: SELF_ONLY until audited, then PUBLIC_TO_EVERYONE
-
   youtube:
     enabled: true
-    handle: ""
-    privacy_status: public     # public | unlisted | private
 
 drafting:
   context_git: "."        # repo to pull recent commit messages into new drafts (e.g. "../my-project")

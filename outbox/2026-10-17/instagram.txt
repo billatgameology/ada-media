@@ -1,0 +1,6 @@
+Set up ada-media: a daily build log that turns one markdown file into posts for X, Threads, Instagram, Facebook, TikTok and YouTube — plus the page you're reading this on.
+
+• Gave the project a public home: a GitHub Pages site built from plain markdown in this repo, so every daily note lands on the web with no CMS involved.
+• Wrote a small Python CLI (scripts/ada.py) that turns each day's notes into per-platform versions: short text for X, a link-card post for Threads, a caption for Instagram, a caption for TikTok, a title and description for YouTube, and a full summary with the link for Facebook.
+
+#devlog #buildinpublic #opensource #tooling #python

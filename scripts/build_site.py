@@ -9,18 +9,9 @@ from pathlib import Path
 
 import markdown
 
-from lib import config, content, state
+from lib import config, content
 
 MD_EXTENSIONS = ["fenced_code", "tables", "sane_lists", "nl2br"]
-
-LABELS = {
-    "x": "X",
-    "threads": "Threads",
-    "instagram": "Instagram",
-    "facebook": "Facebook",
-    "tiktok": "TikTok",
-    "youtube": "YouTube",
-}
 
 
 def render_md(text: str) -> str:
@@ -58,24 +49,6 @@ def _shell(proj: dict, title: str, body: str) -> str:
 """
 
 
-def _posted_html(day: content.Day) -> str:
-    entries = (state.published().get("days") or {}).get(day.date) or {}
-    if not entries:
-        return ""
-    links = []
-    for key, label in LABELS.items():
-        entry = entries.get(key)
-        if not entry:
-            continue
-        url = entry.get("url") or ""
-        note = entry.get("note") or ""
-        text = html.escape(label) + (f" — {html.escape(str(note))}" if note else "")
-        links.append(f'<a href="{html.escape(str(url))}">{text}</a>' if url else f"<span>{text}</span>")
-    if not links:
-        return ""
-    return '<div class="posted">Also published: ' + " ".join(links) + "</div>"
-
-
 def _post_page(day: content.Day, proj: dict) -> str:
     title = day.title or day.date
     media_html = ""
@@ -87,7 +60,6 @@ def _post_page(day: content.Day, proj: dict) -> str:
 <h1>{html.escape(title)}</h1>
 <p class="meta"><time>{html.escape(day.date)}</time></p>
 {media_html}<div class="post-body">{render_md(day.body_md)}</div>
-{_posted_html(day)}
 </article>"""
     return _shell(proj, f"{title} — {proj.get('name', '')}", body)
 

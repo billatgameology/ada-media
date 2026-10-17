@@ -22,18 +22,18 @@
 <div class="post-body"><h2>What I did</h2>
 <ul>
 <li>Gave the project a public home: a GitHub Pages site built from plain markdown in this repo, so every daily note lands on the web with no CMS involved.</li>
-<li>Wrote a small Python CLI (<code>scripts/ada.py</code>) that turns each day's notes into per-platform posts: short link-free text for X, text with a link card for Threads, captions for Instagram, descriptions for YouTube and TikTok, and a full summary for Facebook.</li>
-<li>Wired the pipeline to the platform APIs with a dry-run preview, so nothing gets posted by accident: <code>publish</code> shows exactly what would go out, <code>publish --live</code> sends it.</li>
+<li>Wrote a small Python CLI (<code>scripts/ada.py</code>) that turns each day's notes into per-platform versions: short text for X, a link-card post for Threads, a caption for Instagram, a caption for TikTok, a title and description for YouTube, and a full summary with the link for Facebook.</li>
+<li>Decided to post manually: the repo generates the copy-paste-ready posts into an <code>outbox/</code> folder, and I post them myself. No API keys, no tokens, no audits, no per-post fees — just the content work, which is the part that matters.</li>
+<li>Kept it safe by default: everything is written as plain files and read before it goes out, and the site keeps every note as the permanent record.</li>
 </ul>
 <h2>Why</h2>
 <ul>
-<li>One place to write, one command to publish, one archive that stays readable forever. No dashboards to log into and no subscriptions — for a project this size, that's the whole point.</li>
+<li>One place to write, one command to prepare everything, and an archive that stays readable forever. Tools I don't have to maintain are tools that never break.</li>
 </ul>
 <h2>Next</h2>
 <ul>
-<li>Connect the accounts (Threads and YouTube first — they're free and painless), then take day 2 live.</li>
+<li>Post day 2 from the outbox and find a rhythm for the daily note.</li>
 </ul></div>
-
 </article>
 <footer class="site">
   <p>Daily build notes from an open-source project in progress.</p>

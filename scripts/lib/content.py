@@ -93,13 +93,18 @@ class Day:
         custom = self._ov("x")
         if custom:
             return _clip(custom, 280)
+        link = self.site_url() if config.social("x").get("include_link") else ""
+        budget = 280 - (len(link) + 2 if link else 0)
         parts = [self.summary or self.title]
         for bullet in self.bullets()[:2]:
-            if len("\n\n".join(parts + [bullet])) <= 280:
+            if len("\n\n".join(parts + [bullet])) <= budget:
                 parts.append(bullet)
             else:
                 break
-        return _clip("\n\n".join(p for p in parts if p), 280)
+        text = _clip("\n\n".join(p for p in parts if p), budget)
+        if link and "http" not in text:
+            text = f"{text}\n\n{link}"
+        return text
 
     def x_thread(self) -> list[str]:
         custom = self._ov("x")
@@ -107,6 +112,8 @@ class Day:
             return [_clip(custom, 280)]
         posts = [_clip(self.summary or self.title, 280)]
         posts += [_clip(b, 280) for b in self.bullets()[:4]]
+        if config.social("x").get("include_link") and not any("http" in p for p in posts):
+            posts.append(self.site_url())
         return [p for p in posts if p]
 
     def threads_text(self) -> str:
@@ -115,7 +122,7 @@ class Day:
             return _clip(custom, 500)
         parts = [self.summary or self.title]
         for bullet in self.bullets()[:2]:
-            if len("\n\n".join(parts + [bullet])) <= 480:  # leave room for a link card line
+            if len("\n\n".join(parts + [bullet])) <= 480:  # leave room for the link card line
                 parts.append(bullet)
             else:
                 break
