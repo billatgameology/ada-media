@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<channel>
+<title>ada-media</title>
+<link>https://billatgameology.github.io/ada-media/</link>
+<description>Daily build notes from an open-source project in progress.</description>
+<item>
+<title>Day 1 — one repo that publishes everywhere</title>
+<link>https://billatgameology.github.io/ada-media/2026-10-17.html</link>
+<guid>https://billatgameology.github.io/ada-media/2026-10-17.html</guid>
+<pubDate>Sat, 17 Oct 2026 00:00:00 +0000</pubDate>
+<description>Set up ada-media: a daily build log that turns one markdown file into posts on X, Threads, Instagram, TikTok, YouTube and Facebook.</description>
+<content:encoded><![CDATA[<h2>What I did</h2>
+<ul>
+<li>Gave the project a public home: a GitHub Pages site built from plain markdown in this repo, so every daily note lands on the web with no CMS involved.</li>
+<li>Wrote a small Python CLI (<code>scripts/ada.py</code>) that turns each day's notes into per-platform posts: short link-free text for X, text with a link card for Threads, captions for Instagram, descriptions for YouTube and TikTok, and a full summary for Facebook.</li>
+<li>Wired the pipeline to the platform APIs with a dry-run preview, so nothing gets posted by accident: <code>publish</code> shows exactly what would go out, <code>publish --live</code> sends it.</li>
+</ul>
+<h2>Why</h2>
+<ul>
+<li>One place to write, one command to publish, one archive that stays readable forever. No dashboards to log into and no subscriptions — for a project this size, that's the whole point.</li>
+</ul>
+<h2>Next</h2>
+<ul>
+<li>Connect the accounts (Threads and YouTube first — they're free and painless), then take day 2 live.</li>
+</ul>]]></content:encoded>
+</item>
+</channel>
+</rss>

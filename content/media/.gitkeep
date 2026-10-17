@@ -1,0 +1,5 @@
+# Media referenced by daily notes lives here, one folder per date:
+#   content/media/2026-10-18/screenshot.png
+#
+# Keep files small (GitHub blocks pushes over 100 MB; ~50 MB max is kinder).
+# For long videos, upload to YouTube and skip in-repo hosting.
