@@ -2,11 +2,14 @@
 """ada — the daily-notes content studio CLI for this repo.
 
 Commands:
-  daily     create today's note (prefilled with recent commits)
-  outbox    write copy-paste-ready posts for manual publishing to outbox/<date>/
-  build     rebuild the site into docs/
-  preview   build, then open the site in a browser
-  status    recent notes and their outbox state
+  daily       create today's note (prefilled with recent commits)
+  outbox      write copy-paste-ready posts for manual publishing to outbox/<date>/
+  build       rebuild the site into docs/
+  preview     build, then open the site in a browser
+  status      recent notes, outbox state and the video library
+  catalog     scan the watch folders and update the video catalog
+  transcribe  transcribe new/changed recordings locally (whisper)
+  watch       catalog + transcribe on a loop (foreground)
 """
 from __future__ import annotations
 
@@ -14,13 +17,16 @@ import argparse
 import datetime as dt
 import subprocess
 import sys
+import time
 import webbrowser
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import build_site  # noqa: E402
+import catalog  # noqa: E402
 import outbox  # noqa: E402
+import transcribe  # noqa: E402
 from lib import config, content  # noqa: E402
 
 ROOT = config.root()
@@ -96,6 +102,16 @@ def cmd_status(args) -> int:
     print(f"{proj.get('name', '')} — {proj.get('site_url', '')}")
     print(f"platforms (config.yaml): {', '.join(enabled) if enabled else 'none'}")
 
+    index = catalog.load_index()
+    videos = index.get("videos") or {}
+    if videos:
+        done = sum(1 for v in videos.values() if (v.get("transcript") or {}).get("status") == "done")
+        pending = sum(
+            1 for v in videos.values()
+            if not v.get("missing") and (v.get("transcript") or {}).get("status") != "done"
+        )
+        print(f"library: {len(videos)} recordings · {done} transcribed · {pending} pending  (catalog/)")
+
     days = content.all_days()[:10]
     if days:
         print()
@@ -105,6 +121,40 @@ def cmd_status(args) -> int:
             title = (day.title or "")[:44]
             print(f"  {day.date}  {title:<46} {'o' if ready else '·'}")
     return 0
+
+
+def cmd_catalog(args) -> int:
+    summary = catalog.catalog()
+    print(f"library — {summary['total']} recordings · {summary['duration']} of footage")
+    for root, count in summary["roots"].items():
+        print(f"  {count:>3}  {root}")
+    print(f"  transcripts: {summary['done']} done · {summary['pending']} pending · {summary['failed']} failed")
+    print(f"  new: {summary['new']} · changed: {summary['changed']} · missing: {summary['missing']}")
+    print("  wrote catalog/index.json + catalog/catalog.md")
+    return 0
+
+
+def cmd_transcribe(args) -> int:
+    return transcribe.run(limit=args.limit, only=args.id, force=args.force)
+
+
+def cmd_watch(args) -> int:
+    interval = max(30, int(args.interval or 600))
+    print(f"watching for new recordings every {interval}s — ctrl-c to stop")
+    try:
+        while True:
+            stamp = dt.datetime.now().strftime("%H:%M:%S")
+            summary = catalog.catalog()
+            if summary["pending"]:
+                print(f"[{stamp}] {summary['total']} recordings · {summary['pending']} to transcribe "
+                      f"(new {summary['new']}, changed {summary['changed']})")
+                transcribe.run(limit=args.limit or None)
+            else:
+                print(f"[{stamp}] {summary['total']} recordings · nothing to transcribe")
+            time.sleep(interval)
+    except KeyboardInterrupt:
+        print("stopped")
+        return 0
 
 
 # ── entrypoint ─────────────────────────────────────────────────────────
@@ -131,8 +181,22 @@ def main(argv=None) -> int:
     p = sub.add_parser("preview", help="build, then open the site in a browser")
     p.set_defaults(func=cmd_preview)
 
-    p = sub.add_parser("status", help="recent notes and their outbox state")
+    p = sub.add_parser("status", help="recent notes, outbox state and the video library")
     p.set_defaults(func=cmd_status)
+
+    p = sub.add_parser("catalog", help="scan the watch folders and update the video catalog")
+    p.set_defaults(func=cmd_catalog)
+
+    p = sub.add_parser("transcribe", help="transcribe new/changed recordings locally")
+    p.add_argument("--limit", type=int, help="max recordings to process this run")
+    p.add_argument("--id", help="only recordings whose id or filename contains this")
+    p.add_argument("--force", action="store_true", help="redo recordings already transcribed")
+    p.set_defaults(func=cmd_transcribe)
+
+    p = sub.add_parser("watch", help="catalog + transcribe on a loop (foreground)")
+    p.add_argument("--interval", type=int, default=600, help="seconds between scans (default 600)")
+    p.add_argument("--limit", type=int, help="max transcriptions per cycle")
+    p.set_defaults(func=cmd_watch)
 
     args = parser.parse_args(argv)
     if not args.command:

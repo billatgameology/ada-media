@@ -5,3 +5,6 @@ __pycache__/
 
 # os
 .DS_Store
+
+# video catalog + transcripts — kept local (personal recordings, public repo)
+catalog/

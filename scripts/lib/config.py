@@ -24,3 +24,11 @@ def social(name: str) -> dict:
 
 def drafting() -> dict:
     return _CONFIG.get("drafting") or {}
+
+
+def media_watch() -> dict:
+    return _CONFIG.get("media_watch") or {}
+
+
+def transcribe() -> dict:
+    return _CONFIG.get("transcribe") or {}

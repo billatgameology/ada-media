@@ -30,3 +30,21 @@ social:
 drafting:
   context_git: "."        # repo to pull recent commit messages into new drafts (e.g. "../my-project")
   context_commits: 8
+
+media_watch:              # folders scanned by `ada.py catalog`
+  roots:
+    - "/Users/billw/Movies"
+    - "/Users/billw/Library/Application Support/odh/device-media/2G0YC28F7002LP"
+  extensions: [".mp4", ".mov", ".m4v", ".mkv", ".avi", ".webm"]
+  min_size_mb: 5          # ignore tiny clips
+  exclude_dirs:           # any folder whose name contains one of these is skipped
+    - ".fcpbundle"
+    - ".localized"
+    - ".tvlibrary"
+    - ".thumbnails"
+    - "$RECYCLE.BIN"
+
+transcribe:
+  engine: auto            # auto | mlx | faster
+  model: turbo            # turbo | large-v3 | medium | small | base | tiny (or a HF repo path)
+  language: auto          # or "en", "es", ... to force a language

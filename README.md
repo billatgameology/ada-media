@@ -39,12 +39,15 @@ python3 -m venv .venv
 | `content/daily/` | One markdown file per day — the single source of truth |
 | `content/media/` | Images and short videos referenced by daily notes |
 | `content/templates/` | The daily note template |
-| `scripts/ada.py` | CLI: `daily`, `outbox`, `build`, `preview`, `status` |
+| `scripts/ada.py` | CLI: `daily`, `outbox`, `build`, `preview`, `status`, `catalog`, `transcribe`, `watch` |
 | `scripts/outbox.py` | Turns a note into the per-platform post files |
+| `scripts/catalog.py` | Scans the watch folders into a video catalog |
+| `scripts/transcribe.py` | Local Whisper transcription of cataloged recordings |
+| `catalog/` | Video catalog + transcripts (local, gitignored — `guide/MEDIA.md`) |
 | `outbox/` | Generated posts, one folder per day — copy-paste-ready (+ manifest) |
 | `docs/` | The built site + RSS (served by GitHub Pages) |
 | `site_assets/` | Stylesheet for the built site |
-| `guide/` | `PLAYBOOK.md` (what to write), `POSTING.md` (how to post), `PLAN.md` (roadmap) |
+| `guide/` | `PLAYBOOK.md` (what to write), `POSTING.md` (how to post), `PLAN.md` (roadmap), `MEDIA.md` (video library) |
 
 ## One note → six versions
 
@@ -67,6 +70,21 @@ Instagram captions can't have clickable links ("link in bio").
 ## Site
 
 <https://billatgameology.github.io/ada-media> · RSS: <https://billatgameology.github.io/ada-media/feed.xml>
+
+## Video library (catalog + transcripts)
+
+Recording folders (screen captures, device footage) get cataloged and transcribed
+locally — free, nothing uploaded, everything under `catalog/`:
+
+```bash
+python scripts/ada.py catalog       # scan → catalog/index.json + catalog/catalog.md
+python scripts/ada.py transcribe    # local whisper → catalog/transcripts/<id>.{txt,srt,json}
+python scripts/ada.py watch         # do both on a loop — hands-off monitoring
+```
+
+Watch folders, model and exclusions live in `config.yaml` → `media_watch` / `transcribe`.
+`catalog/` is gitignored on purpose (personal recordings, public repo). Details and an
+optional hourly launchd agent: `guide/MEDIA.md`.
 
 If you ever want automation back: `guide/PLAN.md` explains where the old API
 publishing implementation lives (it's in the first git commit).

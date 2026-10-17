@@ -1,2 +1,6 @@
 Markdown>=3.6
 PyYAML>=6.0
+
+# Local transcription engine for `ada.py transcribe` (Apple Silicon macs).
+# On other systems: pip install faster-whisper (the CLI picks it up automatically).
+mlx-whisper>=0.4; platform_system == "Darwin" and platform_machine == "arm64"
