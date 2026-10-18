@@ -1,11 +1,11 @@
-Day 1 — one repo that publishes everywhere
+Day 4 — keep listening, and one repo for everything
 
-Set up ada-media: a daily build log that turns one markdown file into posts for X, Threads, Instagram, Facebook, TikTok and YouTube — plus the page you're reading this on.
+Hold an index finger up and pauses stop cutting my speech off, deletes stop needing magic words, sub-agents learn to close — and the daily log gets a repo that turns one note into posts for six platforms.
 
-- Gave the project a public home: a GitHub Pages site built from plain markdown in this repo, so every daily note lands on the web with no CMS involved.
-- Wrote a small Python CLI (scripts/ada.py) that turns each day's notes into per-platform versions: short text for X, a link-card post for Threads, a caption for Instagram, a caption for TikTok, a title and description for YouTube, and a full summary with the link for Facebook.
-- Decided to post manually: the repo generates the copy-paste-ready posts into an outbox/ folder, and I post them myself. No API keys, no tokens, no audits, no per-post fees — just the content work, which is the part that matters.
-- Kept it safe by default: everything is written as plain files and read before it goes out, and the site keeps every note as the permanent record.
-- One place to write, one command to prepare everything, and an archive that stays readable forever. Tools I don't have to maintain are tools that never break.
+- Shipped "keep listening": hold either index finger up and a pause no longer ends the message mid-thought. Held my finger through a long pause — still listening. "A much needed feature so I don't get cut off."
+- Killed yesterday's magic-phrase bug for good: deletes now take natural wording, tied to the surface I selected — no synonym lists, no confirmation ritual.
+- Sub-agents learned to close when they're done, and the little worker cubes now follow Ada around like ducklings — my workshop crew, visible under the main cube.
+- Verified the audio fix: what Ada speaks now matches the chat exactly. "That part is working. And so good job."
+- Saved workspace revision 6 — five deletions and a server-rack rename persisted, floor intact. The build passed all 1,114 tests and the deployed version was verified live.
 
 https://billatgameology.github.io/ada-media/2026-10-17.html

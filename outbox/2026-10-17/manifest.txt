@@ -4,10 +4,10 @@ site post: https://billatgameology.github.io/ada-media/2026-10-17.html
 copy each file into its platform's composer, attach the listed media, post.
 per-platform details: guide/POSTING.md
 
-X / Twitter — x.txt  ·  single post  ·  longest 171/280 chars  ·  no link (x.include_link in config.yaml)
-Threads — threads.txt  ·  text post (link preview card)  ·  384/500 chars
+X / Twitter — x.txt  ·  single post  ·  longest 204/280 chars  ·  no link (x.include_link in config.yaml)
+Threads — threads.txt  ·  text post (link preview card)  ·  475/500 chars
 Instagram — instagram.txt  ·  caption ready, but NO media
-Facebook — facebook.txt  ·  1248 chars  ·  site link included
+Facebook — facebook.txt  ·  1136 chars  ·  site link included
 TikTok — tiktok.txt  ·  caption ready, but there is no video
 YouTube — youtube.txt  ·  title/description ready, but there is no video
 

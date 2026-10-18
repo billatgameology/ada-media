@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Day 3 — the room becomes editable — ada-media</title>
+<meta name="description" content="Daily build notes from an open-source project in progress.">
+<link rel="stylesheet" href="style.css">
+<link rel="alternate" type="application/rss+xml" title="ada-media feed" href="feed.xml">
+</head>
+<body>
+<header class="site">
+  <a class="brand" href="index.html">ada-media</a>
+  <nav>
+    <a href="https://github.com/billatgameology/ada-media">repo</a>
+    <a href="feed.xml">rss</a>
+  </nav>
+</header>
+<article>
+<h1>Day 3 — the room becomes editable</h1>
+<p class="meta"><time>2026-10-16</time></p>
+<div class="post-body"><h2>What I did</h2>
+<ul>
+<li>Ran the whole day as one loop: test in the headset, log the issue, spawn sub-agents, test again. Seven sessions between 15:51 and 20:33.</li>
+<li>Naming got solid — select a surface, tag it, rename it. Main desk, main screen, whiteboard, walls, server rack.</li>
+<li>And then the big one: delete, for real. A request in the evening session, live before that session ended. Eight surfaces deleted and five renames kept by the end of the day.</li>
+<li>The breakthrough moment: scene grid, blue outlines, name labels and the restored room all on at once. The room finally reads like an interface, not just a scan.</li>
+<li>Learned the model that makes it safe: the app edits its own saved copy of the room scan — a snapshot. Move furniture for real and it won't follow, and the original Quest scan is never touched.</li>
+<li>Fixed the speech mid-day: voice was cutting off, chat had junk "unspoken words," and replies landed as one giant text block. Now updates stream as they happen.</li>
+<li>Ended by saving workspace revision 5: 50 surfaces, every renamed label retained, every deleted surface confirmed gone. The test suite went 801 → 915 along the way.</li>
+</ul>
+<h2>Why / what I learned</h2>
+<ul>
+<li>The room stops being a picture the moment you can edit it. Renaming a table is a small thing; realizing you can delete it and rebuild the space is the door opening.</li>
+<li>The bug of the day came from the assistant being too literal — deletion demanded an exact phrase. "You shouldn't need a magic phrase." Intent, not incantations.</li>
+</ul>
+<h2>Next</h2>
+<ul>
+<li>File the queue of big fixes: the message queue needs to be visible and editable; sub-agents need to close themselves when they finish; and no more nine-minute stalls with zero feedback.</li>
+</ul></div>
+</article>
+<footer class="site">
+  <p>Daily build notes from an open-source project in progress.</p>
+</footer>
+</body>
+</html>

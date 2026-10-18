@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Day 2 — Ada grows hands — ada-media</title>
+<meta name="description" content="Daily build notes from an open-source project in progress.">
+<link rel="stylesheet" href="style.css">
+<link rel="alternate" type="application/rss+xml" title="ada-media feed" href="feed.xml">
+</head>
+<body>
+<header class="site">
+  <a class="brand" href="index.html">ada-media</a>
+  <nav>
+    <a href="https://github.com/billatgameology/ada-media">repo</a>
+    <a href="feed.xml">rss</a>
+  </nav>
+</header>
+<article>
+<h1>Day 2 — Ada grows hands</h1>
+<p class="meta"><time>2026-10-15</time></p>
+<div class="post-body"><h2>What I did</h2>
+<ul>
+<li>Instrumented the hands, overlay by overlay, until every WebXR hand-tracking layer was live on both hands: white joint markers, wireframe radius spheres (each joint's reported size), orientation lines, and aiming rays.</li>
+<li>Added a cyan ray out of the index finger, derived from the tracked finger joints. "Perfect. This is working perfectly." Hands prototyping for this stage: done.</li>
+<li>Saved the combination as my first developer preset. It lives in project memory for now — "we have to do better than project memory, but we'll fix that later."</li>
+<li>Identified the three mystery panels: the room panel, the capability catalog, and a browser-sharing panel that pipes a Mac Chrome tab into the headset — video, audio and input. That test comes next.</li>
+<li>Asked for the dev-only menus to collapse into a single "developer settings" panel instead of cluttering the normal view.</li>
+<li>Handed a speech bug to a sub-agent: Ada answered a sentence I never said. "I didn't say any of that. Let's book that as a bug."</li>
+</ul>
+<h2>Why / what I learned</h2>
+<ul>
+<li>Hands are how a room becomes an interface — if I can point at a surface and have Ada know exactly what I mean, the whole space becomes addressable.</li>
+<li>Watching the raw tracking data while building against it is the whole trick: you can't debug an interaction you can't see.</li>
+<li>Found a real one: long builds stop when the headset comes off. Not broken — just waiting — but work has to survive the headset leaving the head.</li>
+</ul>
+<h2>Next</h2>
+<ul>
+<li>Browser panel test: a Mac Chrome tab inside the headset — video and audio first, then clicking and scrolling.</li>
+<li>Figure out why builds stall when the headset comes off.</li>
+</ul></div>
+</article>
+<footer class="site">
+  <p>Daily build notes from an open-source project in progress.</p>
+</footer>
+</body>
+</html>
