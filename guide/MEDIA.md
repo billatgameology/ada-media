@@ -77,6 +77,33 @@ Outputs (in `catalog/clips/`, gitignored):
 | `<id>-reel.srt` | subtitles on the reel's own timeline |
 | `<id>-reel.plan.json` | the blocks that were cut |
 
+## Daily stories (all clips → one journal + reel)
+
+`clip` works on one recording; `story` merges a whole day's recordings:
+
+```bash
+python scripts/ada.py story --date 2026-10-16                # script + candidates + auto reel + draft
+python scripts/ada.py story --date 2026-10-16 --target 120   # shorter reel
+python scripts/ada.py story --date 2026-10-16 --plan catalog/stories/2026-10-16.plan.json  # curated cut
+```
+
+What lands in `catalog/stories/` (gitignored):
+
+| file | what |
+| --- | --- |
+| `<date>.script.md` | the whole day as one readable script — clips in order, timecoded |
+| `<date>.candidates.json` | every positively-scored moment across all clips |
+| `<date>.draft.md` | machine-drafted journal: timeline + top quotes |
+| `<date>.md` | the real journal — written by you (or an assistant) from the script |
+| `catalog/clips/<date>-day-reel.mp4` | auto highlight reel (+ `.srt`, `.plan.json`) |
+
+The intended loop: run `story`, hand `<date>.script.md` + `<date>.candidates.json` to
+yourself (or an assistant) and write the journal — what was worked on, what worked,
+what didn't, the standout moments. Then re-cut the reel from a curated plan with
+`--plan` (the plan format is just `{"blocks": [{"id", "start", "end"}]}`, ids from the
+candidates file). To publish the journal, promote it to `content/daily/<date>.md` and
+run `build`.
+
 ## Monitoring hands-off (optional)
 
 Hourly launchd agent — create `~/Library/LaunchAgents/com.ada-media.watch.plist`:

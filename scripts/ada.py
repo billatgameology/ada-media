@@ -11,6 +11,7 @@ Commands:
   transcribe  transcribe new/changed recordings locally (whisper)
   watch       catalog + transcribe on a loop (foreground)
   clip        cut an automatic highlight reel from a recording
+  story       build a day's story: one script, highlights and a reel from all its clips
 """
 from __future__ import annotations
 
@@ -28,6 +29,7 @@ import build_site  # noqa: E402
 import catalog  # noqa: E402
 import clip  # noqa: E402
 import outbox  # noqa: E402
+import story  # noqa: E402
 import transcribe  # noqa: E402
 from lib import config, content  # noqa: E402
 
@@ -199,6 +201,15 @@ def cmd_clip(args) -> int:
     return 0
 
 
+def cmd_story(args) -> int:
+    try:
+        return story.run(args.date, target=args.target, top=args.top, make_reel=not args.no_reel,
+                         plan_path=args.plan, vertical=args.vertical, burn=args.burn)
+    except RuntimeError as exc:
+        print(exc)
+        return 1
+
+
 # ── entrypoint ─────────────────────────────────────────────────────────
 
 def main(argv=None) -> int:
@@ -251,6 +262,16 @@ def main(argv=None) -> int:
                    help="9:16 with blurred background, for TikTok/Reels/Shorts")
     p.add_argument("--burn", action="store_true", help="burn the subtitles into the video")
     p.set_defaults(func=cmd_clip)
+
+    p = sub.add_parser("story", help="build a day's story from all its recordings")
+    p.add_argument("--date", required=True, help="YYYY-MM-DD")
+    p.add_argument("--target", type=int, default=150, help="rough reel length in seconds (default 150)")
+    p.add_argument("--top", type=int, default=12, help="how many candidates to list (default 12)")
+    p.add_argument("--no-reel", action="store_true", help="skip cutting the reel")
+    p.add_argument("--plan", help="cut the reel from this plan json instead of auto-picking")
+    p.add_argument("--vertical", action="store_true", help="9:16 reel")
+    p.add_argument("--burn", action="store_true", help="burn subtitles into the reel")
+    p.set_defaults(func=cmd_story)
 
     args = parser.parse_args(argv)
     if not args.command:

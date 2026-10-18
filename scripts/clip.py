@@ -1,8 +1,10 @@
 """Automatic highlight reels: score transcript moments, cut the best ones.
 
-Local, free, no uploads. Reads the timed transcript, groups speech into blocks,
+Local, free, no uploads. Reads timed transcripts, groups speech into blocks,
 scores each block (development keywords, speech density, lexical diversity,
-length sweet spot), then cuts the top blocks into one reel with ffmpeg.
+length sweet spot), then cuts the top blocks with ffmpeg.
+
+Single recordings: cut_reel(). Multiple recordings (a day): cut_day_reel().
 Outputs land in catalog/clips/.
 """
 from __future__ import annotations
@@ -183,6 +185,17 @@ def _run(cmd: list[str], cwd: Path | None = None) -> None:
         raise RuntimeError(f"ffmpeg failed: {tail}")
 
 
+def _part_cmd(source: str, start: float, end: float, out_name: str) -> list[str]:
+    return [
+        "ffmpeg", "-y", "-v", "error",
+        "-ss", f"{start:.3f}", "-i", source,
+        "-t", f"{end - start:.3f}",
+        "-c:v", "libx264", "-preset", "veryfast", "-crf", "20", "-pix_fmt", "yuv420p",
+        "-c:a", "aac", "-ar", "48000", "-ac", "2", "-movflags", "+faststart",
+        out_name,
+    ]
+
+
 def _reel_segments(segments: list[dict], plan: list[dict]) -> list[dict]:
     out, offset = [], 0.0
     for block in plan:
@@ -192,13 +205,51 @@ def _reel_segments(segments: list[dict], plan: list[dict]) -> list[dict]:
             seg_end = float(seg.get("end") or 0)
             if seg_end <= start or seg_start >= end:
                 continue
+            clip_start, clip_end = max(seg_start, start), min(seg_end, end)
+            if clip_end - clip_start < 0.05:  # boundary rounding crumbs
+                continue
             out.append({
-                "start": offset + max(seg_start, start) - start,
-                "end": offset + min(seg_end, end) - start,
+                "start": offset + clip_start - start,
+                "end": offset + clip_end - start,
                 "text": (seg.get("text") or "").strip(),
             })
         offset += end - start
     return out
+
+
+def _write_support(base: Path, source_label: str, blocks: list[dict], srt_text: str) -> dict:
+    srt = base.with_suffix(".srt")
+    srt.write_text(srt_text, encoding="utf-8")
+    plan_path = base.with_suffix(".plan.json")
+    plan_path.write_text(json.dumps({"source": source_label, "blocks": blocks}, indent=2) + "\n",
+                         encoding="utf-8")
+    return {"srt": srt, "plan_path": plan_path}
+
+
+def _post_pass(base: Path, raw: Path, srt: Path, vertical: bool, burn: bool) -> Path:
+    final = base.with_suffix(".mp4")
+    if not (vertical or burn):
+        raw.replace(final)
+        return final
+    if vertical:
+        chain = (
+            "[0:v]split=2[bg][fg];"
+            "[bg]scale=1080:1920:force_original_aspect_ratio=increase,"
+            "crop=1080:1920,gblur=sigma=25[bgb];"
+            "[fg]scale=1080:1920:force_original_aspect_ratio=decrease[fgs];"
+            "[bgb][fgs]overlay=(W-w)/2:(H-h)/2"
+        )
+        chain += f",subtitles={srt.name}[v]" if burn else "[v]"
+    else:
+        chain = f"[0:v]subtitles={srt.name}[v]"
+    _run([
+        "ffmpeg", "-y", "-v", "error", "-i", raw.name,
+        "-filter_complex", chain, "-map", "[v]", "-map", "0:a?",
+        "-c:v", "libx264", "-preset", "veryfast", "-crf", "22", "-pix_fmt", "yuv420p",
+        "-c:a", "copy", "-movflags", "+faststart", final.name,
+    ], cwd=CLIPS_DIR)
+    raw.unlink()
+    return final
 
 
 def cut_reel(entry: dict, plan: list[dict], segments: list[dict],
@@ -210,20 +261,13 @@ def cut_reel(entry: dict, plan: list[dict], segments: list[dict],
     CLIPS_DIR.mkdir(parents=True, exist_ok=True)
     stem = f"{entry['id']}-reel" + ("-vertical" if vertical else "")
     base = CLIPS_DIR / stem
-    tmp = CLIPS_DIR / f".{entry['id']}-parts"
+    tmp = CLIPS_DIR / f".{stem}-parts"
     if tmp.exists():
         shutil.rmtree(tmp)
     tmp.mkdir(parents=True)
 
     for i, block in enumerate(plan):
-        _run([
-            "ffmpeg", "-y", "-v", "error",
-            "-ss", f"{block['start']:.3f}", "-i", str(source),
-            "-t", f"{block['end'] - block['start']:.3f}",
-            "-c:v", "libx264", "-preset", "veryfast", "-crf", "20", "-pix_fmt", "yuv420p",
-            "-c:a", "aac", "-movflags", "+faststart",
-            f"{i:02d}.mp4",
-        ], cwd=tmp)
+        _run(_part_cmd(str(source), block["start"], block["end"], f"{i:02d}.mp4"), cwd=tmp)
 
     listing = tmp / "list.txt"
     listing.write_text("".join(f"file '{i:02d}.mp4'\n" for i in range(len(plan))), encoding="utf-8")
@@ -232,38 +276,65 @@ def cut_reel(entry: dict, plan: list[dict], segments: list[dict],
           "-c", "copy", str(raw)], cwd=tmp)
     shutil.rmtree(tmp)
 
-    srt = base.with_suffix(".srt")
-    srt.write_text(transcribe._srt(_reel_segments(segments, plan)), encoding="utf-8")
-    plan_path = base.with_suffix(".plan.json")
-    plan_path.write_text(json.dumps({"source": entry.get("name"), "blocks": plan}, indent=2) + "\n",
-                         encoding="utf-8")
+    support = _write_support(base, str(entry.get("name") or ""), plan,
+                             transcribe._srt(_reel_segments(segments, plan)))
+    final = _post_pass(base, raw, support["srt"], vertical, burn)
+    return {"reel": final, "srt": support["srt"], "plan_path": support["plan_path"],
+            "duration": sum(b["end"] - b["start"] for b in plan)}
 
-    final = base.with_suffix(".mp4")
-    if vertical or burn:
-        if vertical:
-            chain = (
-                "[0:v]split=2[bg][fg];"
-                "[bg]scale=1080:1920:force_original_aspect_ratio=increase,"
-                "crop=1080:1920,gblur=sigma=25[bgb];"
-                "[fg]scale=1080:1920:force_original_aspect_ratio=decrease[fgs];"
-                "[bgb][fgs]overlay=(W-w)/2:(H-h)/2"
-            )
-            chain += f",subtitles={srt.name}[v]" if burn else "[v]"
-        else:
-            chain = f"[0:v]subtitles={srt.name}[v]"
-        _run([
-            "ffmpeg", "-y", "-v", "error", "-i", raw.name,
-            "-filter_complex", chain, "-map", "[v]", "-map", "0:a?",
-            "-c:v", "libx264", "-preset", "veryfast", "-crf", "22", "-pix_fmt", "yuv420p",
-            "-c:a", "copy", "-movflags", "+faststart", final.name,
-        ], cwd=CLIPS_DIR)
-        raw.unlink()
-    else:
-        raw.replace(final)
 
-    return {
-        "reel": final,
-        "srt": srt,
-        "plan_path": plan_path,
-        "duration": sum(b["end"] - b["start"] for b in plan),
-    }
+def cut_day_reel(blocks: list[dict], stem: str,
+                 vertical: bool = False, burn: bool = False) -> dict:
+    """Cut a reel from blocks across multiple recordings.
+
+    Blocks must carry {"id": catalog id, "start", "end"} and be in the desired reel order.
+    """
+    index = catalog.load_index().get("videos") or {}
+    CLIPS_DIR.mkdir(parents=True, exist_ok=True)
+    base = CLIPS_DIR / stem
+    tmp = CLIPS_DIR / f".{stem}-parts"
+    if tmp.exists():
+        shutil.rmtree(tmp)
+    tmp.mkdir(parents=True)
+
+    for i, block in enumerate(blocks):
+        entry = index.get(block.get("id"))
+        if not entry:
+            raise RuntimeError(f"unknown recording id {block.get('id')!r} in plan")
+        end = float(block["end"])
+        if entry.get("duration"):
+            end = min(end, float(entry["duration"]))
+        block["end"] = end
+        _run(_part_cmd(entry["path"], float(block["start"]), end, f"{i:02d}.mp4"), cwd=tmp)
+
+    listing = tmp / "list.txt"
+    listing.write_text("".join(f"file '{i:02d}.mp4'\n" for i in range(len(blocks))), encoding="utf-8")
+    raw = base.with_suffix(".raw.mp4")
+    _run(["ffmpeg", "-y", "-v", "error", "-f", "concat", "-safe", "0", "-i", "list.txt",
+          "-c", "copy", str(raw)], cwd=tmp)
+    shutil.rmtree(tmp)
+
+    reel_segs, offset, cache = [], 0.0, {}
+    for block in blocks:
+        entry = index[block["id"]]
+        if block["id"] not in cache:
+            cache[block["id"]] = segments(entry)
+        start, end = float(block["start"]), float(block["end"])
+        for seg in cache[block["id"]]:
+            seg_start = float(seg.get("start") or 0)
+            seg_end = float(seg.get("end") or 0)
+            if seg_end <= start or seg_start >= end:
+                continue
+            clip_start, clip_end = max(seg_start, start), min(seg_end, end)
+            if clip_end - clip_start < 0.05:  # boundary rounding crumbs
+                continue
+            reel_segs.append({
+                "start": offset + clip_start - start,
+                "end": offset + clip_end - start,
+                "text": (seg.get("text") or "").strip(),
+            })
+        offset += end - start
+
+    support = _write_support(base, "day-reel", blocks, transcribe._srt(reel_segs))
+    final = _post_pass(base, raw, support["srt"], vertical, burn)
+    return {"reel": final, "srt": support["srt"], "plan_path": support["plan_path"], "duration": offset}
