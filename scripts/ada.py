@@ -10,6 +10,7 @@ Commands:
   catalog     scan the watch folders and update the video catalog
   transcribe  transcribe new/changed recordings locally (whisper)
   watch       catalog + transcribe on a loop (foreground)
+  clip        cut an automatic highlight reel from a recording
 """
 from __future__ import annotations
 
@@ -25,6 +26,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import build_site  # noqa: E402
 import catalog  # noqa: E402
+import clip  # noqa: E402
 import outbox  # noqa: E402
 import transcribe  # noqa: E402
 from lib import config, content  # noqa: E402
@@ -157,6 +159,46 @@ def cmd_watch(args) -> int:
         return 0
 
 
+def cmd_clip(args) -> int:
+    try:
+        entry = clip.load_entry(args.id)
+        segments = clip.segments(entry)
+    except RuntimeError as exc:
+        print(exc)
+        return 1
+    try:
+        if args.range:
+            plan = clip.plan_from_ranges(segments, [clip.parse_range(r) for r in args.range])
+        elif args.plan:
+            plan = clip.load_plan(args.plan)
+        else:
+            plan = clip.auto_plan(segments, target=args.target, max_blocks=args.max_blocks)
+    except RuntimeError as exc:
+        print(exc)
+        return 1
+    if not plan:
+        print("no usable speech found in this recording")
+        return 1
+
+    total = sum(b["end"] - b["start"] for b in plan)
+    print(f"highlight plan for {entry.get('name')} · {total:.0f}s across {len(plan)} block(s):")
+    for block in plan:
+        marker = f"score {block['score']}" if block.get("score") is not None else "manual"
+        text = " ".join(block["text"].split())[:72]
+        print(f"  {clip.stamp(block['start'])}–{clip.stamp(block['end'])} "
+              f"({block['end'] - block['start']:.0f}s · {marker})  {text}")
+
+    try:
+        result = clip.cut_reel(entry, plan, segments, vertical=args.vertical, burn=args.burn)
+    except RuntimeError as exc:
+        print(exc)
+        return 1
+    print(f"reel → {result['reel'].relative_to(ROOT)}  ({result['duration']:.0f}s)")
+    print(f"  subtitles: {result['srt'].relative_to(ROOT)}")
+    print(f"  edit the plan and re-cut with:  --plan {result['plan_path'].relative_to(ROOT)}")
+    return 0
+
+
 # ── entrypoint ─────────────────────────────────────────────────────────
 
 def main(argv=None) -> int:
@@ -197,6 +239,18 @@ def main(argv=None) -> int:
     p.add_argument("--interval", type=int, default=600, help="seconds between scans (default 600)")
     p.add_argument("--limit", type=int, help="max transcriptions per cycle")
     p.set_defaults(func=cmd_watch)
+
+    p = sub.add_parser("clip", help="cut an automatic highlight reel from a recording")
+    p.add_argument("--id", required=True, help="recording id or filename substring")
+    p.add_argument("--target", type=int, default=90, help="rough target length in seconds (default 90)")
+    p.add_argument("--max-blocks", type=int, default=6, help="max highlight blocks (default 6)")
+    p.add_argument("--range", action="append", default=[],
+                   help="manual range like 3:12-4:00 (repeatable; skips auto-picking)")
+    p.add_argument("--plan", help="path to a plan json to use instead of auto-picking")
+    p.add_argument("--vertical", action="store_true",
+                   help="9:16 with blurred background, for TikTok/Reels/Shorts")
+    p.add_argument("--burn", action="store_true", help="burn the subtitles into the video")
+    p.set_defaults(func=cmd_clip)
 
     args = parser.parse_args(argv)
     if not args.command:

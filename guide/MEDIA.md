@@ -49,6 +49,34 @@ Behavior details:
 - Metadata needs `ffmpeg`/`ffprobe` on PATH (already installed here); transcription reads
   the video files directly.
 
+## Highlight reels (`clip`)
+
+Turn a long recording into a short reel by mining its transcript — automatic,
+local, free:
+
+```bash
+python scripts/ada.py clip --id 15-51-15                                  # auto-pick ~90s
+python scripts/ada.py clip --id 15-51-15 --target 60 --vertical --burn   # 60s vertical + captions
+python scripts/ada.py clip --id 15-51-15 --range 3:12-4:00 --range 16:40-17:30
+```
+
+How the auto-pick works: speech is grouped into blocks, and each block is scored by
+"development" keywords (fixed, works, shipped, noteworthy…), speech density, lexical
+diversity (repetitive loops are penalized) and a length sweet spot. The top blocks
+up to ~`--target` seconds are cut and stitched back in chronological order.
+
+Every run writes an editable plan to `catalog/clips/<id>-reel.plan.json` — tweak the
+blocks and re-cut with `--plan <file>`. (Handing the plan file plus the transcript to
+an AI assistant is a fast way to get a smarter cut list than any heuristic.)
+
+Outputs (in `catalog/clips/`, gitignored):
+
+| file | what |
+| --- | --- |
+| `<id>-reel.mp4` | the highlight reel (horizontal, or 9:16 with `--vertical`) |
+| `<id>-reel.srt` | subtitles on the reel's own timeline |
+| `<id>-reel.plan.json` | the blocks that were cut |
+
 ## Monitoring hands-off (optional)
 
 Hourly launchd agent — create `~/Library/LaunchAgents/com.ada-media.watch.plist`:
