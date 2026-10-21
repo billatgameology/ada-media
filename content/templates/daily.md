@@ -17,18 +17,28 @@ overrides: {}          # optional exact per-platform text (wins over auto-derive
 #   description: "custom description"
 ---
 
-## What I did
+## In code
 
-- 
+*Commits below are in [project-ada-xr]({{code_url}}).*
+
+<!-- .venv/bin/python scripts/ada.py code --date {{date}} --stat -->
+-
+
+## In the headset
+
+<!-- .venv/bin/python scripts/ada.py find --date {{date}} --grep "phrase" -->
+<!-- Evidence lines are italic and don't become bullets in the outbox. -->
+-
+  *Evidence: `recording.mp4` @ 1:23.*
 
 ## Why / what I learned
 
-- 
+-
 
 ## Next
 
-- 
+-
 
-<!-- Draft context (invisible on the built site). Recent commits:
+<!-- Draft context (invisible on the built site). Recent code commits:
 {{context}}
 -->

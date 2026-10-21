@@ -19,24 +19,46 @@
 <article>
 <h1>Day 3 — the room becomes editable</h1>
 <p class="meta"><time>2026-10-16</time></p>
-<div class="post-body"><h2>What I did</h2>
+<div class="post-body"><h2>In code</h2>
+<p><em>Commits below are in <a href="https://github.com/billatgameology/project-ada-xr">project-ada-xr</a>.</em></p>
 <ul>
-<li>Ran the whole day as one loop: test in the headset, log the issue, spawn sub-agents, test again. Seven sessions between 15:51 and 20:33.</li>
-<li>Naming got solid — select a surface, tag it, rename it. Main desk, main screen, whiteboard, walls, server rack.</li>
-<li>And then the big one: delete, for real. A request in the evening session, live before that session ended. Eight surfaces deleted and five renames kept by the end of the day.</li>
-<li>The breakthrough moment: scene grid, blue outlines, name labels and the restored room all on at once. The room finally reads like an interface, not just a scan.</li>
-<li>Learned the model that makes it safe: the app edits its own saved copy of the room scan — a snapshot. Move furniture for real and it won't follow, and the original Quest scan is never touched.</li>
-<li>Fixed the speech mid-day: voice was cutting off, chat had junk "unspoken words," and replies landed as one giant text block. Now updates stream as they happen.</li>
-<li>Ended by saving workspace revision 5: 50 surfaces, every renamed label retained, every deleted surface confirmed gone. The test suite went 801 → 915 along the way.</li>
+<li><strong>Worker cubes</strong> — scoped OpenClaw background tasks projected as task-linked cubes beside Ada. State comes from real observations, not animation or model wording, and conversation stays available while workers run. <code>05853fc</code></li>
+<li><strong>Worker lifecycle + audio ownership</strong> — single-owner speech, separate Stop speaking / Stop current execution, isolated worker audio and a repaired lifecycle reconciliation. <code>71b627f</code></li>
+<li><strong>Palm selection, labels and menus</strong> — semantic surface selection with stable ID and generation, passive name tags that hide on tracking loss, typed receipt-backed menu navigation, and the existing saved-content Restore path. <code>09ea76e</code></li>
+<li><strong>Safe surface deletion</strong> — typed <code>surface.delete</code> with original-target/generation custody, same-turn query/apply, receipts and ACKs. It edits AdaXR's workspace copy, never Quest's room scan. <code>09ea76e</code></li>
+<li><strong>Speech now equals chat</strong> — removed generated status voice, timers and separate spoken summaries. Public assistant text feeds dialogue and TTS once, in order, and an unproven final is withheld from both. <code>09ea76e</code></li>
+<li><strong>Release</strong> — final 930/930 tests, 8/8 panels, 19 assets. Workspace revision 5 held 50 surfaces, 5 retained renames and 8 deleted surfaces with no unsaved changes. <code>09ea76e</code></li>
+</ul>
+<h2>In the headset</h2>
+<ul>
+<li><strong>Naming the room</strong> — select, tag, rename: main desk, main screen, whiteboard, walls, server rack.<br />
+<em>Evidence: <code>2026-10-16 15-51-15.mov</code> @ 8:35–17:00.</em></li>
+<li><strong>Worker cubes appear</strong> — sub-agent spawning with little cubes worked. Closing them did not.<br />
+<em>Evidence: <code>2026-10-16 15-51-15.mov</code> @ 15:35–18:48.</em></li>
+<li><strong>The room reads like an interface</strong> — grid, blue outlines, labels and the restored room all on at once: "This is great... The blue outlines and labels are working."<br />
+<em>Evidence: <code>com.oculus.vrshell-20261016-183455-0.mp4</code> @ 0:00–1:29.</em></li>
+<li><strong>Speech fixed</strong> — "the chat has been fixed. That's great." Then: stream updates as they arrive instead of one giant block at the end.<br />
+<em>Evidence: <code>com.oculus.vrshell-20261016-201025-0.mp4</code> @ 1:23 and @ 4:12–4:42.</em></li>
+<li><strong>Delete works; the magic phrase doesn't</strong> — deletion landed, but only when I used the exact wording: "You shouldn't need a magic phrase."<br />
+<em>Evidence: <code>com.oculus.vrshell-20261016-203321-0.mp4</code> @ 2:50–7:52.</em></li>
+<li><strong>Revision 5 saved</strong> — "Workspace Revision 5 is saved with 50 surfaces and no unsaved changes... all five renamed labels are retained and all eight deleted surfaces are absent."<br />
+<em>Evidence: <code>com.oculus.vrshell-20261016-203321-0.mp4</code> @ 19:50–19:57.</em></li>
+<li><strong>Nine-minute silence + queue request</strong> — "we've waited for nine minutes and it's not doing anything." The queue needs to be visible, changeable and removable.<br />
+<em>Evidence: <code>2026-10-16 18-11-48.mov</code> @ 11:18–11:48 (nine-minute quote); <code>2026-10-16 17-17-56.mov</code> @ 22:14–22:49 (queue request).</em></li>
 </ul>
 <h2>Why / what I learned</h2>
 <ul>
-<li>The room stops being a picture the moment you can edit it. Renaming a table is a small thing; realizing you can delete it and rebuild the space is the door opening.</li>
-<li>The bug of the day came from the assistant being too literal — deletion demanded an exact phrase. "You shouldn't need a magic phrase." Intent, not incantations.</li>
+<li>The room stops being a picture the moment you can edit it. Renaming a table is small; realizing you can delete it and rebuild the space is the door opening.</li>
+<li>The bug of the day came from being too literal — deletion demanded an exact phrase. Intent, not incantations.</li>
+<li>Delegation is not completion. The worker cubes made that visible: a task can be done without being reviewed, closed, or actually finished from my side.</li>
+<li>Speech should be the chat, not a performance around it. One text, two surfaces, in order.</li>
 </ul>
 <h2>Next</h2>
 <ul>
-<li>File the queue of big fixes: the message queue needs to be visible and editable; sub-agents need to close themselves when they finish; and no more nine-minute stalls with zero feedback.</li>
+<li>A visible, removable message queue.</li>
+<li>Sub-agents that close themselves when they finish.</li>
+<li>Natural deletion wording.</li>
+<li>No more nine-minute stalls with zero feedback.</li>
 </ul></div>
 </article>
 <footer class="site">

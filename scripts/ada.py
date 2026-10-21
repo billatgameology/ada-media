@@ -12,11 +12,14 @@ Commands:
   watch       catalog + transcribe on a loop (foreground)
   clip        cut an automatic highlight reel from a recording
   story       build a day's story: one script, highlights and a reel from all its clips
+  code        list the code repo's commits for a day (for the note's "In code" section)
+  find        search a day script for a phrase and print its recording + timecode
 """
 from __future__ import annotations
 
 import argparse
 import datetime as dt
+import re
 import subprocess
 import sys
 import time
@@ -46,7 +49,9 @@ def cmd_daily(args) -> int:
         print(f"{path.relative_to(ROOT)} already exists — edit it (or pass --date).")
         return 0
     template = (ROOT / "content" / "templates" / "daily.md").read_text(encoding="utf-8")
-    text = template.replace("{{date}}", date).replace("{{context}}", _git_context() or "(no commits found)")
+    text = (template.replace("{{date}}", date)
+            .replace("{{code_url}}", str(config.project().get("code_url") or ""))
+            .replace("{{context}}", _git_context() or "(no commits found)"))
     path.write_text(text, encoding="utf-8")
     print(f"created {path.relative_to(ROOT)}")
     print("edit it, then:")
@@ -56,13 +61,21 @@ def cmd_daily(args) -> int:
     return 0
 
 
+def _code_repo() -> Path:
+    """The project repo whose commits feed the note's "In code" section."""
+    cfg = config.drafting()
+    raw = str(cfg.get("code_repo") or cfg.get("context_git") or ".")
+    repo = Path(raw).expanduser()
+    return repo if repo.is_absolute() else (ROOT / repo)
+
+
 def _git_context() -> str:
     cfg = config.drafting()
-    repo = str(cfg.get("context_git") or ".")
+    repo = _code_repo()
     count = int(cfg.get("context_commits") or 8)
     try:
         result = subprocess.run(
-            ["git", "-C", str(ROOT / repo), "log", "--oneline", f"-{count}"],
+            ["git", "-C", str(repo), "log", "--oneline", f"-{count}"],
             capture_output=True, text=True, timeout=15,
         )
         if result.returncode == 0:
@@ -210,6 +223,89 @@ def cmd_story(args) -> int:
         return 1
 
 
+def cmd_code(args) -> int:
+    repo = _code_repo()
+    date = args.date or dt.date.today().isoformat()
+    if not (repo / ".git").exists():
+        print(f"code repo not found: {repo}  (set drafting.code_repo in config.yaml)")
+        return 1
+    result = subprocess.run(
+        ["git", "-C", str(repo), "log",
+         f"--since={date} 00:00:00", f"--until={date} 23:59:59",
+         "--reverse", "--date=format:%H:%M", "--pretty=format:%h%x09%ad%x09%s"],
+        capture_output=True, text=True, timeout=30,
+    )
+    if result.returncode != 0:
+        print(result.stderr.strip() or "git log failed")
+        return 1
+    commits = [line.split("\t", 2) for line in result.stdout.splitlines() if line.strip()]
+    print(f"{repo.name} — {date}")
+    if not commits:
+        print("  no commits on this date")
+    for short, stamp, subject in commits:
+        extra = ""
+        if args.stat:
+            stat = subprocess.run(
+                ["git", "-C", str(repo), "show", "--shortstat", "--format=", short],
+                capture_output=True, text=True, timeout=30,
+            ).stdout.strip()
+            if stat:
+                extra = f"  ({stat})"
+        print(f"  {short}  {stamp}  {subject}{extra}")
+        if args.body:
+            body = subprocess.run(
+                ["git", "-C", str(repo), "show", "-s", "--format=%b", short],
+                capture_output=True, text=True, timeout=30,
+            ).stdout.strip()
+            for line in body.splitlines():
+                print(f"      {line}")
+    dirty = subprocess.run(
+        ["git", "-C", str(repo), "status", "--porcelain"],
+        capture_output=True, text=True, timeout=30,
+    ).stdout.strip()
+    if dirty:
+        print("\nuncommitted changes:")
+        for line in dirty.splitlines():
+            print(f"  {line}")
+    return 0
+
+
+def _script_rows(path: Path):
+    """Yield (start_clock, recording, timecode, text) from a day script."""
+    clock = recording = None
+    for line in path.read_text(encoding="utf-8").splitlines():
+        header = re.match(r"^## \[(\d\d:\d\d)\] (.+?)  \((\d+:\d\d)\)", line)
+        if header:
+            clock, recording = header.group(1), header.group(2)
+            continue
+        row = re.match(r"^\[(\d+:\d\d)\] (.*)", line)
+        if row and recording:
+            yield clock, recording, row.group(1), row.group(2)
+
+
+def cmd_find(args) -> int:
+    date = args.date or dt.date.today().isoformat()
+    path = ROOT / "catalog" / "stories" / f"{date}.script.md"
+    if not path.exists():
+        print(f"no day script for {date} — run: python scripts/ada.py story --date {date} --no-reel")
+        return 1
+    try:
+        patterns = [re.compile(p, re.I) for p in args.grep]
+    except re.error as exc:
+        print(f"bad pattern: {exc}")
+        return 1
+    shown = 0
+    for clock, recording, stamp, text in _script_rows(path):
+        if any(p.search(text) for p in patterns):
+            print(f"{recording}  [{clock}] @ {stamp}  {text}")
+            shown += 1
+            if args.limit and shown >= args.limit:
+                break
+    if not shown:
+        print("no matches")
+    return 0
+
+
 # ── entrypoint ─────────────────────────────────────────────────────────
 
 def main(argv=None) -> int:
@@ -272,6 +368,19 @@ def main(argv=None) -> int:
     p.add_argument("--vertical", action="store_true", help="9:16 reel")
     p.add_argument("--burn", action="store_true", help="burn subtitles into the reel")
     p.set_defaults(func=cmd_story)
+
+    p = sub.add_parser("code", help="list the code repo's commits for a day")
+    p.add_argument("--date", help="YYYY-MM-DD (default: today)")
+    p.add_argument("--stat", action="store_true", help="include files/insertions/deletions")
+    p.add_argument("--body", action="store_true", help="include commit message bodies")
+    p.set_defaults(func=cmd_code)
+
+    p = sub.add_parser("find", help="search a day script for a phrase and print recording + timecode")
+    p.add_argument("--date", help="YYYY-MM-DD (default: today)")
+    p.add_argument("--grep", action="append", required=True, metavar="PATTERN",
+                   help="regex to search for (repeatable)")
+    p.add_argument("--limit", type=int, default=30, help="stop after N matches (default 30)")
+    p.set_defaults(func=cmd_find)
 
     args = parser.parse_args(argv)
     if not args.command:

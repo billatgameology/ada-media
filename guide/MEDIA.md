@@ -104,6 +104,17 @@ what didn't, the standout moments. Then re-cut the reel from a curated plan with
 candidates file). To publish the journal, promote it to `content/daily/<date>.md` and
 run `build`.
 
+To pin a claim to the video that proves it, search the day script:
+
+```bash
+python scripts/ada.py find --date 2026-10-18 --grep "equipment rack"
+# com.oculus.vrshell-20261018-142446-0.mp4  [14:24] @ 5:38  The fresh screenshot shows...
+```
+
+The daily note keeps two evidence sections: **In code** (commits from
+`project-ada-xr`, via `ada.py code --date …`) and **In the headset** (recording +
+timecode, via `ada.py find`). See [PLAYBOOK](PLAYBOOK.md#two-sources-for-every-day).
+
 ## Monitoring hands-off (optional)
 
 Hourly launchd agent — create `~/Library/LaunchAgents/com.ada-media.watch.plist`:

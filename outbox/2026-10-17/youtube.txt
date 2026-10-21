@@ -4,18 +4,21 @@ Day 4 — keep listening, and Ada learns to move
 DESCRIPTION
 Hold an index finger up and pauses stop cutting my speech off; by evening Ada glides to the whiteboard on command with her ducklings trailing — and the daily log gets a repo that turns one note into posts for six platforms.
 
-- Shipped "keep listening": hold either index finger up and a pause no longer ends the message mid-thought. Held my finger through a long pause — still listening. "A much needed feature so I don't get cut off."
-- Killed yesterday's magic-phrase bug for good: deletes now take natural wording, tied to the surface I selected — no synonym lists, no confirmation ritual.
-- Sub-agents learned to close when they're done, and the little worker cubes now follow Ada around like ducklings — my workshop crew, visible under the main cube.
-- Verified the audio fix: what Ada speaks now matches the chat exactly. "That part is working. And so good job."
-- Saved workspace revision 6 — five deletions and a server-rack rename persisted, floor intact. The build passed all 1,114 tests and the deployed version was verified live.
-- Relocation came alive: "move Ada to the whiteboard" → she glides there instead of teleporting; palm-reticle targeting landed ("It worked beautifully"); the ducklings trail her real path, bending around turns instead of sliding in a row.
-- Set the interaction rule: a named destination beats whatever my hand happens to be selecting — and in normal use the grid disappears entirely; you just say where she should go.
-- Set up this repo — every day's note now becomes the page you're reading plus copy-paste posts for X, Threads, Instagram, Facebook, TikTok and YouTube. No API keys, no autoposting; I post by hand.
-- "A pause shouldn't mean you've finished thinking" — the best line of the day, and the right bar for the interaction: hold my intent, don't make me hold its rules.
-- Ada's movement is basic right now, but it's headed somewhere deliberate: leave her on the desk, have her follow me around, or tell her a place and she hovers there. Position and animation are the visual cue that makes her feel present — the foundation for the embodiment work ahead.
-- The loop is becoming the product: issue in the headset → sub-agent builds the fix → release deploys → headset confirms it — all in one day.
-- Movement cleanup: drag-release position, palm-target capture, finished worker cubes that stay open, and combine-with-grid-on — then more browser testing.
+In code:
+- Visible message queue — a pending column beside chat with per-item Remove and exact Stop targeting. Stale controls can't abort newly running work; reconnect requires a fresh snapshot and never resends. 61af65f (1,014 tests)
+- Natural deletion — request-bound intent replaces the exact-phrase gate while keeping original target/generation, one-use authority, receipts and ACKs. 17ec165 (994 tests)
+- Keep listening + presence — raised-index capture hold with scoped renewable leases; dialogue-relative home, gentle edge glide and bounded gutters for up to six worker/label pairs. acd53b4 (1,054 tests)
+- Movement — deliberate relocation by drag or named surface, exact palm-point custody, animated glide, named-destination precedence and curved worker trailing. Combine, finished-task close and follow landed in the same checkpoint. acd53b4 (1,114 → 1,260 tests)
+- Worker lifecycle + schema repair — coalesced progress no longer invalidates lifecycle authority; provider-normalized capability descriptors survive; live review-and-close verified. acd53b4 (1,171 → 1,349 tests, 108 published schema cases)
+- Shared experience context — one immutable bounded input record for selection/status, speech timing, public conversation and playback reports, with detached evidence reads and lifecycle/projection repairs. e2146e2 3ba2e4c (942 → 961 tests)
+
+In the headset:
+- Speech matches chat — "your speech is now matching what I see on the main chat... good job."
+- The magic phrase bug, reproduced — "I have to say the exact same phrase to get it triggered, which is not the expected outcome."
+- Keep listening accepted — held a raised index through a pause: "I am holding my finger for a few seconds and it's still listening... This is a much needed feature so I don't get cut off."
+- Named instruction beats selection — with the grid on, the selected surface shouldn't win: "follow my verbal instruction rather than whatever is selected." Normal use should be the space's label, not diagnostic geometry.
+- Relocation, palm target, ducklings — "move to the server rack" → smooth glide with the children following; palm targeting "worked beautifully." The move's internal confirmation still failed.
+- Combine + worker close — "I can confirm the combined speech queue works... mark that complete." One finished cube disappeared; others stayed stuck.
 
 Full notes: https://billatgameology.github.io/ada-media/2026-10-17.html
 

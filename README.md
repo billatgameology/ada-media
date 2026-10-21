@@ -11,8 +11,11 @@ the hard part; the plumbing shouldn't be.
 ```bash
 source .venv/bin/activate
 
-python scripts/ada.py daily          # 1. create content/daily/YYYY-MM-DD.md (prefilled with recent commits)
-# ...edit it: title, summary, bullets; drop media in content/media/ if you have it...
+python scripts/ada.py daily          # 1. create content/daily/YYYY-MM-DD.md (prefilled with recent code commits)
+# ...edit it: title, summary, "In code" and "In the headset" bullets...
+#    code:     python scripts/ada.py code --date YYYY-MM-DD --stat
+#    evidence: python scripts/ada.py find --date YYYY-MM-DD --grep "phrase"
+# ...drop media in content/media/ if you have it...
 
 python scripts/ada.py outbox         # 2. write copy-paste-ready posts to outbox/<date>/
 python scripts/ada.py build          # 3. rebuild the site
@@ -39,7 +42,7 @@ python3 -m venv .venv
 | `content/daily/` | One markdown file per day — the single source of truth |
 | `content/media/` | Images and short videos referenced by daily notes |
 | `content/templates/` | The daily note template |
-| `scripts/ada.py` | CLI: `daily`, `outbox`, `build`, `preview`, `status`, `catalog`, `transcribe`, `watch`, `clip`, `story` |
+| `scripts/ada.py` | CLI: `daily`, `outbox`, `build`, `preview`, `status`, `catalog`, `transcribe`, `watch`, `clip`, `story`, `code`, `find` |
 | `scripts/outbox.py` | Turns a note into the per-platform post files |
 | `scripts/catalog.py` | Scans the watch folders into a video catalog |
 | `scripts/transcribe.py` | Local Whisper transcription of cataloged recordings |
@@ -57,11 +60,14 @@ The outbox derives everything from the note's frontmatter and bullets:
 | --- | --- |
 | `title` | Site headline, YouTube title, Facebook intro |
 | `summary` | The hook — X, Threads, Instagram caption, YouTube description |
-| First bullets | Cooked into X / Threads / Instagram |
-| All bullets | Facebook post, YouTube description, TikTok caption |
+| `## In the headset` bullets | First two are cooked into X / Threads / Instagram |
+| `## In code` + `## In the headset` bullets | Facebook and YouTube descriptions, grouped; X thread mixes the first two of each |
 | `tags` | Hashtags (Instagram/TikTok/YouTube) |
 | `media.images` / `media.video` | What to attach on each platform |
 | `overrides.<platform>` | Exact per-platform text, when auto-derived isn't right |
+
+Evidence lines (`*Evidence: `file` @ 1:23.*`) stay out of every post — they're only
+for the site and for finding the footage again.
 
 Link policy: Threads and Facebook posts include the day's page link automatically;
 X leaves it out by default (links reduce reach — flip `x.include_link` to change);

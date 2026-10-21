@@ -6,6 +6,7 @@ project:
   tagline: "Daily build notes from an open-source project in progress."
   site_url: "https://billatgameology.github.io/ada-media"
   repo_url: "https://github.com/billatgameology/ada-media"
+  code_url: "https://github.com/billatgameology/project-ada-xr"   # repo the "In code" section cites
   main_url: ""            # optional: your project's main website/repo, if different from this repo
   author: "billatgameology"
 
@@ -28,8 +29,8 @@ social:
     enabled: true
 
 drafting:
-  context_git: "."        # repo to pull recent commit messages into new drafts (e.g. "../my-project")
-  context_commits: 8
+  code_repo: "/Users/billw/Code Files/project-ada-xr"   # commits feed the note's "In code" section
+  context_commits: 8      # how many recent commits to prefill in a new draft
 
 media_watch:              # folders scanned by `ada.py catalog`
   roots:

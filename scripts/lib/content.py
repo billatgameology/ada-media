@@ -60,6 +60,35 @@ class Day:
                 out.append(_plain(stripped[2:].strip()))
         return out
 
+    def sections(self) -> dict[str, list[str]]:
+        """Bullets grouped by their `## heading`, in document order."""
+        grouped: dict[str, list[str]] = {}
+        heading = ""
+        for line in self.body_md.splitlines():
+            match = re.match(r"^##\s+(.+?)\s*$", line)
+            if match:
+                heading = _plain(match.group(1))
+                grouped.setdefault(heading, [])
+                continue
+            stripped = line.strip()
+            if stripped.startswith("- ") and stripped != "-":
+                grouped.setdefault(heading, []).append(_plain(stripped[2:].strip()))
+        return grouped
+
+    def _section(self, *prefixes: str) -> list[str]:
+        for heading, items in self.sections().items():
+            low = heading.lower()
+            if any(low.startswith(prefix.lower()) for prefix in prefixes):
+                return items
+        return []
+
+    def code_bullets(self) -> list[str]:
+        return self._section("in code")
+
+    def demo_bullets(self) -> list[str]:
+        # "What I did" keeps the older single-section notes working.
+        return self._section("in the headset", "what the headset showed", "what i did")
+
     def site_filename(self) -> str:
         return f"{self.date}.html"
 
@@ -96,7 +125,7 @@ class Day:
         link = self.site_url() if config.social("x").get("include_link") else ""
         budget = 280 - (len(link) + 2 if link else 0)
         parts = [self.summary or self.title]
-        for bullet in self.bullets()[:2]:
+        for bullet in (self.demo_bullets() or self.bullets())[:2]:
             if len("\n\n".join(parts + [bullet])) <= budget:
                 parts.append(bullet)
             else:
@@ -111,7 +140,9 @@ class Day:
         if custom:
             return [_clip(custom, 280)]
         posts = [_clip(self.summary or self.title, 280)]
-        posts += [_clip(b, 280) for b in self.bullets()[:4]]
+        demo, code = self.demo_bullets(), self.code_bullets()
+        picked = (demo[:2] + code[:2]) if (demo or code) else self.bullets()[:4]
+        posts += [_clip(b, 280) for b in picked]
         if config.social("x").get("include_link") and not any("http" in p for p in posts):
             posts.append(self.site_url())
         return [p for p in posts if p]
@@ -120,20 +151,23 @@ class Day:
         custom = self._ov("threads")
         if custom:
             return _clip(custom, 500)
+        limit = 500
+        if not (self.video or self.images):
+            limit = max(200, 500 - len(self.site_url()) - 2)  # leave room for the link card line
         parts = [self.summary or self.title]
-        for bullet in self.bullets()[:2]:
-            if len("\n\n".join(parts + [bullet])) <= 480:  # leave room for the link card line
+        for bullet in (self.demo_bullets() or self.bullets())[:2]:
+            if len("\n\n".join(parts + [bullet])) <= limit - 2:
                 parts.append(bullet)
             else:
                 break
-        return _clip("\n\n".join(p for p in parts if p), 500)
+        return _clip("\n\n".join(p for p in parts if p), limit)
 
     def instagram_caption(self) -> str:
         custom = self._ov("instagram")
         if custom:
             return _clip(custom, 2200)
         text = self.summary or self.title
-        bullets = self.bullets()
+        bullets = self.demo_bullets() or self.bullets()
         if bullets:
             text += "\n\n" + "\n".join(f"• {b}" for b in bullets[:2])
         tags = self.hashtags()
@@ -146,9 +180,15 @@ class Day:
         if custom:
             return custom
         parts = [self.title, self.summary]
-        bullets = self.bullets()
-        if bullets:
-            parts.append("\n".join(f"- {b}" for b in bullets[:5]))
+        code, demo = self.code_bullets(), self.demo_bullets()
+        if code:
+            parts.append("In code:\n" + "\n".join(f"- {b}" for b in code[:4]))
+        if demo:
+            parts.append("In the headset:\n" + "\n".join(f"- {b}" for b in demo[:4]))
+        if not code and not demo:
+            bullets = self.bullets()
+            if bullets:
+                parts.append("\n".join(f"- {b}" for b in bullets[:5]))
         parts.append(self.site_url())
         return "\n\n".join(p for p in parts if p)
 
@@ -166,9 +206,15 @@ class Day:
         if isinstance(custom, str) and custom.strip():
             return _clip(custom, 5000)
         parts = [self.summary]
-        bullets = self.bullets()
-        if bullets:
-            parts.append("\n".join(f"- {b}" for b in bullets))
+        code, demo = self.code_bullets(), self.demo_bullets()
+        if code:
+            parts.append("In code:\n" + "\n".join(f"- {b}" for b in code[:6]))
+        if demo:
+            parts.append("In the headset:\n" + "\n".join(f"- {b}" for b in demo[:6]))
+        if not code and not demo:
+            bullets = self.bullets()
+            if bullets:
+                parts.append("\n".join(f"- {b}" for b in bullets))
         parts.append(f"Full notes: {self.site_url()}")
         tags = self.hashtags()
         if tags:

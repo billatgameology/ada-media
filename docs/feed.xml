@@ -9,72 +9,127 @@
 <link>https://billatgameology.github.io/ada-media/2026-10-21.html</link>
 <guid>https://billatgameology.github.io/ada-media/2026-10-21.html</guid>
 <pubDate>Wed, 21 Oct 2026 00:00:00 +0000</pubDate>
-<description>An empty note and a media window appeared without being asked, and neither could be dismissed. Today&#x27;s fix: panels that only exist when requested.</description>
-<content:encoded><![CDATA[<h2>What I did</h2>
+<description>An empty note and a media window appeared without being asked, and neither could be dismissed. Today&#x27;s fix: panels that only exist when requested — and the start of note deletion.</description>
+<content:encoded><![CDATA[<p><em>No session on October 20, so the log skips Day 7 — this is Day 8 by the calendar.</em></p>
+<h2>In code</h2>
+<p><em>Commits below are in <a href="https://github.com/billatgameology/project-ada-xr">project-ada-xr</a>.</em></p>
 <ul>
-<li>Bug of the day: an empty "Untitled Note" appeared uninvited, and my controls couldn't remove it. Notes are getting a delete action and a hide for the panel.</li>
-<li>The media window was standing around while the app reported it closed — removing the idle surface, and the media grid, titles and input targets now stay hidden until I explicitly ask to open, show or play something.</li>
-<li>The screen-mirroring pairing question: "is there a way to always have it paired?" — automatic reconnection is on the list.</li>
-<li>Shipped as a front-end-only update: idle media surface removed, first checks pass, no service restart or forced headset refresh.</li>
+<li><strong>Idle media surface removed</strong> — the media state reported closed while a standalone media control stayed visible in XR. The idle surface is gone; the grid, titles and input targets now stay hidden until an explicit open/show/play request. Close, tracking/focus loss and finished exports can't reopen it.</li>
+<li><strong>Note deletion (in progress)</strong> — spatial notes had no delete control. Adding a delete action and a way to hide the note panel that's showing it.</li>
+<li><strong>No commit for October 21</strong> — the panel fix shipped as a front-end-only deploy. As of this entry there is no matching commit in <code>project-ada-xr</code>, so the change isn't durable yet.</li>
+</ul>
+<h2>In the headset</h2>
+<ul>
+<li><strong>The phantom note</strong> — an empty "Untitled Note" appeared without being asked: "That's strange... Can you remove it? I don't want it." Ada found it but had no delete control.<br />
+<em>Evidence: <code>com.oculus.browser-20261021-135013-0.mp4</code> @ 0:10–1:50.</em></li>
+<li><strong>The media window that wouldn't leave</strong> — "It shouldn't just stay up here. It should only open when I ask for something." The state said closed; the standalone control was still visible.<br />
+<em>Evidence: <code>com.oculus.browser-20261021-135013-0.mp4</code> @ 0:51–3:02.</em></li>
+<li><strong>Always paired?</strong> — "I don't remember if I paired... Is there a way to always have it paired?" Screen mirroring should remember, not rely on me.<br />
+<em>Evidence: <code>com.oculus.browser-20261021-135013-0.mp4</code> @ 4:02–4:42.</em></li>
+<li><strong>Front-end-only deploy</strong> — removed in code, first checks pass, testing close/hidden input/recovery; no service restart and no forced headset refresh.<br />
+<em>Evidence: <code>com.oculus.browser-20261021-135013-0.mp4</code> @ 5:32–5:41.</em></li>
 </ul>
 <h2>Why / what I learned</h2>
 <ul>
 <li>Panels that appear without being asked are worse than missing features — they make the space feel haunted. "Only when requested" is the rule for every surface.</li>
 <li>Small fixes still count as days: the goal is that every session leaves the room a little more predictable.</li>
+<li>A front-end deploy is not a checkpoint. If the change isn't committed, the next session can't review it, diff it, or roll it back.</li>
 </ul>
 <h2>Next</h2>
 <ul>
-<li>Note deletion, panel visibility rules, screen-mirroring auto-pairing.</li>
+<li>Commit the panel fix.</li>
+<li>Finish note deletion and the hide-panel behavior.</li>
+<li>Make screen mirroring remember its pairing.</li>
 </ul>]]></content:encoded>
 </item><item>
 <title>Day 6 — Ada drives Chrome from inside the headset</title>
 <link>https://billatgameology.github.io/ada-media/2026-10-19.html</link>
 <guid>https://billatgameology.github.io/ada-media/2026-10-19.html</guid>
 <pubDate>Mon, 19 Oct 2026 00:00:00 +0000</pubDate>
-<description>From VR, Ada switches Chrome tabs on the Mac, fills our YC draft and helps write the answers — while wireless ADB starts reconnecting itself and failures stop going silent.</description>
-<content:encoded><![CDATA[<h2>What I did</h2>
+<description>From VR, Ada switches Chrome tabs on the Mac, fills our YC draft and helps write the answers — while wireless ADB reconnects itself and failures stop going silent.</description>
+<content:encoded><![CDATA[<h2>In code</h2>
+<p><em>Commits below are in <a href="https://github.com/billatgameology/project-ada-xr">project-ada-xr</a>.</em></p>
 <ul>
-<li>New rule in the design contract: every item should be relocatable by voice — not just Ada. The mirrored screen couldn't move to the second desk by name; that's now logged as an implementation gap, not a limitation.</li>
-<li>Wireless ADB now reconnects itself on a new XR session: one bounded startup attempt with the saved headset address, identity verified before showing green, no cable and no screenshot. Confirmed live — "the ADB wireless started up connected right away."</li>
-<li>Fixed the listening hang: after a quiet noise-only attempt, Ada returns to listening promptly instead of blocking my next sentence until a minute-long timeout.</li>
-<li>Fixed the silence on failure: when a spatial action failed, the action-verification gate swallowed the entire final reply. Now the explanation still arrives — deployed and tested.</li>
-<li>First real remote-control demo: from inside VR, Ada switched Chrome to the YC application tab, maximized it, typed our company name and a one-line description, saved, and verified after reload. "Yay! Cool, thanks. It worked."</li>
-<li>Built a spatial working-note flow for the application: Ada asks follow-up questions, captures decisions, keeps brainstorming separate from approved wording, saves on request — and fills the form only after approval. Never submit.</li>
-<li>Ada's first-pass answer, drafted from the build itself: "Gamology Space is building a context-aware interface for working with AI… AdaXR brings an AI collaborator into a mixed reality workspace."</li>
-<li>Screenshot review caught the working note rendering as a one-line preview, full text intact but presentation broken. Being fixed as wrapped, scrollable text — and finished task cubes that never close are being chased too.</li>
+<li><strong>Voice relocation rule</strong> — ARCHITECTURE.md now requires every AdaXR item to be relocatable by voice, not just Ada. Named-screen relocation is explicitly logged as an implementation gap. <code>33edc84</code></li>
+<li><strong>Vision + wireless startup</strong> — opaque native-XR-session token, one bounded reconnect per startup with a twelve-second budget, fresh serial/identity check before green, vision-off persistence through focus recovery, and dedupe of concurrent attempts. <code>636adc5</code> (1,573 tests, 21 assets)</li>
+<li><strong>Status</strong> — the vision/startup release was verified and staged at 07:01 behind accepted work. The new-session ADB reconnect was confirmed live in the evening; the prompt-return fix passed automated checks but still needed a headset test.</li>
+<li><strong>Not committed that day</strong> — the evening's browser-control and spatial-note work exercised capabilities already in the repo. The note-rendering repair was still in progress, and no new app commit landed after 07:01.</li>
+</ul>
+<h2>In the headset</h2>
+<ul>
+<li><strong>ADB reconnects itself</strong> — a new XR session brings wireless ADB up green without a screenshot: "started up connected right away... mark that done." The prompt-return fix also passed automated checks, but real headset confirmation is still pending.<br />
+<em>Evidence: <code>com.oculus.vrshell-20261019-202643-0.mp4</code> @ 1:17–1:39 and @ 5:55–6:08.</em></li>
+<li><strong>Named movement works</strong> — "move Ada to the whiteboard" → "Moved beside the whiteboard." "Yep, it worked."<br />
+<em>Evidence: <code>com.oculus.vrshell-20261019-202643-0.mp4</code> @ 1:59–3:09.</em></li>
+<li><strong>Pointing move fails honestly</strong> — the exact spot came through this time, but the move returned an execution failure. Ada says so, doesn't retry, and starts an investigation instead of going silent.<br />
+<em>Evidence: <code>com.oculus.vrshell-20261019-202643-0.mp4</code> @ 3:12–5:49.</em></li>
+<li><strong>Chrome, controlled from VR</strong> — Ada switches to the YC application tab, maximizes it, enters "Gamology Space" and a 42-character description, saves, and verifies after reload. The form is not submitted: "Yay! Cool, thanks. It worked."<br />
+<em>Evidence: <code>com.oculus.vrshell-20261019-202643-0.mp4</code> @ 8:05–16:22.</em></li>
+<li><strong>A spatial working note for the application</strong> — creates "YC Working Discussion"; asks follow-up questions, captures decisions, keeps brainstorming separate from approved wording, saves on request, fills the form only after approval, and never submits.<br />
+<em>Evidence: <code>com.oculus.vrshell-20261019-202643-0.mp4</code> @ 17:44–18:57.</em></li>
+<li><strong>First-pass answer, drafted from the build</strong> — "Gamology Space is building a context-aware interface for working with AI... AdaXR brings an AI collaborator into a mixed reality workspace, where people can talk through a problem, point to relevant objects, and develop ideas using spatial notes, physical whiteboards, and their existing software."<br />
+<em>Evidence: <code>com.oculus.vrshell-20261019-202643-0.mp4</code> @ 20:22–21:10.</em></li>
+<li><strong>The note only looked like one line</strong> — a screenshot review caught the working note rendering as a truncated single-line preview. The text was intact; the panel needed wrapped, multi-line, scrolling text.<br />
+<em>Evidence: <code>com.oculus.vrshell-20261019-202643-0.mp4</code> @ 22:54–23:15.</em></li>
 </ul>
 <h2>Why / what I learned</h2>
 <ul>
-<li>The assistant stops being a chat window when it can operate the same tools I use. Chrome on the Mac is the first demo — point at the work, talk about it, let Ada do the typing.</li>
-<li>The YC form is a good forcing function: a real task with real stakes exposes everything the demo usually hides — notes that don't render, replies that don't arrive, cubes that won't close.</li>
+<li>The assistant stops being a chat window when it can operate the same tools I use. Chrome on the Mac is the first demo: point at the work, talk about it, let Ada do the typing.</li>
+<li>The YC form is a good forcing function. A real task with real stakes exposes everything the demo hides — notes that don't render, replies that don't arrive, cubes that won't close.</li>
+<li>"Every item should be relocatable by just a voice command" is now a product rule, not a one-off request. The mirrored screen can't do it yet, and that's an implementation gap worth naming.<br />
+<em>Evidence: <code>com.oculus.browser-20261019-063325-0.mp4</code> @ 3:49–4:17.</em></li>
+<li>Watching Ada work in Chrome while I sat in the headset was the first time the assistant felt like it was inside my actual software instead of a demo panel beside it.</li>
 </ul>
 <h2>Next</h2>
 <ul>
-<li>Finish the note rendering and worker-cube lifecycle fixes, retest pointing-based movement, and keep pushing the remote-control flow.</li>
+<li>Finish the wrapped, scrollable note rendering and the worker-cube lifecycle repair.</li>
+<li>Fix the pointing-move execution failure without replaying the failed request.</li>
+<li>Keep pushing the remote-control flow; make screen pairing survive a restart.</li>
 </ul>]]></content:encoded>
 </item><item>
 <title>Day 5 — Ada gets eyes</title>
 <link>https://billatgameology.github.io/ada-media/2026-10-18.html</link>
 <guid>https://billatgameology.github.io/ada-media/2026-10-18.html</guid>
 <pubDate>Sun, 18 Oct 2026 00:00:00 +0000</pubDate>
-<description>Screenshots from the headset land in a movable photo panel, the main window shows vision + ADB status at a glance, and screen mirroring starts becoming its own billboarded view.</description>
-<content:encoded><![CDATA[<h2>What I did</h2>
+<description>Screenshots from the headset land in a movable photo panel, the main window shows vision + ADB + room status at a glance, and Mac screen sharing gets a standalone, billboarded view.</description>
+<content:encoded><![CDATA[<h2>In code</h2>
+<p><em>Commits below are in <a href="https://github.com/billatgameology/project-ada-xr">project-ada-xr</a>.</em></p>
 <ul>
-<li>Gave Ada eyes: Quest screenshots now land in a movable photo panel inside the app. She read my equipment rack back from a fresh capture — Dell monitor, drive bays, green LEDs, cables. "It worked!"</li>
-<li>Added a status window: vision permission and wireless ADB as separate red/green lines, checked every few seconds, with stale results expiring. Now I can see at a glance whether "go to the whiteboard" is actually possible.</li>
-<li>Gave the photo panel real UI: detached from the vision menu, billboards toward my head, near-hand grab, two-hand resize (out = bigger, in = smaller), red close box — distance grab is next.</li>
-<li>Started the screen-mirroring rework: the stream becomes a standalone billboarded view that stays where I put it, with its own stop control; the settings menu can move or close without killing it.</li>
-<li>Movement bug batch: found why released ducklings snap into a line (a settling step returns them to fixed resting slots), why a drag cancels and snaps back (a change in the other hand cancels it), and caught combine breaking with the grid on — plus queue scrolling past three messages and palm targets still dropping.</li>
-<li>Fixed failure communication: an action gate was suppressing the whole final reply when a move failed, honest explanation included. Now a blocked action still tells me why. 1,547 tests, staged for the headset.</li>
+<li><strong>Full-view vision</strong> — fresh Quest system-composite capture including passthrough and virtual content, request-bound capture leases, strict JPEG handling and same-image authenticated display. <code>14ea0fd</code> (1,452 tests at the first release)</li>
+<li><strong>Photo panel</strong> — independent head-facing image, native one-hand move, proportional two-hand resize, compact red Close and near/far interaction; vision settings grouped and normally hidden. <code>14ea0fd</code> (1,457 → 1,491 tests)</li>
+<li><strong>Permission + readiness</strong> — separate Vision permission, actual wireless ADB state, loaded room data, restored contents and current tracking. Stale results expire; configuration alone can't claim a connection. <code>14ea0fd</code> (1,518 tests)</li>
+<li><strong>Room continuity, queue and worker tail</strong> — one safe saved-room restore per new XR session, aimed queue scrolling, stopped ducklings keeping their released trail, and transient-only notifications. <code>14ea0fd</code></li>
+<li><strong>Mac screen sharing</strong> — view-only desktop publisher/broker/viewer, then a photo-like standalone frame with near/far move, resize, red × and independent billboarding. Frontend-only activation at 21:32. The legacy tab extension and remote pointer/wheel/key/text path were retired. <code>14ea0fd</code> <code>bd3cbf1</code> (1,540 → 1,537 tests, 23 rendered checks)</li>
+<li><strong>Honest action failures</strong> — prepared a move once instead of twice, and separated failure communication from action-success verification so a blocked action still explains itself. 1,547 repair checks, staged at the end of the day. <code>14ea0fd</code></li>
+</ul>
+<h2>In the headset</h2>
+<ul>
+<li><strong>Ada gets eyes</strong> — a fresh capture of the real room: "A dark Dell monitor, rows of drive bays, equipment with green indicator lights, black cases on the left, and cables on the right." The same image opened in the photo panel.<br />
+<em>Evidence: <code>com.oculus.vrshell-20261018-142446-0.mp4</code> @ 5:38–6:53.</em></li>
+<li><strong>Vision on isn't a connection</strong> — the setting said on while the headset capture link was disconnected. The new main window separates vision permission from wireless ADB, checks every few seconds, and lets stale status expire.<br />
+<em>Evidence: <code>com.oculus.vrshell-20261018-164106-0.mp4</code> @ 3:55–4:50 and @ 6:15–7:49; <code>com.oculus.vrshell-20261018-173757-0.mp4</code> @ 0:15–1:35.</em></li>
+<li><strong>Status lights accepted</strong> — vision permission on, wireless ADB connected: "It worked!" and a screenshot of the real desk plus the virtual menu.<br />
+<em>Evidence: <code>com.oculus.vrshell-20261018-173757-0.mp4</code> @ 1:00–1:35.</em></li>
+<li><strong>The photo panel</strong> — "I like the update... zooming works... closing works." Asked for distance grab, automatic safe room restore, and removal of the unused notification.<br />
+<em>Evidence: <code>com.oculus.vrshell-20261018-173757-0.mp4</code> @ 1:56–2:27, @ 3:52–4:48 and @ 7:24–8:25.</em></li>
+<li><strong>Movement bugs classified</strong> — released ducklings snap into a line; a change in the other hand cancels a valid drag; the queue won't scroll past three; Combine stops working past three queued cues.<br />
+<em>Evidence: <code>com.oculus.vrshell-20261018-132641-0.mp4</code> @ 3:52–4:17 and @ 8:06–8:56.</em></li>
+<li><strong>The silent failure</strong> — "move to second desk" failed, and the explanation appeared on the Mac but not in XR dialogue. Cause: the action-verification gate swallowed the entire final reply. Repair staged with 1,547 tests.<br />
+<em>Evidence: <code>com.oculus.vrshell-20261018-203639-0.mp4</code> @ 1:52–4:43 and @ 17:07–17:21.</em></li>
+<li><strong>Screen sharing starts</strong> — pairing code, Mac page, Chrome "Entire Screen." The stream wasn't live yet; the screen became a standalone billboarded view with its own stop control.<br />
+<em>Evidence: <code>com.oculus.vrshell-20261018-203639-0.mp4</code> @ 10:06–10:34 and @ 18:37–19:10.</em></li>
 </ul>
 <h2>Why / what I learned</h2>
 <ul>
 <li>"Can you see this?" becomes a real question once screenshots work. The status lights mean I don't have to guess whether the headset is connected before asking for something.</li>
-<li>Most of the day was the unglamorous middle: capture mismatches, snapback paths, stale status. Failure paths deserve the same care as features — especially when the assistant is supposed to be trustworthy.</li>
+<li>A status light has to measure the thing it names. "Vision on" was permission, not a capture connection — showing them as separate lines fixed the lie.</li>
+<li>Most of the day was the unglamorous middle: capture mismatches, snapback paths, stale status, a swallowed failure message. Failure paths deserve the same care as features, especially when the assistant is supposed to be trustworthy.</li>
 </ul>
 <h2>Next</h2>
 <ul>
-<li>Exact palm targeting, drag-release retention, finished-cube cleanup, combine with grid on, and the first live screen-stream test.</li>
+<li>Distance grab for the photo and developer panels.</li>
+<li>Exact palm targeting, drag-release retention and finished-cube cleanup.</li>
+<li>Combine with the grid on; the first live screen-stream test.</li>
 </ul>]]></content:encoded>
 </item><item>
 <title>Day 4 — keep listening, and Ada learns to move</title>
@@ -82,98 +137,168 @@
 <guid>https://billatgameology.github.io/ada-media/2026-10-17.html</guid>
 <pubDate>Sat, 17 Oct 2026 00:00:00 +0000</pubDate>
 <description>Hold an index finger up and pauses stop cutting my speech off; by evening Ada glides to the whiteboard on command with her ducklings trailing — and the daily log gets a repo that turns one note into posts for six platforms.</description>
-<content:encoded><![CDATA[<h2>What I did</h2>
+<content:encoded><![CDATA[<h2>In code</h2>
+<p><em>Commits below are in <a href="https://github.com/billatgameology/project-ada-xr">project-ada-xr</a>. Today ARCHITECTURE.md also became the single product contract, with deploy-after-change as the default. <code>0552a5a</code> <code>d095640</code></em></p>
 <ul>
-<li>Shipped "keep listening": hold either index finger up and a pause no longer ends the message mid-thought. Held my finger through a long pause — still listening. "A much needed feature so I don't get cut off."</li>
-<li>Killed yesterday's magic-phrase bug for good: deletes now take natural wording, tied to the surface I selected — no synonym lists, no confirmation ritual.</li>
-<li>Sub-agents learned to close when they're done, and the little worker cubes now follow Ada around like ducklings — my workshop crew, visible under the main cube.</li>
-<li>Verified the audio fix: what Ada speaks now matches the chat exactly. "That part is working. And so good job."</li>
-<li>Saved workspace revision 6 — five deletions and a server-rack rename persisted, floor intact. The build passed all 1,114 tests and the deployed version was verified live.</li>
-<li>Relocation came alive: "move Ada to the whiteboard" → she glides there instead of teleporting; palm-reticle targeting landed ("It worked beautifully"); the ducklings trail her real path, bending around turns instead of sliding in a row.</li>
-<li>Set the interaction rule: a named destination beats whatever my hand happens to be selecting — and in normal use the grid disappears entirely; you just say where she should go.</li>
-<li>Set up this repo — every day's note now becomes the page you're reading plus copy-paste posts for X, Threads, Instagram, Facebook, TikTok and YouTube. No API keys, no autoposting; I post by hand.</li>
+<li><strong>Visible message queue</strong> — a pending column beside chat with per-item Remove and exact Stop targeting. Stale controls can't abort newly running work; reconnect requires a fresh snapshot and never resends. <code>61af65f</code> (1,014 tests)</li>
+<li><strong>Natural deletion</strong> — request-bound intent replaces the exact-phrase gate while keeping original target/generation, one-use authority, receipts and ACKs. <code>17ec165</code> (994 tests)</li>
+<li><strong>Keep listening + presence</strong> — raised-index capture hold with scoped renewable leases; dialogue-relative home, gentle edge glide and bounded gutters for up to six worker/label pairs. <code>acd53b4</code> (1,054 tests)</li>
+<li><strong>Movement</strong> — deliberate relocation by drag or named surface, exact palm-point custody, animated glide, named-destination precedence and curved worker trailing. Combine, finished-task close and follow landed in the same checkpoint. <code>acd53b4</code> (1,114 → 1,260 tests)</li>
+<li><strong>Worker lifecycle + schema repair</strong> — coalesced progress no longer invalidates lifecycle authority; provider-normalized capability descriptors survive; live review-and-close verified. <code>acd53b4</code> (1,171 → 1,349 tests, 108 published schema cases)</li>
+<li><strong>Shared experience context</strong> — one immutable bounded input record for selection/status, speech timing, public conversation and playback reports, with detached evidence reads and lifecycle/projection repairs. <code>e2146e2</code> <code>3ba2e4c</code> (942 → 961 tests)</li>
+<li><strong>This log shipped</strong> — the ada-media repo turns one daily note into the site plus copy-paste posts for X, Threads, Instagram, Facebook, TikTok and YouTube. Manual posting only, no API keys. <code>aae6fd3</code> <code>62e96d8</code> <code>2d8d435</code> <code>153275d</code> (ada-media)</li>
+</ul>
+<h2>In the headset</h2>
+<ul>
+<li><strong>Speech matches chat</strong> — "your speech is now matching what I see on the main chat... good job."<br />
+<em>Evidence: <code>2026-10-17 09-44-40.mov</code> @ 2:09–2:23.</em></li>
+<li><strong>The magic phrase bug, reproduced</strong> — "I have to say the exact same phrase to get it triggered, which is not the expected outcome."<br />
+<em>Evidence: <code>2026-10-17 09-44-40.mov</code> @ 5:15–5:24.</em></li>
+<li><strong>Keep listening accepted</strong> — held a raised index through a pause: "I am holding my finger for a few seconds and it's still listening... This is a much needed feature so I don't get cut off."<br />
+<em>Evidence: <code>com.oculus.vrshell-20261017-121237-0.mp4</code> @ 2:53–3:34.</em></li>
+<li><strong>Named instruction beats selection</strong> — with the grid on, the selected surface shouldn't win: "follow my verbal instruction rather than whatever is selected." Normal use should be the space's label, not diagnostic geometry.<br />
+<em>Evidence: <code>com.oculus.browser-20261017-173947-0.mp4</code> @ 5:56–6:46.</em></li>
+<li><strong>Relocation, palm target, ducklings</strong> — "move to the server rack" → smooth glide with the children following; palm targeting "worked beautifully." The move's internal confirmation still failed.<br />
+<em>Evidence: <code>com.oculus.vrshell-20261017-190245-0.mp4</code> @ 2:08–3:29.</em></li>
+<li><strong>Combine + worker close</strong> — "I can confirm the combined speech queue works... mark that complete." One finished cube disappeared; others stayed stuck.<br />
+<em>Evidence: <code>com.oculus.vrshell-20261017-190245-0.mp4</code> @ 5:29–8:11.</em></li>
 </ul>
 <h2>Why / what I learned</h2>
 <ul>
-<li>"A pause shouldn't mean you've finished thinking" — the best line of the day, and the right bar for the interaction: hold my intent, don't make me hold its rules.</li>
-<li>Ada's movement is basic right now, but it's headed somewhere deliberate: leave her on the desk, have her follow me around, or tell her a place and she hovers there. Position and animation are the visual cue that makes her feel present — the foundation for the embodiment work ahead.</li>
-<li>The loop is becoming the product: issue in the headset → sub-agent builds the fix → release deploys → headset confirms it — all in one day.</li>
+<li>"A pause shouldn't mean you've finished thinking." That's the right bar for the interaction: hold my intent, don't make me hold its rules.</li>
+<li>Ada's movement is basic right now, but it's headed somewhere deliberate: leave her on the desk, have her follow me around, or tell her a place and she hovers there. Position and animation are the visual cue that makes her feel present — the foundation for the embodiment work ahead.<br />
+<em>Evidence: <code>com.oculus.browser-20261017-125302-0.mp4</code> @ 5:25–7:01.</em></li>
+<li>The loop is becoming the product: issue in the headset → sub-agent builds the fix → release deploys → headset confirms it, all in one day. By closeout that was 1,349 tests and a live review-and-close.</li>
+<li>The log itself is part of the build now. One note becomes the site and six platform drafts, but I still post by hand — the automation stops at the clipboard.</li>
 </ul>
 <h2>Next</h2>
 <ul>
-<li>Movement cleanup: drag-release position, palm-target capture, finished worker cubes that stay open, and combine-with-grid-on — then more browser testing.</li>
+<li>Movement cleanup: combine with grid on, named movement with grid hidden, drag-release position, palm-target confirmation.</li>
+<li>Finished worker cubes that actually close.</li>
+<li>Keep-listening cleanup: release grace, mute and tracking loss.</li>
 </ul>]]></content:encoded>
 </item><item>
 <title>Day 3 — the room becomes editable</title>
 <link>https://billatgameology.github.io/ada-media/2026-10-16.html</link>
 <guid>https://billatgameology.github.io/ada-media/2026-10-16.html</guid>
 <pubDate>Fri, 16 Oct 2026 00:00:00 +0000</pubDate>
-<description>Seven test sessions, one loop: Ada can now name, relabel and delete the room around me — 8 surfaces deleted, 5 labels kept, all saved as workspace revision 5.</description>
-<content:encoded><![CDATA[<h2>What I did</h2>
+<description>Naming, relabeling and deleting the room around me — 8 surfaces deleted, 5 labels kept, saved as workspace revision 5 — plus worker cubes and speech that finally matches chat.</description>
+<content:encoded><![CDATA[<h2>In code</h2>
+<p><em>Commits below are in <a href="https://github.com/billatgameology/project-ada-xr">project-ada-xr</a>.</em></p>
 <ul>
-<li>Ran the whole day as one loop: test in the headset, log the issue, spawn sub-agents, test again. Seven sessions between 15:51 and 20:33.</li>
-<li>Naming got solid — select a surface, tag it, rename it. Main desk, main screen, whiteboard, walls, server rack.</li>
-<li>And then the big one: delete, for real. A request in the evening session, live before that session ended. Eight surfaces deleted and five renames kept by the end of the day.</li>
-<li>The breakthrough moment: scene grid, blue outlines, name labels and the restored room all on at once. The room finally reads like an interface, not just a scan.</li>
-<li>Learned the model that makes it safe: the app edits its own saved copy of the room scan — a snapshot. Move furniture for real and it won't follow, and the original Quest scan is never touched.</li>
-<li>Fixed the speech mid-day: voice was cutting off, chat had junk "unspoken words," and replies landed as one giant text block. Now updates stream as they happen.</li>
-<li>Ended by saving workspace revision 5: 50 surfaces, every renamed label retained, every deleted surface confirmed gone. The test suite went 801 → 915 along the way.</li>
+<li><strong>Worker cubes</strong> — scoped OpenClaw background tasks projected as task-linked cubes beside Ada. State comes from real observations, not animation or model wording, and conversation stays available while workers run. <code>05853fc</code></li>
+<li><strong>Worker lifecycle + audio ownership</strong> — single-owner speech, separate Stop speaking / Stop current execution, isolated worker audio and a repaired lifecycle reconciliation. <code>71b627f</code></li>
+<li><strong>Palm selection, labels and menus</strong> — semantic surface selection with stable ID and generation, passive name tags that hide on tracking loss, typed receipt-backed menu navigation, and the existing saved-content Restore path. <code>09ea76e</code></li>
+<li><strong>Safe surface deletion</strong> — typed <code>surface.delete</code> with original-target/generation custody, same-turn query/apply, receipts and ACKs. It edits AdaXR's workspace copy, never Quest's room scan. <code>09ea76e</code></li>
+<li><strong>Speech now equals chat</strong> — removed generated status voice, timers and separate spoken summaries. Public assistant text feeds dialogue and TTS once, in order, and an unproven final is withheld from both. <code>09ea76e</code></li>
+<li><strong>Release</strong> — final 930/930 tests, 8/8 panels, 19 assets. Workspace revision 5 held 50 surfaces, 5 retained renames and 8 deleted surfaces with no unsaved changes. <code>09ea76e</code></li>
+</ul>
+<h2>In the headset</h2>
+<ul>
+<li><strong>Naming the room</strong> — select, tag, rename: main desk, main screen, whiteboard, walls, server rack.<br />
+<em>Evidence: <code>2026-10-16 15-51-15.mov</code> @ 8:35–17:00.</em></li>
+<li><strong>Worker cubes appear</strong> — sub-agent spawning with little cubes worked. Closing them did not.<br />
+<em>Evidence: <code>2026-10-16 15-51-15.mov</code> @ 15:35–18:48.</em></li>
+<li><strong>The room reads like an interface</strong> — grid, blue outlines, labels and the restored room all on at once: "This is great... The blue outlines and labels are working."<br />
+<em>Evidence: <code>com.oculus.vrshell-20261016-183455-0.mp4</code> @ 0:00–1:29.</em></li>
+<li><strong>Speech fixed</strong> — "the chat has been fixed. That's great." Then: stream updates as they arrive instead of one giant block at the end.<br />
+<em>Evidence: <code>com.oculus.vrshell-20261016-201025-0.mp4</code> @ 1:23 and @ 4:12–4:42.</em></li>
+<li><strong>Delete works; the magic phrase doesn't</strong> — deletion landed, but only when I used the exact wording: "You shouldn't need a magic phrase."<br />
+<em>Evidence: <code>com.oculus.vrshell-20261016-203321-0.mp4</code> @ 2:50–7:52.</em></li>
+<li><strong>Revision 5 saved</strong> — "Workspace Revision 5 is saved with 50 surfaces and no unsaved changes... all five renamed labels are retained and all eight deleted surfaces are absent."<br />
+<em>Evidence: <code>com.oculus.vrshell-20261016-203321-0.mp4</code> @ 19:50–19:57.</em></li>
+<li><strong>Nine-minute silence + queue request</strong> — "we've waited for nine minutes and it's not doing anything." The queue needs to be visible, changeable and removable.<br />
+<em>Evidence: <code>2026-10-16 18-11-48.mov</code> @ 11:18–11:48 (nine-minute quote); <code>2026-10-16 17-17-56.mov</code> @ 22:14–22:49 (queue request).</em></li>
 </ul>
 <h2>Why / what I learned</h2>
 <ul>
-<li>The room stops being a picture the moment you can edit it. Renaming a table is a small thing; realizing you can delete it and rebuild the space is the door opening.</li>
-<li>The bug of the day came from the assistant being too literal — deletion demanded an exact phrase. "You shouldn't need a magic phrase." Intent, not incantations.</li>
+<li>The room stops being a picture the moment you can edit it. Renaming a table is small; realizing you can delete it and rebuild the space is the door opening.</li>
+<li>The bug of the day came from being too literal — deletion demanded an exact phrase. Intent, not incantations.</li>
+<li>Delegation is not completion. The worker cubes made that visible: a task can be done without being reviewed, closed, or actually finished from my side.</li>
+<li>Speech should be the chat, not a performance around it. One text, two surfaces, in order.</li>
 </ul>
 <h2>Next</h2>
 <ul>
-<li>File the queue of big fixes: the message queue needs to be visible and editable; sub-agents need to close themselves when they finish; and no more nine-minute stalls with zero feedback.</li>
+<li>A visible, removable message queue.</li>
+<li>Sub-agents that close themselves when they finish.</li>
+<li>Natural deletion wording.</li>
+<li>No more nine-minute stalls with zero feedback.</li>
 </ul>]]></content:encoded>
 </item><item>
 <title>Day 2 — Ada grows hands</title>
 <link>https://billatgameology.github.io/ada-media/2026-10-15.html</link>
 <guid>https://billatgameology.github.io/ada-media/2026-10-15.html</guid>
 <pubDate>Thu, 15 Oct 2026 00:00:00 +0000</pubDate>
-<description>Every WebXR hand overlay on at once — joint markers, radius spheres, aim rays, orientation lines — plus a cyan index-finger ray and the first developer preset.</description>
-<content:encoded><![CDATA[<h2>What I did</h2>
+<description>Every WebXR hand overlay on at once — joint markers, radius spheres, aim rays, orientation lines — plus a cyan index-finger ray, the first developer preset, and the browser panel&#x27;s first build.</description>
+<content:encoded><![CDATA[<h2>In code</h2>
+<p><em>Commits below are in <a href="https://github.com/billatgameology/project-ada-xr">project-ada-xr</a>.</em></p>
 <ul>
-<li>Instrumented the hands, overlay by overlay, until every WebXR hand-tracking layer was live on both hands: white joint markers, wireframe radius spheres (each joint's reported size), orientation lines, and aiming rays.</li>
-<li>Added a cyan ray out of the index finger, derived from the tracked finger joints. "Perfect. This is working perfectly." Hands prototyping for this stage: done.</li>
-<li>Saved the combination as my first developer preset. It lives in project memory for now — "we have to do better than project memory, but we'll fix that later."</li>
-<li>Identified the three mystery panels: the room panel, the capability catalog, and a browser-sharing panel that pipes a Mac Chrome tab into the headset — video, audio and input. That test comes next.</li>
-<li>Asked for the dev-only menus to collapse into a single "developer settings" panel instead of cluttering the normal view.</li>
-<li>Handed a speech bug to a sub-agent: Ada answered a sentence I never said. "I didn't say any of that. Let's book that as a bug."</li>
+<li><strong>Hand visualization</strong> — generated controls for joint markers, joint radii, orientation axes and browser aim rays, plus a cyan index-finger ray derived from tip-minus-distal joints. Tracking loss hides invalid geometry. <code>fd1be1c</code></li>
+<li><strong>Browser panel</strong> — Chrome helper and same-tab video/audio sharing with pointer, scroll, drag and text input. Consent, input ownership and revocation are explicit; hiding the panel revokes sharing, mutes its audio and clears held input. <code>fd1be1c</code></li>
+<li><strong>Capability library</strong> — typed, receipt-backed discovery and controls for room visibility, semantic surface inspection, highlighting, names and categories. <code>fd1be1c</code></li>
+<li><strong>Developer settings</strong> — room/workspace, capabilities and browser controls hidden under one developer area, one subsection at a time, with room and hand state preserved across menu changes. <code>fd1be1c</code></li>
+<li><strong>Meaningful capture</strong> — the meaningful-v1 policy keeps useful interaction evidence instead of noisy repeated observations; 18,755 old rows were cleared while the saved room, notes and canonical chat were preserved. <code>fd1be1c</code></li>
+<li><strong>Resilient queued voice</strong> — bounded backend FIFO, exact Stop, capture-time target pinning, commit-before-playback and a separate audio FIFO. Final release: 541 tests, 8/8 panels, 19 assets. <code>fd1be1c</code></li>
+</ul>
+<h2>In the headset</h2>
+<ul>
+<li><strong>Every overlay at once</strong> — joint markers, radii, orientation lines and aim rays on both hands, then the cyan index-finger ray: "Perfect. This is working perfectly."<br />
+<em>Evidence: <code>2026-10-15 17-19-59.mov</code> @ 1:21–2:07.</em></li>
+<li><strong>First developer preset</strong> — saved the all-white hand view (markers, radii, Z orientation, aim rays) to project memory. Selectable presets are still missing: "we have to do better than project memory."<br />
+<em>Evidence: <code>com.oculus.browser-20261015-154745-0.mp4</code> @ 7:40–9:05.</em></li>
+<li><strong>Three mystery panels</strong> — identified the room panel, capability catalog and browser-sharing panel: "It lets you view and control a Mac Chrome tab inside XR." Asked to collapse them into Developer settings.<br />
+<em>Evidence: <code>com.oculus.vrshell-20261015-172022-0.mp4</code> @ 3:14–4:51.</em></li>
+<li><strong>Speech bug logged</strong> — Ada answered a sentence I never said: "I didn't say any of that. Let's book that as a bug."<br />
+<em>Evidence: <code>com.oculus.browser-20261015-154745-0.mp4</code> @ 6:12–6:27.</em></li>
+<li><strong>Headset-off stall</strong> — the build wasn't dead; it stopped when the headset came off: "I think it stopped building when I took the headset off."<br />
+<em>Evidence: <code>com.oculus.browser-20261015-164602-0.mp4</code> @ 5:21–5:57.</em></li>
+<li><strong>Browser test started, not finished</strong> — Mac Chrome tab in Quest, video/audio first, then input. The session ended with "something is interrupting it," so this one stays open.<br />
+<em>Evidence: <code>2026-10-15 20-25-30.mov</code> @ 0:36–10:29.</em></li>
 </ul>
 <h2>Why / what I learned</h2>
 <ul>
-<li>Hands are how a room becomes an interface — if I can point at a surface and have Ada know exactly what I mean, the whole space becomes addressable.</li>
+<li>Hands are how a room becomes an interface. If I can point at a surface and have Ada know exactly what I mean, the whole space becomes addressable.</li>
 <li>Watching the raw tracking data while building against it is the whole trick: you can't debug an interaction you can't see.</li>
-<li>Found a real one: long builds stop when the headset comes off. Not broken — just waiting — but work has to survive the headset leaving the head.</li>
+<li>The headset-off stall is why work has to survive the headset leaving the head. Queued voice and single-owner audio came out of that.</li>
+<li>Presets belong in the app, not in project memory — a dev view I can't recall isn't really a preset.</li>
 </ul>
 <h2>Next</h2>
 <ul>
-<li>Browser panel test: a Mac Chrome tab inside the headset — video and audio first, then clicking and scrolling.</li>
-<li>Figure out why builds stall when the headset comes off.</li>
+<li>Finish the browser roundtrip: real Chrome → Quest video, audio, then clicking, scrolling and typing.</li>
+<li>Move hand presets out of project memory and into the app.</li>
+<li>Chase the wrong-text speech bug.</li>
 </ul>]]></content:encoded>
 </item><item>
 <title>Day 1 — Ada, take four</title>
 <link>https://billatgameology.github.io/ada-media/2026-10-14.html</link>
 <guid>https://billatgameology.github.io/ada-media/2026-10-14.html</guid>
 <pubDate>Wed, 14 Oct 2026 00:00:00 +0000</pubDate>
-<description>I&#x27;m officially starting the fourth attempt at Ada today — an assistant that lives in the room with me — and logging the whole attempt in the open, one day at a time.</description>
-<content:encoded><![CDATA[<h2>What I did</h2>
+<description>The fourth attempt at Ada starts here: the room imports, anchors and saves as a workspace — and the whole attempt gets logged in the open, one day at a time.</description>
+<content:encoded><![CDATA[<h2>In code</h2>
+<p><em>Commits below are in <a href="https://github.com/billatgameology/project-ada-xr">project-ada-xr</a>.</em></p>
 <ul>
-<li>Started the fourth attempt at Ada today — officially. This is its first entry.</li>
-<li>The frame for this attempt: Ada lives in the room. It's in the headset with me, in my actual scanned space — the grid, the outlines, every surface it can find and name. Voice in, voice out, and it runs its own little sub-agents while we work.</li>
-<li>Set the rules for this log: one entry per build day, written that day, honest about what broke, with the real quotes from real test sessions instead of a cleaned-up story later.</li>
+<li><strong>Room workspace v1</strong> — Quest room import, a five-step guided setup (align → import → check → anchor → save), up to 64 named surfaces and 50 notes in one spatial root, a persistent anchor and aligned restore. Saving is explicit; nothing autosaves. <code>f57d060</code></li>
+<li><strong>Spatial notes</strong> — create/read/append and desktop export, with sanitized Markdown filenames, private-state path checks and symlink guards. <code>6bd79fe</code></li>
+<li><strong>Voice hardening</strong> — note-save authorization, TTS audio validation and gateway recovery-race tests; local voice workflows became recoverable instead of silently dropping work. <code>6bd79fe</code></li>
+<li><strong>Fresh-only capture</strong> — capture policy v1: historical replay omitted, payloads capped at 48 KB, secrets redacted, private outbox enforced. Capture is observation evidence, not conversation memory. <code>1dd1cef</code></li>
+<li><strong>Agent rules</strong> — AGENTS.md updated with the development contract for the attempt. <code>ea400e6</code></li>
+</ul>
+<h2>In the headset</h2>
+<p><em>No video from this day — I didn't record the first session. The first recorded session is tomorrow.</em></p>
+<ul>
+<li><strong>Workspace walkthrough</strong> — aligned room import, persistent anchor, local save, and restore after an XR re-entry and full page reload — confirmed at 20:01 PDT.</li>
 </ul>
 <h2>Why / what I learned</h2>
 <ul>
-<li>Attempt four gets a trail. If this one works, the day-by-day of how it got there — including everything that didn't work — is the interesting part. It's the part nobody usually gets to see.</li>
-<li>Open development from day one: these notes go up as they're written, not once they're pretty. The mistakes are part of the material.</li>
+<li>I'm officially starting the fourth attempt at Ada today. This is its first entry.</li>
+<li>The frame for this attempt: Ada lives in the room. It's in the headset with me, in my actual scanned space — the grid, the outlines, every surface it can find and name. Voice in, voice out, and it runs its own little sub-agents while we work.</li>
+<li>A workspace that survives a reload is the difference between a demo and a place to work. Day one was mostly plumbing — import, anchors, save, restore — and that plumbing is what lets every later session start in the same room instead of from scratch.</li>
+<li>Attempt four gets a trail. If this one works, the day-by-day of how it got there — including everything that didn't work — is the interesting part.</li>
+<li>Open development from day one: these notes go up as they're written, not once they're pretty.</li>
 </ul>
 <h2>Next</h2>
 <ul>
-<li>First build sessions in the headset. Bring the room up, and start with what Ada can find, see and name in it.</li>
+<li>First recorded build session: bring the room up, then start with what Ada can find, see and name in it.</li>
 </ul>]]></content:encoded>
 </item>
 </channel>

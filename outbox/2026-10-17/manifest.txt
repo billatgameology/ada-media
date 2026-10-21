@@ -5,9 +5,9 @@ copy each file into its platform's composer, attach the listed media, post.
 per-platform details: guide/POSTING.md
 
 X / Twitter — x.txt  ·  single post  ·  longest 223/280 chars  ·  no link (x.include_link in config.yaml)
-Threads — threads.txt  ·  text post (link preview card)  ·  494/500 chars
+Threads — threads.txt  ·  text post (link preview card)  ·  378/500 chars
 Instagram — instagram.txt  ·  caption ready, but NO media
-Facebook — facebook.txt  ·  1150 chars  ·  site link included
+Facebook — facebook.txt  ·  1861 chars  ·  site link included
 TikTok — tiktok.txt  ·  caption ready, but there is no video
 YouTube — youtube.txt  ·  title/description ready, but there is no video
 

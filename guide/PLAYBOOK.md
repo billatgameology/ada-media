@@ -11,6 +11,29 @@
 
 Consistency beats quality here. The point of the daily log is that it always exists.
 
+## Two sources for every day
+
+A day's note has two evidence sections, and they answer different questions:
+
+- **In code** — what actually landed in the project repo. Pull the day's commits
+  from `project-ada-xr` (`python scripts/ada.py code --date YYYY-MM-DD --stat`) and
+  cite the short hash. This is where architecture, tests, refactors, fixes and
+  parser/API work show up even when no recording captured them.
+- **In the headset** — what was demonstrated on camera. Use the day script
+  (`python scripts/ada.py find --date YYYY-MM-DD --grep "phrase"`) to pin each
+  claim to a recording and a timecode. Put the citation on its own italic line,
+  not in the bullet, so it stays out of the social posts:
+
+  ```
+  - **What I saw** — the result, with a real quote.
+    *Evidence: `com.oculus.vrshell-20261018-173757-0.mp4` @ 1:00.*
+  ```
+
+The split matters: a transcript is good at proving a result was visible, but it
+misses the code work that made it possible — and a commit log can't tell you
+whether the thing actually worked in the room. Keep `Why / what I learned` and
+`Next` after the two evidence sections.
+
 ## The daily note → platform mapping
 
 `python scripts/ada.py outbox` derives everything from the note's frontmatter + bullets:
@@ -19,8 +42,8 @@ Consistency beats quality here. The point of the daily log is that it always exi
 | --- | --- |
 | `title` | Site headline, YouTube title, Facebook intro |
 | `summary` | The hook — X, Threads, Instagram caption, YouTube description |
-| First 1–2 bullets | Cooked into X / Threads / Instagram |
-| All bullets | Facebook post, YouTube description, TikTok caption |
+| First 1–2 `In the headset` bullets | Cooked into X / Threads / Instagram |
+| `In code` + `In the headset` bullets | Facebook and YouTube description, grouped; X thread mixes the first two of each |
 | `tags` | Hashtags (Instagram/TikTok/YouTube), YouTube tags |
 | `media.images` | Instagram (and X/Threads/Facebook take the first), site |
 | `media.video` | YouTube, TikTok, Instagram reel, Threads |
