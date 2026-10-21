@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Day 6 — Ada drives Chrome from inside the headset — ada-media</title>
+<meta name="description" content="Daily build notes from an open-source project in progress.">
+<link rel="stylesheet" href="style.css">
+<link rel="alternate" type="application/rss+xml" title="ada-media feed" href="feed.xml">
+</head>
+<body>
+<header class="site">
+  <a class="brand" href="index.html">ada-media</a>
+  <nav>
+    <a href="https://github.com/billatgameology/ada-media">repo</a>
+    <a href="feed.xml">rss</a>
+  </nav>
+</header>
+<article>
+<h1>Day 6 — Ada drives Chrome from inside the headset</h1>
+<p class="meta"><time>2026-10-19</time></p>
+<div class="post-body"><h2>What I did</h2>
+<ul>
+<li>New rule in the design contract: every item should be relocatable by voice — not just Ada. The mirrored screen couldn't move to the second desk by name; that's now logged as an implementation gap, not a limitation.</li>
+<li>Wireless ADB now reconnects itself on a new XR session: one bounded startup attempt with the saved headset address, identity verified before showing green, no cable and no screenshot. Confirmed live — "the ADB wireless started up connected right away."</li>
+<li>Fixed the listening hang: after a quiet noise-only attempt, Ada returns to listening promptly instead of blocking my next sentence until a minute-long timeout.</li>
+<li>Fixed the silence on failure: when a spatial action failed, the action-verification gate swallowed the entire final reply. Now the explanation still arrives — deployed and tested.</li>
+<li>First real remote-control demo: from inside VR, Ada switched Chrome to the YC application tab, maximized it, typed our company name and a one-line description, saved, and verified after reload. "Yay! Cool, thanks. It worked."</li>
+<li>Built a spatial working-note flow for the application: Ada asks follow-up questions, captures decisions, keeps brainstorming separate from approved wording, saves on request — and fills the form only after approval. Never submit.</li>
+<li>Ada's first-pass answer, drafted from the build itself: "Gamology Space is building a context-aware interface for working with AI… AdaXR brings an AI collaborator into a mixed reality workspace."</li>
+<li>Screenshot review caught the working note rendering as a one-line preview, full text intact but presentation broken. Being fixed as wrapped, scrollable text — and finished task cubes that never close are being chased too.</li>
+</ul>
+<h2>Why / what I learned</h2>
+<ul>
+<li>The assistant stops being a chat window when it can operate the same tools I use. Chrome on the Mac is the first demo — point at the work, talk about it, let Ada do the typing.</li>
+<li>The YC form is a good forcing function: a real task with real stakes exposes everything the demo usually hides — notes that don't render, replies that don't arrive, cubes that won't close.</li>
+</ul>
+<h2>Next</h2>
+<ul>
+<li>Finish the note rendering and worker-cube lifecycle fixes, retest pointing-based movement, and keep pushing the remote-control flow.</li>
+</ul></div>
+</article>
+<footer class="site">
+  <p>Daily build notes from an open-source project in progress.</p>
+</footer>
+</body>
+</html>

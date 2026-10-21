@@ -5,11 +5,83 @@
 <link>https://billatgameology.github.io/ada-media/</link>
 <description>Daily build notes from an open-source project in progress.</description>
 <item>
-<title>Day 4 — keep listening, and one repo for everything</title>
+<title>Day 8 — the case of the phantom panels</title>
+<link>https://billatgameology.github.io/ada-media/2026-10-21.html</link>
+<guid>https://billatgameology.github.io/ada-media/2026-10-21.html</guid>
+<pubDate>Wed, 21 Oct 2026 00:00:00 +0000</pubDate>
+<description>An empty note and a media window appeared without being asked, and neither could be dismissed. Today&#x27;s fix: panels that only exist when requested.</description>
+<content:encoded><![CDATA[<h2>What I did</h2>
+<ul>
+<li>Bug of the day: an empty "Untitled Note" appeared uninvited, and my controls couldn't remove it. Notes are getting a delete action and a hide for the panel.</li>
+<li>The media window was standing around while the app reported it closed — removing the idle surface, and the media grid, titles and input targets now stay hidden until I explicitly ask to open, show or play something.</li>
+<li>The screen-mirroring pairing question: "is there a way to always have it paired?" — automatic reconnection is on the list.</li>
+<li>Shipped as a front-end-only update: idle media surface removed, first checks pass, no service restart or forced headset refresh.</li>
+</ul>
+<h2>Why / what I learned</h2>
+<ul>
+<li>Panels that appear without being asked are worse than missing features — they make the space feel haunted. "Only when requested" is the rule for every surface.</li>
+<li>Small fixes still count as days: the goal is that every session leaves the room a little more predictable.</li>
+</ul>
+<h2>Next</h2>
+<ul>
+<li>Note deletion, panel visibility rules, screen-mirroring auto-pairing.</li>
+</ul>]]></content:encoded>
+</item><item>
+<title>Day 6 — Ada drives Chrome from inside the headset</title>
+<link>https://billatgameology.github.io/ada-media/2026-10-19.html</link>
+<guid>https://billatgameology.github.io/ada-media/2026-10-19.html</guid>
+<pubDate>Mon, 19 Oct 2026 00:00:00 +0000</pubDate>
+<description>From VR, Ada switches Chrome tabs on the Mac, fills our YC draft and helps write the answers — while wireless ADB starts reconnecting itself and failures stop going silent.</description>
+<content:encoded><![CDATA[<h2>What I did</h2>
+<ul>
+<li>New rule in the design contract: every item should be relocatable by voice — not just Ada. The mirrored screen couldn't move to the second desk by name; that's now logged as an implementation gap, not a limitation.</li>
+<li>Wireless ADB now reconnects itself on a new XR session: one bounded startup attempt with the saved headset address, identity verified before showing green, no cable and no screenshot. Confirmed live — "the ADB wireless started up connected right away."</li>
+<li>Fixed the listening hang: after a quiet noise-only attempt, Ada returns to listening promptly instead of blocking my next sentence until a minute-long timeout.</li>
+<li>Fixed the silence on failure: when a spatial action failed, the action-verification gate swallowed the entire final reply. Now the explanation still arrives — deployed and tested.</li>
+<li>First real remote-control demo: from inside VR, Ada switched Chrome to the YC application tab, maximized it, typed our company name and a one-line description, saved, and verified after reload. "Yay! Cool, thanks. It worked."</li>
+<li>Built a spatial working-note flow for the application: Ada asks follow-up questions, captures decisions, keeps brainstorming separate from approved wording, saves on request — and fills the form only after approval. Never submit.</li>
+<li>Ada's first-pass answer, drafted from the build itself: "Gamology Space is building a context-aware interface for working with AI… AdaXR brings an AI collaborator into a mixed reality workspace."</li>
+<li>Screenshot review caught the working note rendering as a one-line preview, full text intact but presentation broken. Being fixed as wrapped, scrollable text — and finished task cubes that never close are being chased too.</li>
+</ul>
+<h2>Why / what I learned</h2>
+<ul>
+<li>The assistant stops being a chat window when it can operate the same tools I use. Chrome on the Mac is the first demo — point at the work, talk about it, let Ada do the typing.</li>
+<li>The YC form is a good forcing function: a real task with real stakes exposes everything the demo usually hides — notes that don't render, replies that don't arrive, cubes that won't close.</li>
+</ul>
+<h2>Next</h2>
+<ul>
+<li>Finish the note rendering and worker-cube lifecycle fixes, retest pointing-based movement, and keep pushing the remote-control flow.</li>
+</ul>]]></content:encoded>
+</item><item>
+<title>Day 5 — Ada gets eyes</title>
+<link>https://billatgameology.github.io/ada-media/2026-10-18.html</link>
+<guid>https://billatgameology.github.io/ada-media/2026-10-18.html</guid>
+<pubDate>Sun, 18 Oct 2026 00:00:00 +0000</pubDate>
+<description>Screenshots from the headset land in a movable photo panel, the main window shows vision + ADB status at a glance, and screen mirroring starts becoming its own billboarded view.</description>
+<content:encoded><![CDATA[<h2>What I did</h2>
+<ul>
+<li>Gave Ada eyes: Quest screenshots now land in a movable photo panel inside the app. She read my equipment rack back from a fresh capture — Dell monitor, drive bays, green LEDs, cables. "It worked!"</li>
+<li>Added a status window: vision permission and wireless ADB as separate red/green lines, checked every few seconds, with stale results expiring. Now I can see at a glance whether "go to the whiteboard" is actually possible.</li>
+<li>Gave the photo panel real UI: detached from the vision menu, billboards toward my head, near-hand grab, two-hand resize (out = bigger, in = smaller), red close box — distance grab is next.</li>
+<li>Started the screen-mirroring rework: the stream becomes a standalone billboarded view that stays where I put it, with its own stop control; the settings menu can move or close without killing it.</li>
+<li>Movement bug batch: found why released ducklings snap into a line (a settling step returns them to fixed resting slots), why a drag cancels and snaps back (a change in the other hand cancels it), and caught combine breaking with the grid on — plus queue scrolling past three messages and palm targets still dropping.</li>
+<li>Fixed failure communication: an action gate was suppressing the whole final reply when a move failed, honest explanation included. Now a blocked action still tells me why. 1,547 tests, staged for the headset.</li>
+</ul>
+<h2>Why / what I learned</h2>
+<ul>
+<li>"Can you see this?" becomes a real question once screenshots work. The status lights mean I don't have to guess whether the headset is connected before asking for something.</li>
+<li>Most of the day was the unglamorous middle: capture mismatches, snapback paths, stale status. Failure paths deserve the same care as features — especially when the assistant is supposed to be trustworthy.</li>
+</ul>
+<h2>Next</h2>
+<ul>
+<li>Exact palm targeting, drag-release retention, finished-cube cleanup, combine with grid on, and the first live screen-stream test.</li>
+</ul>]]></content:encoded>
+</item><item>
+<title>Day 4 — keep listening, and Ada learns to move</title>
 <link>https://billatgameology.github.io/ada-media/2026-10-17.html</link>
 <guid>https://billatgameology.github.io/ada-media/2026-10-17.html</guid>
 <pubDate>Sat, 17 Oct 2026 00:00:00 +0000</pubDate>
-<description>Hold an index finger up and pauses stop cutting my speech off, deletes stop needing magic words, sub-agents learn to close — and the daily log gets a repo that turns one note into posts for six platforms.</description>
+<description>Hold an index finger up and pauses stop cutting my speech off; by evening Ada glides to the whiteboard on command with her ducklings trailing — and the daily log gets a repo that turns one note into posts for six platforms.</description>
 <content:encoded><![CDATA[<h2>What I did</h2>
 <ul>
 <li>Shipped "keep listening": hold either index finger up and a pause no longer ends the message mid-thought. Held my finger through a long pause — still listening. "A much needed feature so I don't get cut off."</li>
@@ -17,17 +89,19 @@
 <li>Sub-agents learned to close when they're done, and the little worker cubes now follow Ada around like ducklings — my workshop crew, visible under the main cube.</li>
 <li>Verified the audio fix: what Ada speaks now matches the chat exactly. "That part is working. And so good job."</li>
 <li>Saved workspace revision 6 — five deletions and a server-rack rename persisted, floor intact. The build passed all 1,114 tests and the deployed version was verified live.</li>
-<li>Started Ada's mobility and embodiment: grab-and-reposition, or ask it to hover beside a known surface. Position and animation are the visual cue for the human — so build the foundation, not feature-by-feature.</li>
+<li>Relocation came alive: "move Ada to the whiteboard" → she glides there instead of teleporting; palm-reticle targeting landed ("It worked beautifully"); the ducklings trail her real path, bending around turns instead of sliding in a row.</li>
+<li>Set the interaction rule: a named destination beats whatever my hand happens to be selecting — and in normal use the grid disappears entirely; you just say where she should go.</li>
 <li>Set up this repo — every day's note now becomes the page you're reading plus copy-paste posts for X, Threads, Instagram, Facebook, TikTok and YouTube. No API keys, no autoposting; I post by hand.</li>
 </ul>
 <h2>Why / what I learned</h2>
 <ul>
 <li>"A pause shouldn't mean you've finished thinking" — the best line of the day, and the right bar for the interaction: hold my intent, don't make me hold its rules.</li>
-<li>The loop is becoming the product: issue in the headset → sub-agent builds the fix → release deploys → headset confirms it — all in one day. This log now has a home and a rhythm.</li>
+<li>Ada's movement is basic right now, but it's headed somewhere deliberate: leave her on the desk, have her follow me around, or tell her a place and she hovers there. Position and animation are the visual cue that makes her feel present — the foundation for the embodiment work ahead.</li>
+<li>The loop is becoming the product: issue in the headset → sub-agent builds the fix → release deploys → headset confirms it — all in one day.</li>
 </ul>
 <h2>Next</h2>
 <ul>
-<li>Why one coding sub-agent never appeared in the worker view (found the gap in the task feed; fix in progress), plus the next round of browser testing and Ada's first relocation moves.</li>
+<li>Movement cleanup: drag-release position, palm-target capture, finished worker cubes that stay open, and combine-with-grid-on — then more browser testing.</li>
 </ul>]]></content:encoded>
 </item><item>
 <title>Day 3 — the room becomes editable</title>

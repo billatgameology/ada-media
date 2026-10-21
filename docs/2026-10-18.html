@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Day 5 — Ada gets eyes — ada-media</title>
+<meta name="description" content="Daily build notes from an open-source project in progress.">
+<link rel="stylesheet" href="style.css">
+<link rel="alternate" type="application/rss+xml" title="ada-media feed" href="feed.xml">
+</head>
+<body>
+<header class="site">
+  <a class="brand" href="index.html">ada-media</a>
+  <nav>
+    <a href="https://github.com/billatgameology/ada-media">repo</a>
+    <a href="feed.xml">rss</a>
+  </nav>
+</header>
+<article>
+<h1>Day 5 — Ada gets eyes</h1>
+<p class="meta"><time>2026-10-18</time></p>
+<div class="post-body"><h2>What I did</h2>
+<ul>
+<li>Gave Ada eyes: Quest screenshots now land in a movable photo panel inside the app. She read my equipment rack back from a fresh capture — Dell monitor, drive bays, green LEDs, cables. "It worked!"</li>
+<li>Added a status window: vision permission and wireless ADB as separate red/green lines, checked every few seconds, with stale results expiring. Now I can see at a glance whether "go to the whiteboard" is actually possible.</li>
+<li>Gave the photo panel real UI: detached from the vision menu, billboards toward my head, near-hand grab, two-hand resize (out = bigger, in = smaller), red close box — distance grab is next.</li>
+<li>Started the screen-mirroring rework: the stream becomes a standalone billboarded view that stays where I put it, with its own stop control; the settings menu can move or close without killing it.</li>
+<li>Movement bug batch: found why released ducklings snap into a line (a settling step returns them to fixed resting slots), why a drag cancels and snaps back (a change in the other hand cancels it), and caught combine breaking with the grid on — plus queue scrolling past three messages and palm targets still dropping.</li>
+<li>Fixed failure communication: an action gate was suppressing the whole final reply when a move failed, honest explanation included. Now a blocked action still tells me why. 1,547 tests, staged for the headset.</li>
+</ul>
+<h2>Why / what I learned</h2>
+<ul>
+<li>"Can you see this?" becomes a real question once screenshots work. The status lights mean I don't have to guess whether the headset is connected before asking for something.</li>
+<li>Most of the day was the unglamorous middle: capture mismatches, snapback paths, stale status. Failure paths deserve the same care as features — especially when the assistant is supposed to be trustworthy.</li>
+</ul>
+<h2>Next</h2>
+<ul>
+<li>Exact palm targeting, drag-release retention, finished-cube cleanup, combine with grid on, and the first live screen-stream test.</li>
+</ul></div>
+</article>
+<footer class="site">
+  <p>Daily build notes from an open-source project in progress.</p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Day 8 — the case of the phantom panels — ada-media</title>
+<meta name="description" content="Daily build notes from an open-source project in progress.">
+<link rel="stylesheet" href="style.css">
+<link rel="alternate" type="application/rss+xml" title="ada-media feed" href="feed.xml">
+</head>
+<body>
+<header class="site">
+  <a class="brand" href="index.html">ada-media</a>
+  <nav>
+    <a href="https://github.com/billatgameology/ada-media">repo</a>
+    <a href="feed.xml">rss</a>
+  </nav>
+</header>
+<article>
+<h1>Day 8 — the case of the phantom panels</h1>
+<p class="meta"><time>2026-10-21</time></p>
+<div class="post-body"><h2>What I did</h2>
+<ul>
+<li>Bug of the day: an empty "Untitled Note" appeared uninvited, and my controls couldn't remove it. Notes are getting a delete action and a hide for the panel.</li>
+<li>The media window was standing around while the app reported it closed — removing the idle surface, and the media grid, titles and input targets now stay hidden until I explicitly ask to open, show or play something.</li>
+<li>The screen-mirroring pairing question: "is there a way to always have it paired?" — automatic reconnection is on the list.</li>
+<li>Shipped as a front-end-only update: idle media surface removed, first checks pass, no service restart or forced headset refresh.</li>
+</ul>
+<h2>Why / what I learned</h2>
+<ul>
+<li>Panels that appear without being asked are worse than missing features — they make the space feel haunted. "Only when requested" is the rule for every surface.</li>
+<li>Small fixes still count as days: the goal is that every session leaves the room a little more predictable.</li>
+</ul>
+<h2>Next</h2>
+<ul>
+<li>Note deletion, panel visibility rules, screen-mirroring auto-pairing.</li>
+</ul></div>
+</article>
+<footer class="site">
+  <p>Daily build notes from an open-source project in progress.</p>
+</footer>
+</body>
+</html>
