@@ -5,18 +5,17 @@
 <link>https://billatgameology.github.io/ada-media/</link>
 <description>Daily build notes from an open-source project in progress.</description>
 <item>
-<title>Day 8 — the case of the phantom panels</title>
+<title>The case of the phantom panels</title>
 <link>https://billatgameology.github.io/ada-media/2026-10-21.html</link>
 <guid>https://billatgameology.github.io/ada-media/2026-10-21.html</guid>
 <pubDate>Wed, 21 Oct 2026 00:00:00 +0000</pubDate>
 <description>An empty note and a media window appeared without being asked, and neither could be dismissed. Today&#x27;s fix: panels that only exist when requested — and the start of note deletion.</description>
-<content:encoded><![CDATA[<p><em>No session on October 20, so the log skips Day 7 — this is Day 8 by the calendar.</em></p>
-<h2>In code</h2>
+<content:encoded><![CDATA[<h2>In code</h2>
 <p><em>Commits below are in <a href="https://github.com/billatgameology/project-ada-xr">project-ada-xr</a>.</em></p>
 <ul>
+<li><strong>Not committed</strong> — no commit landed in project-ada-xr on this date; the panel fix went out front-end-only, and the changes below are from the session.</li>
 <li><strong>Idle media surface removed</strong> — the media state reported closed while a standalone media control stayed visible in XR. The idle surface is gone; the grid, titles and input targets now stay hidden until an explicit open/show/play request. Close, tracking/focus loss and finished exports can't reopen it.</li>
 <li><strong>Note deletion (in progress)</strong> — spatial notes had no delete control. Adding a delete action and a way to hide the note panel that's showing it.</li>
-<li><strong>No commit for October 21</strong> — the panel fix shipped as a front-end-only deploy. As of this entry there is no matching commit in <code>project-ada-xr</code>, so the change isn't durable yet.</li>
 </ul>
 <h2>In the headset</h2>
 <ul>
@@ -42,7 +41,7 @@
 <li>Make screen mirroring remember its pairing.</li>
 </ul>]]></content:encoded>
 </item><item>
-<title>Day 6 — Ada drives Chrome from inside the headset</title>
+<title>Ada drives Chrome from inside the headset</title>
 <link>https://billatgameology.github.io/ada-media/2026-10-19.html</link>
 <guid>https://billatgameology.github.io/ada-media/2026-10-19.html</guid>
 <pubDate>Mon, 19 Oct 2026 00:00:00 +0000</pubDate>
@@ -52,9 +51,8 @@
 <ul>
 <li><strong>Voice relocation rule</strong> — ARCHITECTURE.md now requires every AdaXR item to be relocatable by voice, not just Ada. Named-screen relocation is explicitly logged as an implementation gap. <code>33edc84</code></li>
 <li><strong>Vision + wireless startup</strong> — opaque native-XR-session token, one bounded reconnect per startup with a twelve-second budget, fresh serial/identity check before green, vision-off persistence through focus recovery, and dedupe of concurrent attempts. <code>636adc5</code> (1,573 tests, 21 assets)</li>
-<li><strong>Status</strong> — the vision/startup release was verified and staged at 07:01 behind accepted work. The new-session ADB reconnect was confirmed live in the evening; the prompt-return fix passed automated checks but still needed a headset test.</li>
-<li><strong>Not committed that day</strong> — the evening's browser-control and spatial-note work exercised capabilities already in the repo. The note-rendering repair was still in progress, and no new app commit landed after 07:01.</li>
 </ul>
+<p><em>The vision/startup pair was staged at 07:01; the ADB reconnect was confirmed live that evening. The browser-control and spatial-note demos exercised code already in the repo, and no other app commit landed that day.</em></p>
 <h2>In the headset</h2>
 <ul>
 <li><strong>ADB reconnects itself</strong> — a new XR session brings wireless ADB up green without a screenshot: "started up connected right away... mark that done." The prompt-return fix also passed automated checks, but real headset confirmation is still pending.<br />
@@ -87,7 +85,7 @@
 <li>Keep pushing the remote-control flow; make screen pairing survive a restart.</li>
 </ul>]]></content:encoded>
 </item><item>
-<title>Day 5 — Ada gets eyes</title>
+<title>Ada gets eyes</title>
 <link>https://billatgameology.github.io/ada-media/2026-10-18.html</link>
 <guid>https://billatgameology.github.io/ada-media/2026-10-18.html</guid>
 <pubDate>Sun, 18 Oct 2026 00:00:00 +0000</pubDate>
@@ -132,7 +130,7 @@
 <li>Combine with the grid on; the first live screen-stream test.</li>
 </ul>]]></content:encoded>
 </item><item>
-<title>Day 4 — keep listening, and Ada learns to move</title>
+<title>Keep listening, and Ada learns to move</title>
 <link>https://billatgameology.github.io/ada-media/2026-10-17.html</link>
 <guid>https://billatgameology.github.io/ada-media/2026-10-17.html</guid>
 <pubDate>Sat, 17 Oct 2026 00:00:00 +0000</pubDate>
@@ -178,7 +176,7 @@
 <li>Keep-listening cleanup: release grace, mute and tracking loss.</li>
 </ul>]]></content:encoded>
 </item><item>
-<title>Day 3 — the room becomes editable</title>
+<title>The room becomes editable</title>
 <link>https://billatgameology.github.io/ada-media/2026-10-16.html</link>
 <guid>https://billatgameology.github.io/ada-media/2026-10-16.html</guid>
 <pubDate>Fri, 16 Oct 2026 00:00:00 +0000</pubDate>
@@ -225,7 +223,7 @@
 <li>No more nine-minute stalls with zero feedback.</li>
 </ul>]]></content:encoded>
 </item><item>
-<title>Day 2 — Ada grows hands</title>
+<title>Ada grows hands</title>
 <link>https://billatgameology.github.io/ada-media/2026-10-15.html</link>
 <guid>https://billatgameology.github.io/ada-media/2026-10-15.html</guid>
 <pubDate>Thu, 15 Oct 2026 00:00:00 +0000</pubDate>
@@ -269,7 +267,7 @@
 <li>Chase the wrong-text speech bug.</li>
 </ul>]]></content:encoded>
 </item><item>
-<title>Day 1 — Ada, take four</title>
+<title>Ada, take four</title>
 <link>https://billatgameology.github.io/ada-media/2026-10-14.html</link>
 <guid>https://billatgameology.github.io/ada-media/2026-10-14.html</guid>
 <pubDate>Wed, 14 Oct 2026 00:00:00 +0000</pubDate>
@@ -292,9 +290,9 @@
 <ul>
 <li>I'm officially starting the fourth attempt at Ada today. This is its first entry.</li>
 <li>The frame for this attempt: Ada lives in the room. It's in the headset with me, in my actual scanned space — the grid, the outlines, every surface it can find and name. Voice in, voice out, and it runs its own little sub-agents while we work.</li>
-<li>A workspace that survives a reload is the difference between a demo and a place to work. Day one was mostly plumbing — import, anchors, save, restore — and that plumbing is what lets every later session start in the same room instead of from scratch.</li>
+<li>A workspace that survives a reload is the difference between a demo and a place to work. The first session was mostly plumbing — import, anchors, save, restore — and that plumbing is what lets every later session start in the same room instead of from scratch.</li>
 <li>Attempt four gets a trail. If this one works, the day-by-day of how it got there — including everything that didn't work — is the interesting part.</li>
-<li>Open development from day one: these notes go up as they're written, not once they're pretty.</li>
+<li>Open development from the start: these notes go up as they're written, not once they're pretty.</li>
 </ul>
 <h2>Next</h2>
 <ul>

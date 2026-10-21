@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Day 8 — the case of the phantom panels — ada-media</title>
+<title>The case of the phantom panels — ada-media</title>
 <meta name="description" content="Daily build notes from an open-source project in progress.">
 <link rel="stylesheet" href="style.css">
 <link rel="alternate" type="application/rss+xml" title="ada-media feed" href="feed.xml">
@@ -17,15 +17,14 @@
   </nav>
 </header>
 <article>
-<h1>Day 8 — the case of the phantom panels</h1>
+<h1>The case of the phantom panels</h1>
 <p class="meta"><time>2026-10-21</time></p>
-<div class="post-body"><p><em>No session on October 20, so the log skips Day 7 — this is Day 8 by the calendar.</em></p>
-<h2>In code</h2>
+<div class="post-body"><h2>In code</h2>
 <p><em>Commits below are in <a href="https://github.com/billatgameology/project-ada-xr">project-ada-xr</a>.</em></p>
 <ul>
+<li><strong>Not committed</strong> — no commit landed in project-ada-xr on this date; the panel fix went out front-end-only, and the changes below are from the session.</li>
 <li><strong>Idle media surface removed</strong> — the media state reported closed while a standalone media control stayed visible in XR. The idle surface is gone; the grid, titles and input targets now stay hidden until an explicit open/show/play request. Close, tracking/focus loss and finished exports can't reopen it.</li>
 <li><strong>Note deletion (in progress)</strong> — spatial notes had no delete control. Adding a delete action and a way to hide the note panel that's showing it.</li>
-<li><strong>No commit for October 21</strong> — the panel fix shipped as a front-end-only deploy. As of this entry there is no matching commit in <code>project-ada-xr</code>, so the change isn't durable yet.</li>
 </ul>
 <h2>In the headset</h2>
 <ul>

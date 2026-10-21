@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Day 6 — Ada drives Chrome from inside the headset — ada-media</title>
+<title>Ada drives Chrome from inside the headset — ada-media</title>
 <meta name="description" content="Daily build notes from an open-source project in progress.">
 <link rel="stylesheet" href="style.css">
 <link rel="alternate" type="application/rss+xml" title="ada-media feed" href="feed.xml">
@@ -17,16 +17,15 @@
   </nav>
 </header>
 <article>
-<h1>Day 6 — Ada drives Chrome from inside the headset</h1>
+<h1>Ada drives Chrome from inside the headset</h1>
 <p class="meta"><time>2026-10-19</time></p>
 <div class="post-body"><h2>In code</h2>
 <p><em>Commits below are in <a href="https://github.com/billatgameology/project-ada-xr">project-ada-xr</a>.</em></p>
 <ul>
 <li><strong>Voice relocation rule</strong> — ARCHITECTURE.md now requires every AdaXR item to be relocatable by voice, not just Ada. Named-screen relocation is explicitly logged as an implementation gap. <code>33edc84</code></li>
 <li><strong>Vision + wireless startup</strong> — opaque native-XR-session token, one bounded reconnect per startup with a twelve-second budget, fresh serial/identity check before green, vision-off persistence through focus recovery, and dedupe of concurrent attempts. <code>636adc5</code> (1,573 tests, 21 assets)</li>
-<li><strong>Status</strong> — the vision/startup release was verified and staged at 07:01 behind accepted work. The new-session ADB reconnect was confirmed live in the evening; the prompt-return fix passed automated checks but still needed a headset test.</li>
-<li><strong>Not committed that day</strong> — the evening's browser-control and spatial-note work exercised capabilities already in the repo. The note-rendering repair was still in progress, and no new app commit landed after 07:01.</li>
 </ul>
+<p><em>The vision/startup pair was staged at 07:01; the ADB reconnect was confirmed live that evening. The browser-control and spatial-note demos exercised code already in the repo, and no other app commit landed that day.</em></p>
 <h2>In the headset</h2>
 <ul>
 <li><strong>ADB reconnects itself</strong> — a new XR session brings wireless ADB up green without a screenshot: "started up connected right away... mark that done." The prompt-return fix also passed automated checks, but real headset confirmation is still pending.<br />

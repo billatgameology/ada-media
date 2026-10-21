@@ -34,6 +34,10 @@ misses the code work that made it possible — and a commit log can't tell you
 whether the thing actually worked in the room. Keep `Why / what I learned` and
 `Next` after the two evidence sections.
 
+The two tracks don't have to line up. A day's commits and its recordings often
+cover different work: a commit may land with no demo, and a demo may exercise code
+committed days earlier. Record both; don't force one to explain the other.
+
 ## The daily note → platform mapping
 
 `python scripts/ada.py outbox` derives everything from the note's frontmatter + bullets:
