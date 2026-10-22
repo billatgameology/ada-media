@@ -12,6 +12,7 @@ from . import config
 
 DAILY_DIR = config.root() / "content" / "daily"
 MEDIA_DIR = config.root() / "content" / "media"
+ATTEMPTS_FILE = config.root() / "content" / "attempts.yaml"
 DATE_RE = re.compile(r"^(\d{4}-\d{2}-\d{2})\.md$")
 
 
@@ -252,3 +253,11 @@ def all_days() -> list[Day]:
         if match:
             days.append(load_day(match.group(1)))
     return sorted(days, key=lambda d: d.date, reverse=True)
+
+
+def load_attempts() -> dict:
+    """The four-attempt history shown above the daily timeline."""
+    if not ATTEMPTS_FILE.exists():
+        return {}
+    data = yaml.safe_load(ATTEMPTS_FILE.read_text(encoding="utf-8")) or {}
+    return data if isinstance(data, dict) else {}

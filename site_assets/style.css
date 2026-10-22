@@ -56,6 +56,76 @@ header.site nav a:hover { color: var(--accent); }
 h1 { font-size: 1.55rem; line-height: 1.25; letter-spacing: -0.02em; margin: 0 0 0.35rem; }
 .tagline { color: var(--muted); margin: 0 0 2.5rem; }
 
+.attempts { margin: 0 0 3.5rem; scroll-margin-top: 1.5rem; }
+.eyebrow {
+  margin: 0 0 0.3rem;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 650;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.attempts h2 {
+  margin: 0 0 0.75rem;
+  font-size: 1.45rem;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+.attempts-intro { margin: 0 0 1.75rem; color: var(--muted); }
+.attempt-list { list-style: none; margin: 0; padding: 0; }
+.attempt { padding: 1.4rem 0; border-top: 1px solid var(--border); }
+.attempt:first-child { padding-top: 0; border-top: 0; }
+.attempt-head { display: flex; align-items: baseline; gap: 0.65rem; margin-bottom: 0.35rem; }
+.attempt-number {
+  color: var(--accent);
+  font-size: 0.8rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.attempt-when {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.attempt h3 { margin: 0 0 0.4rem; font-size: 1.15rem; line-height: 1.3; }
+.attempt-text { margin: 0 0 1rem; color: var(--muted); }
+.attempt.current { border-top-color: var(--accent); }
+.attempt.current h3 { color: var(--accent); }
+.attempt.has-short {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 18rem;
+  grid-template-rows: auto auto;
+  column-gap: 1.5rem;
+  row-gap: 0.55rem;
+  align-items: start;
+}
+.attempt.has-short > .attempt-copy { grid-column: 1; grid-row: 1; }
+.attempt.has-short > .video-frame { grid-column: 2; grid-row: 1; margin: 0; }
+.attempt.has-short > .video-link { grid-column: 2; grid-row: 2; margin: 0; }
+.attempt-link { display: inline-block; margin-top: 0.2rem; font-size: 0.9rem; font-weight: 600; }
+.video-frame {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  margin: 1rem 0 0.45rem;
+  overflow: hidden;
+  border-radius: 10px;
+  background: var(--code-bg);
+}
+.video-frame.vertical { max-width: 18rem; aspect-ratio: 9 / 16; }
+.video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.video-link { margin: 0 0 0.25rem; font-size: 0.82rem; }
+.video-link a { color: var(--muted); }
+.video-link a:hover { color: var(--accent); }
+.log-title {
+  margin: 0;
+  scroll-margin-top: 1.5rem;
+  font-size: 1.25rem;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
 .timeline-nav {
   grid-area: nav;
   position: sticky;
@@ -64,6 +134,10 @@ h1 { font-size: 1.55rem; line-height: 1.25; letter-spacing: -0.02em; margin: 0 0
   overflow-y: auto;
   padding-right: 0.35rem;
   font-size: 0.9rem;
+}
+.nav-overview {
+  margin: 0 0 1.15rem -0.55rem;
+  font-weight: 650;
 }
 .nav-label {
   margin: 0 0 0.9rem;
@@ -103,7 +177,7 @@ h1 { font-size: 1.55rem; line-height: 1.25; letter-spacing: -0.02em; margin: 0 0
 .timeline { grid-area: timeline; min-width: 0; }
 .timeline-list {
   list-style: none;
-  margin: 0;
+  margin: 1.5rem 0 0;
   padding: 0 0 0 2rem;
   border-left: 1px solid var(--border);
 }
@@ -131,7 +205,7 @@ h1 { font-size: 1.55rem; line-height: 1.25; letter-spacing: -0.02em; margin: 0 0
   font-size: 0.82rem;
   font-variant-numeric: tabular-nums;
 }
-.entry h2 {
+.entry h3 {
   margin: 0 0 1rem;
   font-size: 1.35rem;
   line-height: 1.25;
@@ -195,13 +269,17 @@ footer.site a:hover { color: var(--accent); }
   }
   .nav-month { margin-bottom: 0.55rem; }
   .timeline-nav .nav-top { display: none; }
+  .attempt.has-short { display: block; }
+  .attempt.has-short > .video-frame { margin: 1rem 0 0.45rem; }
   .timeline-list { margin-top: 1.5rem; }
   header.site, footer.site { max-width: none; }
 }
 @media (max-width: 520px) {
   html { font-size: 16px; }
   h1 { font-size: 1.4rem; }
-  .entry h2 { font-size: 1.2rem; }
+  .attempts h2 { font-size: 1.35rem; }
+  .log-title { font-size: 1.15rem; }
+  .entry h3 { font-size: 1.2rem; }
   .timeline-list { padding-left: 1.5rem; }
   .entry::before { left: -1.83rem; }
 }

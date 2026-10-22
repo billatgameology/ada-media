@@ -69,7 +69,68 @@ def _month_label(value: str) -> str:
     return f"{day.strftime('%B')} {day.year}"
 
 
-def _timeline_nav(days: list[content.Day]) -> str:
+def _attempts_section(data: dict) -> str:
+    attempts = data.get("attempts") or []
+    if not isinstance(attempts, list) or not attempts:
+        return ""
+    intro = data.get("intro") or {}
+    eyebrow = html.escape(str(intro.get("eyebrow") or ""))
+    title = html.escape(str(intro.get("title") or "Four starts"))
+    body = html.escape(str(intro.get("body") or ""))
+    eyebrow_html = f'<p class="eyebrow">{eyebrow}</p>' if eyebrow else ""
+    body_html = f'<p class="attempts-intro">{body}</p>' if body else ""
+
+    items = []
+    for index, item in enumerate(attempts, 1):
+        number = str(item.get("number") or index).zfill(2)
+        when = html.escape(str(item.get("when") or ""))
+        name = html.escape(str(item.get("title") or ""))
+        text = html.escape(str(item.get("text") or ""))
+        video = str(item.get("youtube") or "").strip()
+        video_url = html.escape(str(item.get("youtube_url") or f"https://youtu.be/{video}"))
+        classes = "attempt"
+        if item.get("current"):
+            classes += " current"
+        if item.get("vertical"):
+            classes += " has-short"
+        media = ""
+        video_link = ""
+        if video:
+            frame_class = "video-frame vertical" if item.get("vertical") else "video-frame"
+            media = (
+                f'<figure class="{frame_class}">'
+                f'<iframe src="https://www.youtube-nocookie.com/embed/{html.escape(video)}" '
+                f'title="Ada attempt {number}: {name}" loading="lazy" '
+                f'allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" '
+                f'allowfullscreen></iframe></figure>'
+            )
+            video_link = (
+                f'<p class="video-link"><a href="{video_url}" target="_blank" rel="noopener">'
+                f'Watch on YouTube ↗</a></p>'
+            )
+        action = ""
+        if item.get("current"):
+            action = '<a class="attempt-link" href="#current-log">Read the current log ↓</a>'
+        items.append(
+            f'<li class="{classes}">'
+            f'<div class="attempt-copy">'
+            f'<div class="attempt-head"><span class="attempt-number">{html.escape(number)}</span>'
+            f'<span class="attempt-when">{when}</span></div>'
+            f'<h3>{name}</h3><p class="attempt-text">{text}</p>{action}</div>'
+            f'{media}{video_link}</li>'
+        )
+
+    return f"""<section class="attempts" id="attempts">
+{eyebrow_html}
+<h2>{title}</h2>
+{body_html}
+<ol class="attempt-list">
+{''.join(items)}
+</ol>
+</section>"""
+
+
+def _timeline_nav(days: list[content.Day], has_attempts: bool = False) -> str:
     groups: dict[str, list[content.Day]] = {}
     for day in days:
         groups.setdefault(day.date[:7], []).append(day)
@@ -88,8 +149,10 @@ def _timeline_nav(days: list[content.Day]) -> str:
             f'</details>'
         )
 
-    return f"""<aside class="timeline-nav" aria-label="Jump to a day">
-<p class="nav-label">Jump to</p>
+    overview = '<a class="nav-overview" href="#attempts">The four attempts</a>\n' if has_attempts else ""
+    label = "Daily log" if has_attempts else "Jump to"
+    return f"""<aside class="timeline-nav" aria-label="Timeline navigation">
+{overview}<p class="nav-label">{label}</p>
 {''.join(months)}
 <a class="nav-top" href="#top">Back to top</a>
 </aside>"""
@@ -135,7 +198,7 @@ def _entry(day: content.Day, first: bool) -> str:
     points = "".join(f"<li>{html.escape(item)}</li>" for item in _highlights(day))
     return f"""<li class="entry" id="{html.escape(day.date)}">
 <time class="entry-date" datetime="{html.escape(day.date)}">{html.escape(_pretty_date(day.date))}</time>
-<h2>{title}</h2>
+<h3>{title}</h3>
 {_entry_media(day, first)}
 <ul class="entry-highlights">{points}</ul>
 </li>"""
@@ -144,14 +207,17 @@ def _entry(day: content.Day, first: bool) -> str:
 def _timeline_page(days: list[content.Day], proj: dict) -> str:
     name = html.escape(str(proj.get("name") or ""))
     tagline = html.escape(str(proj.get("tagline") or ""))
+    attempts_html = _attempts_section(content.load_attempts())
     entries = "".join(_entry(day, index == 0) for index, day in enumerate(days))
     body = f"""<div class="layout">
-{_timeline_nav(days)}
+{_timeline_nav(days, bool(attempts_html))}
 <div class="intro">
 <h1 id="top">{name}</h1>
 <p class="tagline">{tagline}</p>
 </div>
 <main class="timeline">
+{attempts_html}
+<h2 class="log-title" id="current-log">The current log</h2>
 <ol class="timeline-list">
 {entries}
 </ol>

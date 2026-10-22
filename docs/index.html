@@ -17,8 +17,9 @@
   </nav>
 </header>
 <div class="layout">
-<aside class="timeline-nav" aria-label="Jump to a day">
-<p class="nav-label">Jump to</p>
+<aside class="timeline-nav" aria-label="Timeline navigation">
+<a class="nav-overview" href="#attempts">The four attempts</a>
+<p class="nav-label">Daily log</p>
 <details class="nav-month" open><summary>October 2026</summary><ul><li><a href="#2026-10-19">Oct 19</a></li><li><a href="#2026-10-18">Oct 18</a></li><li><a href="#2026-10-17">Oct 17</a></li><li><a href="#2026-10-16">Oct 16</a></li><li><a href="#2026-10-15">Oct 15</a></li><li><a href="#2026-10-14">Oct 14</a></li></ul></details>
 <a class="nav-top" href="#top">Back to top</a>
 </aside>
@@ -27,35 +28,44 @@
 <p class="tagline">Daily build notes from an open-source project in progress.</p>
 </div>
 <main class="timeline">
+<section class="attempts" id="attempts">
+<p class="eyebrow">Before the daily log</p>
+<h2>Four starts over two years</h2>
+<p class="attempts-intro">I&#x27;ve started Ada four times over two years — roughly two months of actual building. Each attempt was unlocked by a new tool, and this is the first time the technology and timing feel right.</p>
+<ol class="attempt-list">
+<li class="attempt"><div class="attempt-copy"><div class="attempt-head"><span class="attempt-number">01</span><span class="attempt-when">2024</span></div><h3>Hackathon prototype</h3><p class="attempt-text">A hackathon project powered by Gemini 1.5 first put Ada on screen.</p></div><figure class="video-frame"><iframe src="https://www.youtube-nocookie.com/embed/xwrFapQobRY" title="Ada attempt 01: Hackathon prototype" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></figure><p class="video-link"><a href="https://youtu.be/xwrFapQobRY" target="_blank" rel="noopener">Watch on YouTube ↗</a></p></li><li class="attempt has-short"><div class="attempt-copy"><div class="attempt-head"><span class="attempt-number">02</span><span class="attempt-when">Spring 2025</span></div><h3>Camera access</h3><p class="attempt-text">When camera access arrived on the Meta Quest, Ada could finally see the real room.</p></div><figure class="video-frame vertical"><iframe src="https://www.youtube-nocookie.com/embed/LomnNzXoDPQ" title="Ada attempt 02: Camera access" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></figure><p class="video-link"><a href="https://youtube.com/shorts/LomnNzXoDPQ" target="_blank" rel="noopener">Watch on YouTube ↗</a></p></li><li class="attempt"><div class="attempt-copy"><div class="attempt-head"><span class="attempt-number">03</span><span class="attempt-when">May 2026</span></div><h3>OpenClaw and computer use</h3><p class="attempt-text">The third attempt built a complicated WebXR-to-OpenClaw communication layer and made the first try at computer use.</p></div></li><li class="attempt current"><div class="attempt-copy"><div class="attempt-head"><span class="attempt-number">04</span><span class="attempt-when">October 2026</span></div><h3>The current build</h3><p class="attempt-text">The fourth attempt is the current log: a real room, hands, voice, vision and Chrome control, one day at a time.</p><a class="attempt-link" href="#current-log">Read the current log ↓</a></div></li>
+</ol>
+</section>
+<h2 class="log-title" id="current-log">The current log</h2>
 <ol class="timeline-list">
 <li class="entry" id="2026-10-19">
 <time class="entry-date" datetime="2026-10-19">Monday, October 19, 2026</time>
-<h2>Ada drives Chrome from inside the headset</h2>
+<h3>Ada drives Chrome from inside the headset</h3>
 <figure class="entry-media"><img src="media/gifs/2026-10-19.gif" alt="Ada drives Chrome from inside the headset" width="640" height="360" loading="eager" decoding="async"></figure>
 <ul class="entry-highlights"><li>From VR, Ada switches Chrome tabs on the Mac, fills the YC draft and verifies the form after reload without submitting.</li><li>Wireless ADB reconnects by itself at startup, with one bounded attempt and a fresh headset identity check.</li><li>Named movement works — “move Ada to the whiteboard” — while pointing moves fail with an honest explanation instead of silence.</li></ul>
 </li><li class="entry" id="2026-10-18">
 <time class="entry-date" datetime="2026-10-18">Sunday, October 18, 2026</time>
-<h2>Ada gets eyes</h2>
+<h3>Ada gets eyes</h3>
 <figure class="entry-media"><img src="media/gifs/2026-10-18.gif" alt="Ada gets eyes" width="640" height="360" loading="lazy" decoding="async"></figure>
 <ul class="entry-highlights"><li>Ada gets eyes: a fresh Quest capture of the real room, including passthrough and virtual content, in a movable photo panel.</li><li>Vision permission and wireless ADB become separate, measured states that expire when the connection goes stale.</li><li>Mac screen sharing becomes a standalone, billboarded frame with move, resize, close and independent near/far interaction.</li></ul>
 </li><li class="entry" id="2026-10-17">
 <time class="entry-date" datetime="2026-10-17">Saturday, October 17, 2026</time>
-<h2>Keep listening, and Ada learns to move</h2>
+<h3>Keep listening, and Ada learns to move</h3>
 <figure class="entry-media"><img src="media/gifs/2026-10-17.gif" alt="Keep listening, and Ada learns to move" width="640" height="360" loading="lazy" decoding="async"></figure>
 <ul class="entry-highlights"><li>Keep listening: holding a raised index finger through a pause stops Ada cutting speech off.</li><li>Ada relocates on command — “move to the server rack” glides her there with the ducklings following.</li><li>The message queue is now visible and editable, and deletion no longer requires an exact magic phrase.</li></ul>
 </li><li class="entry" id="2026-10-16">
 <time class="entry-date" datetime="2026-10-16">Friday, October 16, 2026</time>
-<h2>The room becomes editable</h2>
+<h3>The room becomes editable</h3>
 <figure class="entry-media"><img src="media/gifs/2026-10-16.gif" alt="The room becomes editable" width="640" height="360" loading="lazy" decoding="async"></figure>
 <ul class="entry-highlights"><li>The room becomes editable: select, rename, relabel and delete surfaces. Revision 5 kept 5 labels and removed 8 surfaces.</li><li>Worker cubes appear beside Ada as real background tasks, driven by observations rather than animation.</li><li>Speech and chat finally match, streaming updates as they arrive instead of one block at the end.</li></ul>
 </li><li class="entry" id="2026-10-15">
 <time class="entry-date" datetime="2026-10-15">Thursday, October 15, 2026</time>
-<h2>Ada grows hands</h2>
+<h3>Ada grows hands</h3>
 <figure class="entry-media"><img src="media/gifs/2026-10-15.gif" alt="Ada grows hands" width="640" height="360" loading="lazy" decoding="async"></figure>
 <ul class="entry-highlights"><li>All WebXR hand overlays at once: joint markers, radius spheres, orientation axes and aim rays, plus a cyan index-finger ray.</li><li>The first developer preset saves the hand view to project memory; selectable presets are still missing.</li><li>The browser panel lands in code — Mac Chrome inside XR with video, audio and input — though the first live test still ends with an interruption.</li></ul>
 </li><li class="entry" id="2026-10-14">
 <time class="entry-date" datetime="2026-10-14">Wednesday, October 14, 2026</time>
-<h2>Ada, take four</h2>
+<h3>Ada, take four</h3>
 
 <ul class="entry-highlights"><li>First working room workspace: import the scanned room, align it, place a persistent anchor and save the layout.</li><li>A full reload restores the same room, with up to 64 named surfaces and 50 spatial notes.</li><li>Fresh-only capture: historical replay omitted, payloads capped at 48 KB, secrets redacted and the private outbox enforced.</li></ul>
 </li>

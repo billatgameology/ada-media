@@ -43,6 +43,7 @@ python3 -m venv .venv
 | `content/daily/` | One markdown file per day — the single source of truth |
 | `content/media/` | Images, short videos and generated GIF previews referenced by daily notes |
 | `content/gifs.yaml` | The chosen 2–10s GIF moment for each day (recording + start + duration) |
+| `content/attempts.yaml` | The four-attempt history and YouTube links at the top of the site |
 | `content/templates/` | The daily note template |
 | `scripts/ada.py` | CLI: `daily`, `outbox`, `build`, `preview`, `status`, `catalog`, `transcribe`, `watch`, `clip`, `gif`, `story`, `code`, `find` |
 | `scripts/outbox.py` | Turns a note into the per-platform post files |
@@ -80,7 +81,10 @@ have clickable links ("link in bio").
 
 ## Site
 
-One page, newest first: <https://billatgameology.github.io/ada-media> · RSS: <https://billatgameology.github.io/ada-media/feed.xml>
+One page: a four-attempt prologue, then the daily log newest first:
+<https://billatgameology.github.io/ada-media> · RSS: <https://billatgameology.github.io/ada-media/feed.xml>
+
+The prologue copy and embeds live in `content/attempts.yaml`; rebuild after editing it.
 
 ## Video library (catalog + transcripts)
 

@@ -1,0 +1,27 @@
+intro:
+  eyebrow: "Before the daily log"
+  title: "Four starts over two years"
+  body: "I've started Ada four times over two years — roughly two months of actual building. Each attempt was unlocked by a new tool, and this is the first time the technology and timing feel right."
+attempts:
+  - number: 1
+    when: "2024"
+    title: "Hackathon prototype"
+    text: "A hackathon project powered by Gemini 1.5 first put Ada on screen."
+    youtube: "xwrFapQobRY"
+    youtube_url: "https://youtu.be/xwrFapQobRY"
+  - number: 2
+    when: "Spring 2025"
+    title: "Camera access"
+    text: "When camera access arrived on the Meta Quest, Ada could finally see the real room."
+    youtube: "LomnNzXoDPQ"
+    youtube_url: "https://youtube.com/shorts/LomnNzXoDPQ"
+    vertical: true
+  - number: 3
+    when: "May 2026"
+    title: "OpenClaw and computer use"
+    text: "The third attempt built a complicated WebXR-to-OpenClaw communication layer and made the first try at computer use."
+  - number: 4
+    when: "October 2026"
+    title: "The current build"
+    text: "The fourth attempt is the current log: a real room, hands, voice, vision and Chrome control, one day at a time."
+    current: true
