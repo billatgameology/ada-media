@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/">
 <channel>
-<title>ada-media</title>
+<title>Ada</title>
 <link>https://billatgameology.github.io/ada-media/</link>
-<description>Daily build notes from an open-source project in progress.</description>
+<description>Rethinking how we interact with computers.</description>
 <item>
 <title>Ada drives Chrome from inside the headset</title>
 <link>https://billatgameology.github.io/ada-media/#2026-10-19</link>
 <guid>https://billatgameology.github.io/ada-media/#2026-10-19</guid>
 <pubDate>Mon, 19 Oct 2026 00:00:00 +0000</pubDate>
 <description>From VR, Ada switches Chrome tabs on the Mac, fills our YC draft and helps write the answers — while wireless ADB reconnects itself and failures stop going silent.</description>
-<content:encoded><![CDATA[<p>From VR, Ada switches Chrome tabs on the Mac, fills our YC draft and helps write the answers — while wireless ADB reconnects itself and failures stop going silent.</p><ul><li>From VR, Ada switches Chrome tabs on the Mac, fills the YC draft and verifies the form after reload without submitting.</li><li>Wireless ADB reconnects by itself at startup, with one bounded attempt and a fresh headset identity check.</li><li>Named movement works — “move Ada to the whiteboard” — while pointing moves fail with an honest explanation instead of silence.</li></ul>]]></content:encoded>
+<content:encoded><![CDATA[<p>From VR, Ada switches Chrome tabs on the Mac, fills our YC draft and helps write the answers — while wireless ADB reconnects itself and failures stop going silent.</p><ul><li>From VR, Ada switches Chrome tabs on the Mac, fills the YC draft and verifies the form after reload without submitting.</li><li>Wireless ADB reconnects by itself at startup, with one bounded attempt and a fresh headset identity check.</li><li>Named movement works — “move Ada to the whiteboard” — while pointing moves fail with an honest explanation instead of silence.</li></ul><p class="entry-why"><span>Why it matters</span> Working together starts to mean using the same tools: I can talk through a task from the headset while Ada operates Chrome on the Mac, with the final submission still in my hands.</p>]]></content:encoded>
 </item><item>
 <title>Ada gets eyes</title>
 <link>https://billatgameology.github.io/ada-media/#2026-10-18</link>
 <guid>https://billatgameology.github.io/ada-media/#2026-10-18</guid>
 <pubDate>Sun, 18 Oct 2026 00:00:00 +0000</pubDate>
 <description>Screenshots from the headset land in a movable photo panel, the main window shows vision + ADB + room status at a glance, and Mac screen sharing gets a standalone, billboarded view.</description>
-<content:encoded><![CDATA[<p>Screenshots from the headset land in a movable photo panel, the main window shows vision + ADB + room status at a glance, and Mac screen sharing gets a standalone, billboarded view.</p><ul><li>Ada gets eyes: a fresh Quest capture of the real room, including passthrough and virtual content, in a movable photo panel.</li><li>Vision permission and wireless ADB become separate, measured states that expire when the connection goes stale.</li><li>Mac screen sharing becomes a standalone, billboarded frame with move, resize, close and independent near/far interaction.</li></ul>]]></content:encoded>
+<content:encoded><![CDATA[<p>Screenshots from the headset land in a movable photo panel, the main window shows vision + ADB + room status at a glance, and Mac screen sharing gets a standalone, billboarded view.</p><ul><li>Ada gets eyes: a fresh Quest capture of the real room, including passthrough and virtual content, in a movable photo panel.</li><li>Vision permission and wireless ADB become separate, measured states that expire when the connection goes stale.</li><li>Mac screen sharing becomes a standalone, billboarded frame with move, resize, close and independent near/far interaction.</li></ul><p class="entry-why"><span>Why it matters</span> A fresh headset capture gives Ada visual context from the room I&#x27;m in, so our conversation can refer to what I&#x27;m seeing as well as what I&#x27;m saying.</p>]]></content:encoded>
 </item><item>
 <title>Keep listening, and Ada learns to move</title>
 <link>https://billatgameology.github.io/ada-media/#2026-10-17</link>
@@ -38,7 +38,7 @@
 <guid>https://billatgameology.github.io/ada-media/#2026-10-15</guid>
 <pubDate>Thu, 15 Oct 2026 00:00:00 +0000</pubDate>
 <description>Every WebXR hand overlay on at once — joint markers, radius spheres, aim rays, orientation lines — plus a cyan index-finger ray, the first developer preset, and the browser panel&#x27;s first build.</description>
-<content:encoded><![CDATA[<p>Every WebXR hand overlay on at once — joint markers, radius spheres, aim rays, orientation lines — plus a cyan index-finger ray, the first developer preset, and the browser panel&#x27;s first build.</p><ul><li>All WebXR hand overlays at once: joint markers, radius spheres, orientation axes and aim rays, plus a cyan index-finger ray.</li><li>The first developer preset saves the hand view to project memory; selectable presets are still missing.</li><li>The browser panel lands in code — Mac Chrome inside XR with video, audio and input — though the first live test still ends with an interruption.</li></ul>]]></content:encoded>
+<content:encoded><![CDATA[<p>Every WebXR hand overlay on at once — joint markers, radius spheres, aim rays, orientation lines — plus a cyan index-finger ray, the first developer preset, and the browser panel&#x27;s first build.</p><ul><li>All WebXR hand overlays at once: joint markers, radius spheres, orientation axes and aim rays, plus a cyan index-finger ray.</li><li>The first developer preset saves the hand view to project memory; selectable presets are still missing.</li><li>The browser panel lands in code — Mac Chrome inside XR with video, audio and input — though the first live test still ends with an interruption.</li></ul><p class="entry-why"><span>Why it matters</span> Hands make the room addressable: pointing at a surface is a step toward sharing what I mean with Ada, without translating everything into words.</p>]]></content:encoded>
 </item><item>
 <title>Ada, take four</title>
 <link>https://billatgameology.github.io/ada-media/#2026-10-14</link>

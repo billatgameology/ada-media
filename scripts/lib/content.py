@@ -53,6 +53,7 @@ class Day:
     overrides: dict = field(default_factory=dict)
     draft: bool = False
     body_md: str = ""
+    why: str = ""
 
     # ── helpers ────────────────────────────────────────────────────────
     def bullets(self) -> list[str]:
@@ -243,6 +244,7 @@ def load_day(date: str | None = None) -> Day:
         overrides=front.get("overrides") or {},
         draft=bool(front.get("draft")),
         body_md=body,
+        why=_plain(str(front.get("why") or "")),
     )
 
 

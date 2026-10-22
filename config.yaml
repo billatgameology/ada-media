@@ -2,8 +2,10 @@
 # Which platform files the outbox generates, and the few per-platform options.
 
 project:
-  name: "ada-media"
-  tagline: "Daily build notes from an open-source project in progress."
+  name: "Ada"
+  tagline: "Rethinking how we interact with computers."
+  description: "An open exploration of spatial computing, AI, and human-computer interaction."
+  introduction: "What if working with computers felt less like operating software and more like collaborating with another presence? This is Ada's development journal — experiments, breakthroughs, failures, and everything in between."
   site_url: "https://billatgameology.github.io/ada-media"
   repo_url: "https://github.com/billatgameology/ada-media"
   code_url: "https://github.com/billatgameology/project-ada-xr"   # repo the "In code" section cites

@@ -13,6 +13,7 @@ from lib import config, content
 def _shell(proj: dict, title: str, body: str) -> str:
     name = html.escape(str(proj.get("name") or ""))
     tagline = html.escape(str(proj.get("tagline") or ""))
+    description = html.escape(str(proj.get("description") or proj.get("tagline") or ""))
     repo = html.escape(str(proj.get("repo_url") or "#"))
     return f"""<!doctype html>
 <html lang="en">
@@ -20,14 +21,14 @@ def _shell(proj: dict, title: str, body: str) -> str:
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{html.escape(title)}</title>
-<meta name="description" content="{tagline}">
+<meta name="description" content="{description}">
 <link rel="stylesheet" href="style.css">
 <link rel="alternate" type="application/rss+xml" title="{name} feed" href="feed.xml">
 </head>
 <body>
 <header class="site">
   <a class="brand" href="#top">{name}</a>
-  <nav>
+  <nav aria-label="Project links">
     <a href="{repo}">repo</a>
     <a href="feed.xml">rss</a>
   </nav>
@@ -149,7 +150,9 @@ def _timeline_nav(days: list[content.Day], has_attempts: bool = False) -> str:
             f'</details>'
         )
 
-    overview = '<a class="nav-overview" href="#attempts">The four attempts</a>\n' if has_attempts else ""
+    overview = '<a class="nav-overview" href="#latest">Latest progress</a>\n' if days else ""
+    if has_attempts:
+        overview += '<a class="nav-overview" href="#attempts">The four attempts</a>\n'
     label = "Daily log" if has_attempts else "Jump to"
     return f"""<aside class="timeline-nav" aria-label="Timeline navigation">
 {overview}<p class="nav-label">{label}</p>
@@ -193,6 +196,36 @@ def _highlights(day: content.Day) -> list[str]:
     return fallback
 
 
+def _why(day: content.Day) -> str:
+    if not day.why:
+        return ""
+    return (
+        '<p class="entry-why"><span>Why it matters</span> '
+        f'{html.escape(day.why)}</p>'
+    )
+
+
+def _featured_progress(days: list[content.Day]) -> str:
+    if not days:
+        return ""
+    # Keep the newest recorded demo visible even when a later note has no media.
+    day = next((d for d in days if d.gif or d.video or d.images), days[0])
+    title = html.escape(day.title or day.date)
+    date = html.escape(day.date)
+    label = "Latest prototype" if day.gif or day.video or day.images else "Latest progress"
+    return f"""<section class="featured" id="latest" aria-labelledby="latest-title">
+<div class="featured-heading">
+<h2 class="eyebrow" id="latest-title">{label}</h2>
+<time datetime="{date}">{html.escape(_short_date(day.date))}, {html.escape(day.date[:4])}</time>
+</div>
+<h3>{title}</h3>
+{_entry_media(day, True)}
+<p class="featured-summary">{html.escape(day.summary)}</p>
+{_why(day)}
+<a class="attempt-link" href="#{date}">Read this build note ↓</a>
+</section>"""
+
+
 def _entry(day: content.Day, first: bool) -> str:
     title = html.escape(day.title or day.date)
     points = "".join(f"<li>{html.escape(item)}</li>" for item in _highlights(day))
@@ -201,28 +234,39 @@ def _entry(day: content.Day, first: bool) -> str:
 <h3>{title}</h3>
 {_entry_media(day, first)}
 <ul class="entry-highlights">{points}</ul>
+{_why(day)}
 </li>"""
 
 
 def _timeline_page(days: list[content.Day], proj: dict) -> str:
     name = html.escape(str(proj.get("name") or ""))
     tagline = html.escape(str(proj.get("tagline") or ""))
+    description = html.escape(str(proj.get("description") or ""))
+    introduction = html.escape(str(proj.get("introduction") or ""))
     attempts_html = _attempts_section(content.load_attempts())
+    actions = '<a href="#latest">Latest progress ↓</a>' if days else ""
+    if attempts_html:
+        actions += '<a href="#attempts">The four attempts ↓</a>'
     entries = "".join(_entry(day, index == 0) for index, day in enumerate(days))
-    body = f"""<div class="layout">
+    body = f"""<main class="layout">
 {_timeline_nav(days, bool(attempts_html))}
 <div class="intro">
+<p class="eyebrow">An open experiment · Development journal</p>
 <h1 id="top">{name}</h1>
 <p class="tagline">{tagline}</p>
+<p class="project-description">{description}</p>
+<p class="project-introduction">{introduction}</p>
+<div class="intro-actions">{actions}</div>
 </div>
-<main class="timeline">
+<div class="timeline">
+{_featured_progress(days)}
 {attempts_html}
 <h2 class="log-title" id="current-log">The current log</h2>
 <ol class="timeline-list">
 {entries}
 </ol>
-</main>
 </div>
+</main>
 <script>
 (() => {{
   const sync = () => {{
@@ -256,7 +300,7 @@ def _feed_xml(days: list[content.Day], proj: dict) -> str:
         except ValueError:
             when = dt.datetime.now(dt.timezone.utc)
         points = "".join(f"<li>{html.escape(item)}</li>" for item in _highlights(day))
-        body_html = f"<p>{html.escape(day.summary)}</p><ul>{points}</ul>".replace("]]>", "]]&gt;")
+        body_html = f"<p>{html.escape(day.summary)}</p><ul>{points}</ul>{_why(day)}".replace("]]>", "]]&gt;")
         items.append(
             f"""<item>
 <title>{html.escape(day.title or day.date)}</title>

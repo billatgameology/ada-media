@@ -3,6 +3,7 @@ date: "{{date}}"
 title: ""              # headline shown on the site; also the YouTube title
 summary: ""            # ONE good sentence — the hook for X, Threads, Instagram
 highlights: []         # exactly 3 bullets for the single-page timeline
+why: ""               # optional: what this milestone changes about working with computers
 tags: []               # e.g. [devlog, python, api] — become hashtags
 media:
   gif: ""              # e.g. "gifs/2026-10-18.gif" — short looping preview (see content/gifs.yaml)

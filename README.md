@@ -43,7 +43,7 @@ python3 -m venv .venv
 | `content/daily/` | One markdown file per day — the single source of truth |
 | `content/media/` | Images, short videos and generated GIF previews referenced by daily notes |
 | `content/gifs.yaml` | The chosen 2–10s GIF moment for each day (recording + start + duration) |
-| `content/attempts.yaml` | The four-attempt history and YouTube links at the top of the site |
+| `content/attempts.yaml` | The four-attempt history and YouTube links below the featured prototype |
 | `content/templates/` | The daily note template |
 | `scripts/ada.py` | CLI: `daily`, `outbox`, `build`, `preview`, `status`, `catalog`, `transcribe`, `watch`, `clip`, `gif`, `story`, `code`, `find` |
 | `scripts/outbox.py` | Turns a note into the per-platform post files |
@@ -64,6 +64,7 @@ The outbox derives everything from the note's frontmatter and bullets:
 | `title` | Timeline headline, YouTube title, Facebook intro |
 | `summary` | The hook — X, Threads, Instagram caption, YouTube description |
 | `highlights` | Exactly three bullets on the timeline for that day |
+| `why` | Optional "Why it matters" context on the site and in RSS |
 | `## In the headset` bullets | First two are cooked into X / Threads / Instagram |
 | `## In code` + `## In the headset` bullets | Facebook and YouTube descriptions, grouped; X thread mixes the first two of each |
 | `tags` | Hashtags (Instagram/TikTok/YouTube) |
@@ -81,10 +82,16 @@ have clickable links ("link in bio").
 
 ## Site
 
-One page: a four-attempt prologue, then the daily log newest first:
+One page: Ada's vision, the latest recorded prototype, the four-attempt history,
+then the daily log newest first:
 <https://billatgameology.github.io/ada-media> · RSS: <https://billatgameology.github.io/ada-media/feed.xml>
 
-The prologue copy and embeds live in `content/attempts.yaml`; rebuild after editing it.
+The project name, tagline and introduction live in `config.yaml` under `project`.
+The featured prototype follows the newest published note with media automatically;
+if no notes have media, it shows the latest progress instead. Drafts stay unpublished.
+The history copy and embeds live in `content/attempts.yaml`; rebuild after editing it.
+Add an optional `why` sentence to selected daily notes to explain what the milestone
+changes about the interaction, alongside the three technical highlights.
 
 ## Video library (catalog + transcripts)
 

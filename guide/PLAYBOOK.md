@@ -6,6 +6,8 @@
   here's a screenshot" is a perfect day.
 - **Weekly (30 min):** on Sunday, skim the week and write one recap note. It becomes a
   longer YouTube video, an Instagram carousel, and a nice bookmark for followers.
+  Use it to reflect on the interaction: what feels more natural now, what still gets
+  in the way, and which experiment to try next.
 - **Milestones:** releases, launches, "first 100 users" — break the rhythm with a
   bigger note; the pipeline doesn't care.
 
@@ -58,8 +60,11 @@ committed days earlier. Record both; don't force one to explain the other.
 Rules of thumb:
 - **`summary` is the most important line.** A headline someone would read in a feed,
   not a meeting memo. One sentence, concrete, no hype.
-- **`highlights` is the timeline.** Exactly three bullets; each must stand alone,
-  because the public page shows those three and nothing else from the note body.
+- **`highlights` is the timeline.** Exactly three bullets; each must stand alone.
+- **`why` connects a milestone to the vision.** Optional frontmatter shown beside the
+  highlights and in RSS. Explain what changes for the person using Ada, drawing on
+  the note's `Why / what I learned` section. Use it for selected entries; quiet days
+  don't need a larger claim.
 - Bullets should stand alone — each may become a solo post line.
 - Links: Facebook gets the day's timeline anchor automatically; Threads text posts get
   it, while media posts use the GIF instead. X leaves it out by default (reach);
