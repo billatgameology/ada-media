@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import datetime as dt
 import email.utils
+import hashlib
 import html
 import shutil
 from pathlib import Path
@@ -15,6 +16,7 @@ def _shell(proj: dict, title: str, body: str) -> str:
     tagline = html.escape(str(proj.get("tagline") or ""))
     description = html.escape(str(proj.get("description") or proj.get("tagline") or ""))
     repo = html.escape(str(proj.get("repo_url") or "#"))
+    style_version = hashlib.sha256((config.root() / "site_assets" / "style.css").read_bytes()).hexdigest()[:12]
     return f"""<!doctype html>
 <html lang="en">
 <head>
@@ -22,7 +24,7 @@ def _shell(proj: dict, title: str, body: str) -> str:
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{html.escape(title)}</title>
 <meta name="description" content="{description}">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css?v={style_version}">
 <link rel="alternate" type="application/rss+xml" title="{name} feed" href="feed.xml">
 </head>
 <body>
