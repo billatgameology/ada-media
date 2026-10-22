@@ -52,10 +52,13 @@ def _shell(proj: dict, title: str, body: str) -> str:
 def _post_page(day: content.Day, proj: dict) -> str:
     title = day.title or day.date
     media_html = ""
+    if day.gif:
+        media_html += (f'<p class="media"><img src="media/{html.escape(str(day.gif))}" '
+                       f'alt="{html.escape(title)}"></p>\n')
     for img in day.images:
-        media_html += f'<p><img src="media/{html.escape(str(img))}" alt=""></p>\n'
+        media_html += f'<p class="media"><img src="media/{html.escape(str(img))}" alt=""></p>\n'
     if day.video:
-        media_html += f'<p><video controls src="media/{html.escape(str(day.video))}"></video></p>\n'
+        media_html += f'<p class="media"><video controls src="media/{html.escape(str(day.video))}"></video></p>\n'
     body = f"""<article>
 <h1>{html.escape(title)}</h1>
 <p class="meta"><time>{html.escape(day.date)}</time></p>
@@ -67,11 +70,23 @@ def _post_page(day: content.Day, proj: dict) -> str:
 def _index_page(days: list[content.Day], proj: dict) -> str:
     items = []
     for day in days:
+        cover = ""
+        if day.gif:
+            candidate = str(Path(day.gif).with_suffix(".jpg"))
+            if (content.MEDIA_DIR / candidate).exists():
+                cover = candidate
+        thumb = ""
+        if cover:
+            thumb = (f'<a class="thumb-link" href="{html.escape(day.site_filename())}">'
+                     f'<img class="thumb" src="media/{html.escape(cover)}" '
+                     f'alt="{html.escape(day.title or day.date)}" loading="lazy"></a>')
         items.append(
             f"""<li>
+{thumb}<div class="day-text">
 <span class="date">{html.escape(day.date)}</span>
 <a class="title" href="{html.escape(day.site_filename())}">{html.escape(day.title or day.date)}</a>
 <p>{html.escape(day.summary)}</p>
+</div>
 </li>"""
         )
     body = f"""<h1>{html.escape(str(proj.get('name') or ''))}</h1>

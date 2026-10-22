@@ -18,7 +18,7 @@ def _attach(day: content.Day, rel: str, kind: str) -> str:
 
 def _threads_text(day: content.Day) -> str:
     text = day.threads_text()
-    if day.video or day.images:
+    if day.video or day.gif or day.images:
         return text
     link = day.site_url()
     budget = 500 - len(link) - 2
@@ -46,6 +46,8 @@ def generate(day: content.Day) -> Path:
         mode = f"thread of {len(posts)} — paste each block as a reply" if len(posts) > 1 else "single post"
         link = "link included" if any("http" in p for p in posts) else "no link (x.include_link in config.yaml)"
         lines = [f"X / Twitter — x.txt  ·  {mode}  ·  longest {max(len(p) for p in posts)}/280 chars  ·  {link}"]
+        if day.gif:
+            lines.append(f"  {_attach(day, day.gif, 'GIF')}")
         lines += [f"  {_attach(day, rel, 'image')}" for rel in day.images[:4]]
         blocks.append("\n".join(lines))
 
@@ -53,10 +55,12 @@ def generate(day: content.Day) -> Path:
     if social("threads").get("enabled"):
         text = _threads_text(day)
         files.append(("threads.txt", text + "\n"))
-        kind = "media post" if (day.video or day.images) else "text post (link preview card)"
+        kind = "media post" if (day.video or day.gif or day.images) else "text post (link preview card)"
         lines = [f"Threads — threads.txt  ·  {kind}  ·  {len(text)}/500 chars"]
         if day.video:
             lines.append(f"  {_attach(day, day.video, 'video')}")
+        elif day.gif:
+            lines.append(f"  {_attach(day, day.gif, 'GIF')}")
         elif day.images:
             lines.append(f"  {_attach(day, day.images[0], 'image')}")
         blocks.append("\n".join(lines))
@@ -73,6 +77,17 @@ def generate(day: content.Day) -> Path:
                     if len(day.images) > 1 else "single image")
             lines = [f"Instagram — instagram.txt  ·  {kind}  ·  caption {len(caption)}/2200 chars"]
             lines += [f"  {_attach(day, rel, 'image')}" for rel in day.images[:10]]
+        elif day.gif:
+            cover = str(Path(day.gif).with_suffix(".jpg"))
+            if day.media_path(cover).exists():
+                lines = [f"Instagram — instagram.txt  ·  JPEG cover  ·  caption {len(caption)}/2200 chars",
+                         f"  {_attach(day, cover, 'JPEG cover')}",
+                         f"  GIF for other platforms: {day.gif}"]
+            else:
+                lines = [f"Instagram — instagram.txt  ·  caption {len(caption)}/2200 chars  ·  GIF won't animate",
+                         f"  preview only: {day.gif}",
+                         "  attach a JPEG cover or the video instead"]
+                warnings.append("Instagram does not animate GIF uploads — use a JPEG cover or the video, or skip Instagram")
         else:
             lines = ["Instagram — instagram.txt  ·  caption ready, but NO media"]
             warnings.append("Instagram has no text-only posts — add media.images (JPEG) or media.video, then re-run outbox")
@@ -86,6 +101,8 @@ def generate(day: content.Day) -> Path:
         text = day.facebook_text()
         files.append(("facebook.txt", text + "\n"))
         lines = [f"Facebook — facebook.txt  ·  {len(text)} chars  ·  site link included"]
+        if day.gif:
+            lines.append(f"  {_attach(day, day.gif, 'GIF')}")
         lines += [f"  {_attach(day, rel, 'photo')}" for rel in day.images[:10]]
         blocks.append("\n".join(lines))
 

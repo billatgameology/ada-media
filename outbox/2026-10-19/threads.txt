@@ -1,0 +1,3 @@
+From VR, Ada switches Chrome tabs on the Mac, fills our YC draft and helps write the answers — while wireless ADB reconnects itself and failures stop going silent.
+
+ADB reconnects itself — a new XR session brings wireless ADB up green without a screenshot: "started up connected right away... mark that done." The prompt-return fix also passed automated checks, but real headset confirmation is still pending.

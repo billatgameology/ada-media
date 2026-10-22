@@ -2,4 +2,4 @@ Hold an index finger up and pauses stop cutting my speech off; by evening Ada gl
 
 Speech matches chat — "your speech is now matching what I see on the main chat... good job."
 
-https://billatgameology.github.io/ada-media/2026-10-17.html
+The magic phrase bug, reproduced — "I have to say the exact same phrase to get it triggered, which is not the expected outcome."

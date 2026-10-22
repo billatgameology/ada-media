@@ -1,0 +1,5 @@
+Naming, relabeling and deleting the room around me — 8 surfaces deleted, 5 labels kept, saved as workspace revision 5 — plus worker cubes and speech that finally matches chat.
+
+Naming the room — select, tag, rename: main desk, main screen, whiteboard, walls, server rack.
+
+Worker cubes appear — sub-agent spawning with little cubes worked. Closing them did not.

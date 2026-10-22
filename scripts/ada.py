@@ -11,6 +11,7 @@ Commands:
   transcribe  transcribe new/changed recordings locally (whisper)
   watch       catalog + transcribe on a loop (foreground)
   clip        cut an automatic highlight reel from a recording
+  gif         cut a short looping GIF preview from a recording
   story       build a day's story: one script, highlights and a reel from all its clips
   code        list the code repo's commits for a day (for the note's "In code" section)
   find        search a day script for a phrase and print its recording + timecode
@@ -31,6 +32,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import build_site  # noqa: E402
 import catalog  # noqa: E402
 import clip  # noqa: E402
+import gif  # noqa: E402
 import outbox  # noqa: E402
 import story  # noqa: E402
 import transcribe  # noqa: E402
@@ -214,6 +216,15 @@ def cmd_clip(args) -> int:
     return 0
 
 
+def cmd_gif(args) -> int:
+    try:
+        return gif.run(date=args.date, all_days=args.all, width=args.width, fps=args.fps,
+                       colors=args.colors, duration=args.duration)
+    except RuntimeError as exc:
+        print(exc)
+        return 1
+
+
 def cmd_story(args) -> int:
     try:
         return story.run(args.date, target=args.target, top=args.top, make_reel=not args.no_reel,
@@ -358,6 +369,15 @@ def main(argv=None) -> int:
                    help="9:16 with blurred background, for TikTok/Reels/Shorts")
     p.add_argument("--burn", action="store_true", help="burn the subtitles into the video")
     p.set_defaults(func=cmd_clip)
+
+    p = sub.add_parser("gif", help="cut a 5-10s looping GIF preview from a recording")
+    p.add_argument("--date", help="YYYY-MM-DD from content/gifs.yaml")
+    p.add_argument("--all", action="store_true", help="cut every clip in content/gifs.yaml")
+    p.add_argument("--duration", type=float, help="override seconds (5-10)")
+    p.add_argument("--width", type=int, default=480, help="pixel width (default 480)")
+    p.add_argument("--fps", type=int, default=8, help="frames per second (default 8)")
+    p.add_argument("--colors", type=int, default=64, help="palette colors (default 64)")
+    p.set_defaults(func=cmd_gif)
 
     p = sub.add_parser("story", help="build a day's story from all its recordings")
     p.add_argument("--date", required=True, help="YYYY-MM-DD")

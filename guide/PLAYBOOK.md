@@ -49,6 +49,7 @@ committed days earlier. Record both; don't force one to explain the other.
 | First 1–2 `In the headset` bullets | Cooked into X / Threads / Instagram |
 | `In code` + `In the headset` bullets | Facebook and YouTube description, grouped; X thread mixes the first two of each |
 | `tags` | Hashtags (Instagram/TikTok/YouTube), YouTube tags |
+| `media.gif` | Site preview; X/Threads/Facebook attachment (5–10s loop) |
 | `media.images` | Instagram (and X/Threads/Facebook take the first), site |
 | `media.video` | YouTube, TikTok, Instagram reel, Threads |
 | `overrides.<platform>` | Exact text for that platform — wins over everything |
@@ -75,6 +76,7 @@ Rules of thumb:
 ### Instagram — JPEG-only, no links in captions
 - Caption: `summary` + 2 bullets + hashtags; point to "link in bio".
 - Images must be JPEG: `sips -s format jpeg in.png --out in.jpg`.
+- Animated GIFs are not a feed format — use a JPEG cover or the video instead.
 - One image → post; 2–10 images → carousel (first image sets the crop; square).
 - Video → Reels; vertical (9:16), ≤90s for reach.
 
@@ -93,7 +95,9 @@ Rules of thumb:
 
 ## Making the clips (cheap and fast)
 
-Screen recordings are the default content. On macOS: `Cmd+Shift+5` → record a window.
+Screen recordings are the default content. A 5–10 second GIF preview is cut from
+`content/gifs.yaml` with `python scripts/ada.py gif --all` (details in
+[MEDIA](MEDIA.md#short-gif-previews-gif)). On macOS: `Cmd+Shift+5` → record a window.
 One ffmpeg pass makes a vertical version for Reels/TikTok/Shorts:
 
 ```bash
@@ -105,7 +109,8 @@ blocks files over 100 MB). Bigger/longer videos: upload to YouTube and skip in-r
 hosting; only keep what Reels/TikTok need.
 
 File layout: `content/media/<date>/name.ext`, referenced in the note's frontmatter as
-`<date>/name.ext`.
+`<date>/name.ext`. Generated GIF previews live at `content/media/gifs/<date>.gif`
+and are referenced as `gifs/<date>.gif` in `media.gif`.
 
 ## Voice — a few rules that keep a devlog readable
 

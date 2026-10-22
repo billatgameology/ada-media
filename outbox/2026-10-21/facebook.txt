@@ -1,0 +1,16 @@
+The case of the phantom panels
+
+An empty note and a media window appeared without being asked, and neither could be dismissed. Today's fix: panels that only exist when requested — and the start of note deletion.
+
+In code:
+- Not committed — no commit landed in project-ada-xr on this date; the panel fix went out front-end-only, and the changes below are from the session.
+- Idle media surface removed — the media state reported closed while a standalone media control stayed visible in XR. The idle surface is gone; the grid, titles and input targets now stay hidden until an explicit open/show/play request. Close, tracking/focus loss and finished exports can't reopen it.
+- Note deletion (in progress) — spatial notes had no delete control. Adding a delete action and a way to hide the note panel that's showing it.
+
+In the headset:
+- The phantom note — an empty "Untitled Note" appeared without being asked: "That's strange... Can you remove it? I don't want it." Ada found it but had no delete control.
+- The media window that wouldn't leave — "It shouldn't just stay up here. It should only open when I ask for something." The state said closed; the standalone control was still visible.
+- Always paired? — "I don't remember if I paired... Is there a way to always have it paired?" Screen mirroring should remember, not rely on me.
+- Front-end-only deploy — removed in code, first checks pass, testing close/hidden input/recovery; no service restart and no forced headset refresh.
+
+https://billatgameology.github.io/ada-media/2026-10-21.html

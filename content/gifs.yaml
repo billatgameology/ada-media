@@ -1,0 +1,38 @@
+# Short looping GIF previews for the daily notes.
+#
+# Times are in each recording's own timeline. Keep clips between 5 and 10
+# seconds; the cut command clamps anything longer.
+#
+# There is no 2026-10-14 clip: that session was not recorded. The first
+# footage is from 2026-10-15.
+clips:
+  "2026-10-15":
+    recording: com.oculus.browser-20261015-154745-0.mp4
+    start: "7:43"
+    duration: 5
+    label: "Hand overlays and the first developer preset"
+  "2026-10-16":
+    recording: com.oculus.vrshell-20261016-203321-0.mp4
+    start: "2:50"
+    duration: 8
+    label: "The room reads like an interface"
+  "2026-10-17":
+    recording: com.oculus.vrshell-20261017-190245-0.mp4
+    start: "2:08"
+    duration: 8
+    label: "Relocating to the server rack"
+  "2026-10-18":
+    recording: com.oculus.vrshell-20261018-173757-0.mp4
+    start: "1:56"
+    duration: 8
+    label: "The photo panel"
+  "2026-10-19":
+    recording: com.oculus.vrshell-20261019-202643-0.mp4
+    start: "14:24"
+    duration: 8
+    label: "Chrome, controlled from VR"
+  "2026-10-21":
+    recording: com.oculus.browser-20261021-135013-0.mp4
+    start: "0:51"
+    duration: 8
+    label: "The phantom note and the media window"

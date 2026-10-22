@@ -45,6 +45,7 @@ class Day:
     title: str = ""
     summary: str = ""
     tags: list = field(default_factory=list)
+    gif: str = ""
     images: list = field(default_factory=list)
     video: str = ""
     overrides: dict = field(default_factory=dict)
@@ -152,7 +153,7 @@ class Day:
         if custom:
             return _clip(custom, 500)
         limit = 500
-        if not (self.video or self.images):
+        if not (self.video or self.gif or self.images):
             limit = max(200, 500 - len(self.site_url()) - 2)  # leave room for the link card line
         parts = [self.summary or self.title]
         for bullet in (self.demo_bullets() or self.bullets())[:2]:
@@ -236,6 +237,7 @@ def load_day(date: str | None = None) -> Day:
         title=front.get("title") or "",
         summary=_plain(str(front.get("summary") or "")),
         tags=list(front.get("tags") or []),
+        gif=media.get("gif") or "",
         images=list(media.get("images") or []),
         video=media.get("video") or "",
         overrides=front.get("overrides") or {},

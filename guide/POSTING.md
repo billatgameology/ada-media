@@ -12,14 +12,14 @@ URL — open it on the phone to save/attach.
 ## X / Twitter — `x.txt`
 
 - Single post, or a thread: blocks are separated by `---` — post them in order as replies.
-- Attach up to 4 images if listed.
+- Attach the GIF and/or up to 4 images if listed.
 - **No link in the post** (links reduce reach); the site URL lives in your bio.
   Flip `x.include_link: true` in config.yaml if you'd rather include it.
 
 ## Threads — `threads.txt`
 
 - Text posts get a link preview card to the day's page automatically.
-- Attach the single image/video if the manifest lists one.
+- Attach the single image/video/GIF if the manifest lists one.
 
 ## Instagram — `instagram.txt`
 
@@ -27,12 +27,13 @@ URL — open it on the phone to save/attach.
 - Images must be JPEG — convert first if needed:
   `sips -s format jpeg content/media/<file>.png --out content/media/<file>.jpg`
 - Carousel: attach images in the order the manifest lists them.
+- Animated GIFs won't animate on Instagram — use a JPEG cover or the video.
 - Captions can't contain clickable links — keep the site URL in your IG bio.
 
 ## Facebook — `facebook.txt`
 
 - The text includes the site link; the preview card appears automatically.
-- Attach photos if listed.
+- Attach photos/GIF if listed.
 
 ## TikTok — `tiktok.txt`
 

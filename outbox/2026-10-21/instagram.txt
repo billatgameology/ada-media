@@ -1,0 +1,6 @@
+An empty note and a media window appeared without being asked, and neither could be dismissed. Today's fix: panels that only exist when requested — and the start of note deletion.
+
+• The phantom note — an empty "Untitled Note" appeared without being asked: "That's strange... Can you remove it? I don't want it." Ada found it but had no delete control.
+• The media window that wouldn't leave — "It shouldn't just stay up here. It should only open when I ask for something." The state said closed; the standalone control was still visible.
+
+#devlog #buildinpublic #opensource #xr

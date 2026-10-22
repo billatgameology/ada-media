@@ -1,0 +1,21 @@
+ada-media — posts for 2026-10-16
+site post: https://billatgameology.github.io/ada-media/2026-10-16.html
+
+copy each file into its platform's composer, attach the listed media, post.
+per-platform details: guide/POSTING.md
+
+X / Twitter — x.txt  ·  single post  ·  longest 271/280 chars  ·  no link (x.include_link in config.yaml)
+  attach GIF: gifs/2026-10-16.gif  ·  from phone: https://billatgameology.github.io/ada-media/media/gifs/2026-10-16.gif
+Threads — threads.txt  ·  media post  ·  361/500 chars
+  attach GIF: gifs/2026-10-16.gif  ·  from phone: https://billatgameology.github.io/ada-media/media/gifs/2026-10-16.gif
+Instagram — instagram.txt  ·  JPEG cover  ·  caption 404/2200 chars
+  attach JPEG cover: gifs/2026-10-16.jpg  ·  from phone: https://billatgameology.github.io/ada-media/media/gifs/2026-10-16.jpg
+  GIF for other platforms: gifs/2026-10-16.gif
+Facebook — facebook.txt  ·  1604 chars  ·  site link included
+  attach GIF: gifs/2026-10-16.gif  ·  from phone: https://billatgameology.github.io/ada-media/media/gifs/2026-10-16.gif
+TikTok — tiktok.txt  ·  caption ready, but there is no video
+YouTube — youtube.txt  ·  title/description ready, but there is no video
+
+warnings:
+  - TikTok needs a video — add media.video and re-run outbox, or skip it today
+  - YouTube needs a video — add media.video and re-run outbox, or skip it today

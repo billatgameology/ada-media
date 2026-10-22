@@ -5,13 +5,17 @@ copy each file into its platform's composer, attach the listed media, post.
 per-platform details: guide/POSTING.md
 
 X / Twitter — x.txt  ·  single post  ·  longest 223/280 chars  ·  no link (x.include_link in config.yaml)
-Threads — threads.txt  ·  text post (link preview card)  ·  378/500 chars
-Instagram — instagram.txt  ·  caption ready, but NO media
+  attach GIF: gifs/2026-10-17.gif  ·  from phone: https://billatgameology.github.io/ada-media/media/gifs/2026-10-17.gif
+Threads — threads.txt  ·  media post  ·  447/500 chars
+  attach GIF: gifs/2026-10-17.gif  ·  from phone: https://billatgameology.github.io/ada-media/media/gifs/2026-10-17.gif
+Instagram — instagram.txt  ·  JPEG cover  ·  caption 490/2200 chars
+  attach JPEG cover: gifs/2026-10-17.jpg  ·  from phone: https://billatgameology.github.io/ada-media/media/gifs/2026-10-17.jpg
+  GIF for other platforms: gifs/2026-10-17.gif
 Facebook — facebook.txt  ·  1853 chars  ·  site link included
+  attach GIF: gifs/2026-10-17.gif  ·  from phone: https://billatgameology.github.io/ada-media/media/gifs/2026-10-17.gif
 TikTok — tiktok.txt  ·  caption ready, but there is no video
 YouTube — youtube.txt  ·  title/description ready, but there is no video
 
 warnings:
-  - Instagram has no text-only posts — add media.images (JPEG) or media.video, then re-run outbox
   - TikTok needs a video — add media.video and re-run outbox, or skip it today
   - YouTube needs a video — add media.video and re-run outbox, or skip it today

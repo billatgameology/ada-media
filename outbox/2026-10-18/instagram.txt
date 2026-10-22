@@ -1,0 +1,6 @@
+Screenshots from the headset land in a movable photo panel, the main window shows vision + ADB + room status at a glance, and Mac screen sharing gets a standalone, billboarded view.
+
+• Ada gets eyes — a fresh capture of the real room: "A dark Dell monitor, rows of drive bays, equipment with green indicator lights, black cases on the left, and cables on the right." The same image opened in the photo panel.
+• Vision on isn't a connection — the setting said on while the headset capture link was disconnected. The new main window separates vision permission from wireless ADB, checks every few seconds, and lets stale status expire.
+
+#devlog #buildinpublic #opensource #xr

@@ -1,0 +1,1 @@
+Screenshots from the headset land in a movable photo panel, the main window shows vision + ADB + room status at a glance, and Mac screen sharing gets a standalone, billboarded view.

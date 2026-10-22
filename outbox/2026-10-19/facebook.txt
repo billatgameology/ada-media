@@ -1,0 +1,15 @@
+Ada drives Chrome from inside the headset
+
+From VR, Ada switches Chrome tabs on the Mac, fills our YC draft and helps write the answers — while wireless ADB reconnects itself and failures stop going silent.
+
+In code:
+- Voice relocation rule — ARCHITECTURE.md now requires every AdaXR item to be relocatable by voice, not just Ada. Named-screen relocation is explicitly logged as an implementation gap. 33edc84
+- Vision + wireless startup — opaque native-XR-session token, one bounded reconnect per startup with a twelve-second budget, fresh serial/identity check before green, vision-off persistence through focus recovery, and dedupe of concurrent attempts. 636adc5 (1,573 tests, 21 assets)
+
+In the headset:
+- ADB reconnects itself — a new XR session brings wireless ADB up green without a screenshot: "started up connected right away... mark that done." The prompt-return fix also passed automated checks, but real headset confirmation is still pending.
+- Named movement works — "move Ada to the whiteboard" → "Moved beside the whiteboard." "Yep, it worked."
+- Pointing move fails honestly — the exact spot came through this time, but the move returned an execution failure. Ada says so, doesn't retry, and starts an investigation instead of going silent.
+- Chrome, controlled from VR — Ada switches to the YC application tab, maximizes it, enters "Gamology Space" and a 42-character description, saves, and verifies after reload. The form is not submitted: "Yay! Cool, thanks. It worked."
+
+https://billatgameology.github.io/ada-media/2026-10-19.html

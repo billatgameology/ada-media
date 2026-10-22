@@ -1,0 +1,17 @@
+Ada grows hands
+
+Every WebXR hand overlay on at once — joint markers, radius spheres, aim rays, orientation lines — plus a cyan index-finger ray, the first developer preset, and the browser panel's first build.
+
+In code:
+- Hand visualization — generated controls for joint markers, joint radii, orientation axes and browser aim rays, plus a cyan index-finger ray derived from tip-minus-distal joints. Tracking loss hides invalid geometry. fd1be1c
+- Browser panel — Chrome helper and same-tab video/audio sharing with pointer, scroll, drag and text input. Consent, input ownership and revocation are explicit; hiding the panel revokes sharing, mutes its audio and clears held input. fd1be1c
+- Capability library — typed, receipt-backed discovery and controls for room visibility, semantic surface inspection, highlighting, names and categories. fd1be1c
+- Developer settings — room/workspace, capabilities and browser controls hidden under one developer area, one subsection at a time, with room and hand state preserved across menu changes. fd1be1c
+
+In the headset:
+- Every overlay at once — joint markers, radii, orientation lines and aim rays on both hands, then the cyan index-finger ray: "Perfect. This is working perfectly."
+- First developer preset — saved the all-white hand view (markers, radii, Z orientation, aim rays) to project memory. Selectable presets are still missing: "we have to do better than project memory."
+- Three mystery panels — identified the room panel, capability catalog and browser-sharing panel: "It lets you view and control a Mac Chrome tab inside XR." Asked to collapse them into Developer settings.
+- Speech bug logged — Ada answered a sentence I never said: "I didn't say any of that. Let's book that as a bug."
+
+https://billatgameology.github.io/ada-media/2026-10-15.html

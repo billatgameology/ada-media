@@ -1,0 +1,25 @@
+TITLE
+Ada gets eyes
+
+DESCRIPTION
+Screenshots from the headset land in a movable photo panel, the main window shows vision + ADB + room status at a glance, and Mac screen sharing gets a standalone, billboarded view.
+
+In code:
+- Full-view vision — fresh Quest system-composite capture including passthrough and virtual content, request-bound capture leases, strict JPEG handling and same-image authenticated display. 14ea0fd (1,452 tests at the first release)
+- Photo panel — independent head-facing image, native one-hand move, proportional two-hand resize, compact red Close and near/far interaction; vision settings grouped and normally hidden. 14ea0fd (1,457 → 1,491 tests)
+- Permission + readiness — separate Vision permission, actual wireless ADB state, loaded room data, restored contents and current tracking. Stale results expire; configuration alone can't claim a connection. 14ea0fd (1,518 tests)
+- Room continuity, queue and worker tail — one safe saved-room restore per new XR session, aimed queue scrolling, stopped ducklings keeping their released trail, and transient-only notifications. 14ea0fd
+- Mac screen sharing — view-only desktop publisher/broker/viewer, then a photo-like standalone frame with near/far move, resize, red × and independent billboarding. Frontend-only activation at 21:32. The legacy tab extension and remote pointer/wheel/key/text path were retired. 14ea0fd bd3cbf1 (1,540 → 1,537 tests, 23 rendered checks)
+- Honest action failures — prepared a move once instead of twice, and separated failure communication from action-success verification so a blocked action still explains itself. 1,547 repair checks, staged at the end of the day. 14ea0fd
+
+In the headset:
+- Ada gets eyes — a fresh capture of the real room: "A dark Dell monitor, rows of drive bays, equipment with green indicator lights, black cases on the left, and cables on the right." The same image opened in the photo panel.
+- Vision on isn't a connection — the setting said on while the headset capture link was disconnected. The new main window separates vision permission from wireless ADB, checks every few seconds, and lets stale status expire.
+- Status lights accepted — vision permission on, wireless ADB connected: "It worked!" and a screenshot of the real desk plus the virtual menu.
+- The photo panel — "I like the update... zooming works... closing works." Asked for distance grab, automatic safe room restore, and removal of the unused notification.
+- Movement bugs classified — released ducklings snap into a line; a change in the other hand cancels a valid drag; the queue won't scroll past three; Combine stops working past three queued cues.
+- The silent failure — "move to second desk" failed, and the explanation appeared on the Mac but not in XR dialogue. Cause: the action-verification gate swallowed the entire final reply. Repair staged with 1,547 tests.
+
+Full notes: https://billatgameology.github.io/ada-media/2026-10-18.html
+
+#devlog #buildinpublic #opensource #xr

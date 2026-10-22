@@ -15,6 +15,7 @@ python scripts/ada.py daily          # 1. create content/daily/YYYY-MM-DD.md (pr
 # ...edit it: title, summary, "In code" and "In the headset" bullets...
 #    code:     python scripts/ada.py code --date YYYY-MM-DD --stat
 #    evidence: python scripts/ada.py find --date YYYY-MM-DD --grep "phrase"
+#    preview:  python scripts/ada.py gif --date YYYY-MM-DD  (5-10s loop from content/gifs.yaml)
 # ...drop media in content/media/ if you have it...
 
 python scripts/ada.py outbox         # 2. write copy-paste-ready posts to outbox/<date>/
@@ -40,9 +41,10 @@ python3 -m venv .venv
 | Path | What it is |
 | --- | --- |
 | `content/daily/` | One markdown file per day — the single source of truth |
-| `content/media/` | Images and short videos referenced by daily notes |
+| `content/media/` | Images, short videos and generated GIF previews referenced by daily notes |
+| `content/gifs.yaml` | The chosen 5–10s GIF moment for each day (recording + start + duration) |
 | `content/templates/` | The daily note template |
-| `scripts/ada.py` | CLI: `daily`, `outbox`, `build`, `preview`, `status`, `catalog`, `transcribe`, `watch`, `clip`, `story`, `code`, `find` |
+| `scripts/ada.py` | CLI: `daily`, `outbox`, `build`, `preview`, `status`, `catalog`, `transcribe`, `watch`, `clip`, `gif`, `story`, `code`, `find` |
 | `scripts/outbox.py` | Turns a note into the per-platform post files |
 | `scripts/catalog.py` | Scans the watch folders into a video catalog |
 | `scripts/transcribe.py` | Local Whisper transcription of cataloged recordings |
@@ -63,6 +65,7 @@ The outbox derives everything from the note's frontmatter and bullets:
 | `## In the headset` bullets | First two are cooked into X / Threads / Instagram |
 | `## In code` + `## In the headset` bullets | Facebook and YouTube descriptions, grouped; X thread mixes the first two of each |
 | `tags` | Hashtags (Instagram/TikTok/YouTube) |
+| `media.gif` | Site preview and index thumbnail; X / Threads / Facebook attachment; Instagram gets the JPEG cover |
 | `media.images` / `media.video` | What to attach on each platform |
 | `overrides.<platform>` | Exact per-platform text, when auto-derived isn't right |
 
@@ -87,6 +90,7 @@ python scripts/ada.py catalog       # scan → catalog/index.json + catalog/cata
 python scripts/ada.py transcribe    # local whisper → catalog/transcripts/<id>.{txt,srt,json}
 python scripts/ada.py watch         # do both on a loop — hands-off monitoring
 python scripts/ada.py clip --id <id>  # auto highlight reel (transcript-scored) → catalog/clips/
+python scripts/ada.py gif --all      # 5-10s loops from content/gifs.yaml → content/media/gifs/
 python scripts/ada.py story --date <day>  # all of a day's clips → script, journal draft, day reel
 ```
 

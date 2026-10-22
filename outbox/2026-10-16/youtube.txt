@@ -1,0 +1,25 @@
+TITLE
+The room becomes editable
+
+DESCRIPTION
+Naming, relabeling and deleting the room around me — 8 surfaces deleted, 5 labels kept, saved as workspace revision 5 — plus worker cubes and speech that finally matches chat.
+
+In code:
+- Worker cubes — scoped OpenClaw background tasks projected as task-linked cubes beside Ada. State comes from real observations, not animation or model wording, and conversation stays available while workers run. 05853fc
+- Worker lifecycle + audio ownership — single-owner speech, separate Stop speaking / Stop current execution, isolated worker audio and a repaired lifecycle reconciliation. 71b627f
+- Palm selection, labels and menus — semantic surface selection with stable ID and generation, passive name tags that hide on tracking loss, typed receipt-backed menu navigation, and the existing saved-content Restore path. 09ea76e
+- Safe surface deletion — typed surface.delete with original-target/generation custody, same-turn query/apply, receipts and ACKs. It edits AdaXR's workspace copy, never Quest's room scan. 09ea76e
+- Speech now equals chat — removed generated status voice, timers and separate spoken summaries. Public assistant text feeds dialogue and TTS once, in order, and an unproven final is withheld from both. 09ea76e
+- Release — final 930/930 tests, 8/8 panels, 19 assets. Workspace revision 5 held 50 surfaces, 5 retained renames and 8 deleted surfaces with no unsaved changes. 09ea76e
+
+In the headset:
+- Naming the room — select, tag, rename: main desk, main screen, whiteboard, walls, server rack.
+- Worker cubes appear — sub-agent spawning with little cubes worked. Closing them did not.
+- The room reads like an interface — grid, blue outlines, labels and the restored room all on at once: "This is great... The blue outlines and labels are working."
+- Speech fixed — "the chat has been fixed. That's great." Then: stream updates as they arrive instead of one giant block at the end.
+- Delete works; the magic phrase doesn't — deletion landed, but only when I used the exact wording: "You shouldn't need a magic phrase."
+- Revision 5 saved — "Workspace Revision 5 is saved with 50 surfaces and no unsaved changes... all five renamed labels are retained and all eight deleted surfaces are absent."
+
+Full notes: https://billatgameology.github.io/ada-media/2026-10-16.html
+
+#devlog #buildinpublic #opensource #xr

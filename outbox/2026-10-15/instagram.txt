@@ -1,0 +1,6 @@
+Every WebXR hand overlay on at once — joint markers, radius spheres, aim rays, orientation lines — plus a cyan index-finger ray, the first developer preset, and the browser panel's first build.
+
+• Every overlay at once — joint markers, radii, orientation lines and aim rays on both hands, then the cyan index-finger ray: "Perfect. This is working perfectly."
+• First developer preset — saved the all-white hand view (markers, radii, Z orientation, aim rays) to project memory. Selectable presets are still missing: "we have to do better than project memory."
+
+#devlog #buildinpublic #opensource #xr
