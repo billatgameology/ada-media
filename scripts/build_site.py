@@ -25,6 +25,7 @@ def _shell(proj: dict, title: str, body: str) -> str:
 <title>{html.escape(title)}</title>
 <meta name="description" content="{description}">
 <link rel="stylesheet" href="style.css?v={style_version}">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="alternate" type="application/rss+xml" title="{name} feed" href="feed.xml">
 </head>
 <body>
@@ -113,7 +114,7 @@ def _attempts_section(data: dict, attempts: list[dict]) -> str:
                 f'<figure class="{frame_class}">'
                 f'<iframe src="https://www.youtube-nocookie.com/embed/{html.escape(video)}" '
                 f'title="Ada attempt {number}: {name}" loading="lazy" '
-                f'allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" '
+                f'allow="accelerometer; autoplay; clipboard-write; compute-pressure; encrypted-media; gyroscope; picture-in-picture; web-share" '
                 f'allowfullscreen></iframe></figure>'
             )
             video_link = (
@@ -356,7 +357,8 @@ def build(verbose: bool = True) -> Path:
     (docs / "index.html").write_text(_timeline_page(days, proj), encoding="utf-8")
     (docs / "feed.xml").write_text(_feed_xml(days, proj), encoding="utf-8")
     (docs / ".nojekyll").write_text("", encoding="utf-8")
-    shutil.copyfile(root / "site_assets" / "style.css", docs / "style.css")
+    for asset in ("style.css", "favicon.svg"):
+        shutil.copyfile(root / "site_assets" / asset, docs / asset)
 
     media_dst = docs / "media"
     if media_dst.exists():
