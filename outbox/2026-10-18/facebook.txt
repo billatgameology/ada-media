@@ -14,4 +14,4 @@ In the headset:
 - Status lights accepted — vision permission on, wireless ADB connected: "It worked!" and a screenshot of the real desk plus the virtual menu.
 - The photo panel — "I like the update... zooming works... closing works." Asked for distance grab, automatic safe room restore, and removal of the unused notification.
 
-https://billatgameology.github.io/ada-media/2026-10-18.html
+https://billatgameology.github.io/ada-media/#2026-10-18

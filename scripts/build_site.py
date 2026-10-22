@@ -1,4 +1,4 @@
-"""Render the daily notes into the static site in docs/ (served by GitHub Pages)."""
+"""Render the daily notes into one static timeline in docs/ (served by GitHub Pages)."""
 from __future__ import annotations
 
 import datetime as dt
@@ -7,15 +7,7 @@ import html
 import shutil
 from pathlib import Path
 
-import markdown
-
 from lib import config, content
-
-MD_EXTENSIONS = ["fenced_code", "tables", "sane_lists", "nl2br"]
-
-
-def render_md(text: str) -> str:
-    return markdown.markdown(text, extensions=MD_EXTENSIONS)
 
 
 def _shell(proj: dict, title: str, body: str) -> str:
@@ -34,7 +26,7 @@ def _shell(proj: dict, title: str, body: str) -> str:
 </head>
 <body>
 <header class="site">
-  <a class="brand" href="index.html">{name}</a>
+  <a class="brand" href="#top">{name}</a>
   <nav>
     <a href="{repo}">repo</a>
     <a href="feed.xml">rss</a>
@@ -49,51 +41,142 @@ def _shell(proj: dict, title: str, body: str) -> str:
 """
 
 
-def _post_page(day: content.Day, proj: dict) -> str:
-    title = day.title or day.date
-    media_html = ""
-    if day.gif:
-        media_html += (f'<p class="media"><img src="media/{html.escape(str(day.gif))}" '
-                       f'alt="{html.escape(title)}"></p>\n')
-    for img in day.images:
-        media_html += f'<p class="media"><img src="media/{html.escape(str(img))}" alt=""></p>\n'
-    if day.video:
-        media_html += f'<p class="media"><video controls src="media/{html.escape(str(day.video))}"></video></p>\n'
-    body = f"""<article>
-<h1>{html.escape(title)}</h1>
-<p class="meta"><time>{html.escape(day.date)}</time></p>
-{media_html}<div class="post-body">{render_md(day.body_md)}</div>
-</article>"""
-    return _shell(proj, f"{title} — {proj.get('name', '')}", body)
+def _date(value: str) -> dt.date | None:
+    try:
+        return dt.date.fromisoformat(value)
+    except ValueError:
+        return None
 
 
-def _index_page(days: list[content.Day], proj: dict) -> str:
-    items = []
+def _pretty_date(value: str) -> str:
+    day = _date(value)
+    if not day:
+        return value
+    return f"{day.strftime('%A, %B')} {day.day}, {day.year}"
+
+
+def _short_date(value: str) -> str:
+    day = _date(value)
+    if not day:
+        return value
+    return f"{day.strftime('%b')} {day.day}"
+
+
+def _month_label(value: str) -> str:
+    day = _date(value)
+    if not day:
+        return value
+    return f"{day.strftime('%B')} {day.year}"
+
+
+def _timeline_nav(days: list[content.Day]) -> str:
+    groups: dict[str, list[content.Day]] = {}
     for day in days:
-        cover = ""
-        if day.gif:
-            candidate = str(Path(day.gif).with_suffix(".jpg"))
-            if (content.MEDIA_DIR / candidate).exists():
-                cover = candidate
-        thumb = ""
-        if cover:
-            thumb = (f'<a class="thumb-link" href="{html.escape(day.site_filename())}">'
-                     f'<img class="thumb" src="media/{html.escape(cover)}" '
-                     f'alt="{html.escape(day.title or day.date)}" loading="lazy"></a>')
-        items.append(
-            f"""<li>
-{thumb}<div class="day-text">
-<span class="date">{html.escape(day.date)}</span>
-<a class="title" href="{html.escape(day.site_filename())}">{html.escape(day.title or day.date)}</a>
-<p>{html.escape(day.summary)}</p>
-</div>
-</li>"""
+        groups.setdefault(day.date[:7], []).append(day)
+
+    months = []
+    for index, (_month, entries) in enumerate(groups.items()):
+        links = "".join(
+            f'<li><a href="#{html.escape(day.date)}">{html.escape(_short_date(day.date))}</a></li>'
+            for day in entries
         )
-    body = f"""<h1>{html.escape(str(proj.get('name') or ''))}</h1>
-<div class="post-body"><p>{html.escape(str(proj.get('tagline') or ''))}</p></div>
-<ul class="feed">
-{''.join(items)}
-</ul>"""
+        opened = " open" if index == 0 else ""
+        months.append(
+            f'<details class="nav-month"{opened}>'
+            f'<summary>{html.escape(_month_label(entries[0].date))}</summary>'
+            f'<ul>{links}</ul>'
+            f'</details>'
+        )
+
+    return f"""<aside class="timeline-nav" aria-label="Jump to a day">
+<p class="nav-label">Jump to</p>
+{''.join(months)}
+<a class="nav-top" href="#top">Back to top</a>
+</aside>"""
+
+
+def _entry_media(day: content.Day, first: bool) -> str:
+    title = html.escape(day.title or day.date)
+    if day.gif:
+        loading = "eager" if first else "lazy"
+        return (
+            f'<figure class="entry-media">'
+            f'<img src="media/{html.escape(str(day.gif))}" alt="{title}" '
+            f'width="640" height="360" loading="{loading}" decoding="async">'
+            f'</figure>'
+        )
+    if day.video:
+        return (
+            f'<figure class="entry-media">'
+            f'<video controls autoplay loop muted playsinline '
+            f'src="media/{html.escape(str(day.video))}"></video>'
+            f'</figure>'
+        )
+    images = "".join(
+        f'<img src="media/{html.escape(str(img))}" alt="">'
+        for img in day.images
+    )
+    if images:
+        return f'<figure class="entry-media">{images}</figure>'
+    return ""
+
+
+def _highlights(day: content.Day) -> list[str]:
+    if day.highlights:
+        return day.highlights[:3]
+    fallback = day.code_bullets()[:2] + day.demo_bullets()[:1]
+    if not fallback:
+        fallback = day.bullets()[:3]
+    return fallback
+
+
+def _entry(day: content.Day, first: bool) -> str:
+    title = html.escape(day.title or day.date)
+    points = "".join(f"<li>{html.escape(item)}</li>" for item in _highlights(day))
+    return f"""<li class="entry" id="{html.escape(day.date)}">
+<time class="entry-date" datetime="{html.escape(day.date)}">{html.escape(_pretty_date(day.date))}</time>
+<h2>{title}</h2>
+{_entry_media(day, first)}
+<ul class="entry-highlights">{points}</ul>
+</li>"""
+
+
+def _timeline_page(days: list[content.Day], proj: dict) -> str:
+    name = html.escape(str(proj.get("name") or ""))
+    tagline = html.escape(str(proj.get("tagline") or ""))
+    entries = "".join(_entry(day, index == 0) for index, day in enumerate(days))
+    body = f"""<div class="layout">
+{_timeline_nav(days)}
+<div class="intro">
+<h1 id="top">{name}</h1>
+<p class="tagline">{tagline}</p>
+</div>
+<main class="timeline">
+<ol class="timeline-list">
+{entries}
+</ol>
+</main>
+</div>
+<script>
+(() => {{
+  const sync = () => {{
+    const hash = location.hash;
+    document.querySelectorAll(".timeline-nav a").forEach((link) => {{
+      const active = link.getAttribute("href") === hash;
+      link.classList.toggle("active", active);
+      if (active) {{
+        link.setAttribute("aria-current", "location");
+        const month = link.closest("details");
+        if (month) month.open = true;
+      }} else {{
+        link.removeAttribute("aria-current");
+      }}
+    }});
+  }};
+  addEventListener("hashchange", sync);
+  sync();
+}})();
+</script>"""
     return _shell(proj, f"{proj.get('name', '')} — {proj.get('tagline', '')}", body)
 
 
@@ -101,12 +184,13 @@ def _feed_xml(days: list[content.Day], proj: dict) -> str:
     site = str(proj.get("site_url") or "").rstrip("/")
     items = []
     for day in days[:20]:
-        url = f"{site}/{day.site_filename()}"
+        url = f"{site}/#{day.date}"
         try:
             when = dt.datetime.fromisoformat(day.date).replace(tzinfo=dt.timezone.utc)
         except ValueError:
             when = dt.datetime.now(dt.timezone.utc)
-        body_html = render_md(day.body_md).replace("]]>", "]]&gt;")
+        points = "".join(f"<li>{html.escape(item)}</li>" for item in _highlights(day))
+        body_html = f"<p>{html.escape(day.summary)}</p><ul>{points}</ul>".replace("]]>", "]]&gt;")
         items.append(
             f"""<item>
 <title>{html.escape(day.title or day.date)}</title>
@@ -136,30 +220,46 @@ def build(verbose: bool = True) -> Path:
     docs.mkdir(exist_ok=True)
     days = [d for d in content.all_days() if not d.draft]
 
+    media_src = root / "content" / "media"
     for day in days:
-        (docs / day.site_filename()).write_text(_post_page(day, proj), encoding="utf-8")
-    (docs / "index.html").write_text(_index_page(days, proj), encoding="utf-8")
+        for rel in [day.gif, day.video, *day.images]:
+            if rel and not (media_src / rel).is_file():
+                raise SystemExit(f"missing media for {day.date}: {rel}")
+    for path in media_src.rglob("*"):
+        if path.is_file() and path.stat().st_size == 0:
+            raise SystemExit(f"empty media file: {path.relative_to(media_src)}")
+
+    # The site is one page now; remove old per-day pages from previous builds.
+    for old in docs.glob("*.html"):
+        if old.name != "index.html":
+            old.unlink()
+
+    (docs / "index.html").write_text(_timeline_page(days, proj), encoding="utf-8")
     (docs / "feed.xml").write_text(_feed_xml(days, proj), encoding="utf-8")
     (docs / ".nojekyll").write_text("", encoding="utf-8")
     shutil.copyfile(root / "site_assets" / "style.css", docs / "style.css")
 
-    media_src = root / "content" / "media"
     media_dst = docs / "media"
+    if media_dst.exists():
+        shutil.rmtree(media_dst)
     copied, large = 0, []
     for path in sorted(media_src.rglob("*")):
         if path.is_dir() or path.name.startswith("."):
             continue
         rel = path.relative_to(media_src)
+        size = path.stat().st_size
+        if size == 0:
+            raise SystemExit(f"refusing to publish empty media file: {rel}")
         target = media_dst / rel
         target.parent.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(path, target)
         copied += 1
-        size_mb = path.stat().st_size / (1024 * 1024)
+        size_mb = size / (1024 * 1024)
         if size_mb > 95:
             large.append(f"{rel} ({size_mb:.0f} MB)")
 
     if verbose:
-        print(f"built {len(days)} note(s) → docs/  ({copied} media file(s))")
+        print(f"built {len(days)} timeline entries → docs/  ({copied} media file(s))")
         for item in large:
             print(f"  warning: {item} is near GitHub's 100 MB file limit")
     return docs / "index.html"

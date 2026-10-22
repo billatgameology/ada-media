@@ -12,4 +12,4 @@ In the headset:
 - Pointing move fails honestly — the exact spot came through this time, but the move returned an execution failure. Ada says so, doesn't retry, and starts an investigation instead of going silent.
 - Chrome, controlled from VR — Ada switches to the YC application tab, maximizes it, enters "Gamology Space" and a 42-character description, saves, and verifies after reload. The form is not submitted: "Yay! Cool, thanks. It worked."
 
-https://billatgameology.github.io/ada-media/2026-10-19.html
+https://billatgameology.github.io/ada-media/#2026-10-19

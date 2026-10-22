@@ -44,22 +44,26 @@ committed days earlier. Record both; don't force one to explain the other.
 
 | Field | Feeds |
 | --- | --- |
-| `title` | Site headline, YouTube title, Facebook intro |
+| `title` | Timeline headline, YouTube title, Facebook intro |
 | `summary` | The hook — X, Threads, Instagram caption, YouTube description |
+| `highlights` | Exactly three bullets on the single-page timeline |
 | First 1–2 `In the headset` bullets | Cooked into X / Threads / Instagram |
 | `In code` + `In the headset` bullets | Facebook and YouTube description, grouped; X thread mixes the first two of each |
 | `tags` | Hashtags (Instagram/TikTok/YouTube), YouTube tags |
-| `media.gif` | Site preview; X/Threads/Facebook attachment (5–10s loop) |
-| `media.images` | Instagram (and X/Threads/Facebook take the first), site |
+| `media.gif` | Timeline preview; X/Threads/Facebook attachment (5–10s loop) |
+| `media.images` | Instagram (and X/Threads/Facebook take the first), timeline |
 | `media.video` | YouTube, TikTok, Instagram reel, Threads |
 | `overrides.<platform>` | Exact text for that platform — wins over everything |
 
 Rules of thumb:
 - **`summary` is the most important line.** A headline someone would read in a feed,
   not a meeting memo. One sentence, concrete, no hype.
+- **`highlights` is the timeline.** Exactly three bullets; each must stand alone,
+  because the public page shows those three and nothing else from the note body.
 - Bullets should stand alone — each may become a solo post line.
-- Links: Threads and Facebook get the day's page link automatically; X leaves it out
-  by default (reach); Instagram captions can't link at all.
+- Links: Facebook gets the day's timeline anchor automatically; Threads text posts get
+  it, while media posts use the GIF instead. X leaves it out by default (reach);
+  Instagram captions can't link at all.
 
 ## Per-platform notes
 
@@ -69,9 +73,9 @@ Rules of thumb:
 - `thread: true` in config.yaml splits the bullets into a numbered thread.
 
 ### Threads — link cards are free
-- 500 characters. Text posts get a link preview card to the day's page — the best
-  click-through platform in this setup.
-- Attach the image/video if the manifest lists one.
+- 500 characters. Text posts get a link preview card to the day's timeline anchor —
+  the best click-through platform in this setup.
+- Attach the image/video/GIF if the manifest lists one.
 
 ### Instagram — JPEG-only, no links in captions
 - Caption: `summary` + 2 bullets + hashtags; point to "link in bio".
@@ -90,7 +94,7 @@ Rules of thumb:
 
 ### YouTube — long-form + Shorts
 - Needs `media.video`; the outbox file has TITLE and DESCRIPTION sections.
-- Links are free here — the description includes the full notes link.
+- Links are free here — the description includes the timeline link.
 - Vertical ≤3 min → a Short; add `#Shorts` to the description.
 
 ## Making the clips (cheap and fast)

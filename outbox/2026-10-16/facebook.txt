@@ -14,4 +14,4 @@ In the headset:
 - The room reads like an interface — grid, blue outlines, labels and the restored room all on at once: "This is great... The blue outlines and labels are working."
 - Speech fixed — "the chat has been fixed. That's great." Then: stream updates as they arrive instead of one giant block at the end.
 
-https://billatgameology.github.io/ada-media/2026-10-16.html
+https://billatgameology.github.io/ada-media/#2026-10-16

@@ -60,7 +60,7 @@ def find_entry(recording: str) -> dict:
 
 
 def cut(entry: dict, start: float, duration: float, out: Path,
-        width: int = 480, fps: int = 8, colors: int = 64) -> dict:
+        width: int = 640, fps: int = 10, colors: int = 64) -> dict:
     source = Path(entry["path"])
     if not source.exists():
         raise RuntimeError(f"recording is missing: {source}")
@@ -112,7 +112,7 @@ def cut(entry: dict, start: float, duration: float, out: Path,
 
 
 def run(date: str | None = None, all_days: bool = False,
-        width: int = 480, fps: int = 8, colors: int = 64,
+        width: int = 640, fps: int = 10, colors: int = 64,
         duration: float | None = None) -> int:
     clips = load_clips()
     if all_days:

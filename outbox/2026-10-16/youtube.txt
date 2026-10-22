@@ -20,6 +20,6 @@ In the headset:
 - Delete works; the magic phrase doesn't — deletion landed, but only when I used the exact wording: "You shouldn't need a magic phrase."
 - Revision 5 saved — "Workspace Revision 5 is saved with 50 surfaces and no unsaved changes... all five renamed labels are retained and all eight deleted surfaces are absent."
 
-Full notes: https://billatgameology.github.io/ada-media/2026-10-16.html
+Timeline: https://billatgameology.github.io/ada-media/#2026-10-16
 
 #devlog #buildinpublic #opensource #xr

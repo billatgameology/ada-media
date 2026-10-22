@@ -14,4 +14,4 @@ In the headset:
 - Keep listening accepted — held a raised index through a pause: "I am holding my finger for a few seconds and it's still listening... This is a much needed feature so I don't get cut off."
 - Named instruction beats selection — with the grid on, the selected surface shouldn't win: "follow my verbal instruction rather than whatever is selected." Normal use should be the space's label, not diagnostic geometry.
 
-https://billatgameology.github.io/ada-media/2026-10-17.html
+https://billatgameology.github.io/ada-media/#2026-10-17

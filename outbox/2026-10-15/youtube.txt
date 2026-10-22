@@ -20,6 +20,6 @@ In the headset:
 - Headset-off stall — the build wasn't dead; it stopped when the headset came off: "I think it stopped building when I took the headset off."
 - Browser test started, not finished — Mac Chrome tab in Quest, video/audio first, then input. The session ended with "something is interrupting it," so this one stays open.
 
-Full notes: https://billatgameology.github.io/ada-media/2026-10-15.html
+Timeline: https://billatgameology.github.io/ada-media/#2026-10-15
 
 #devlog #buildinpublic #opensource #xr

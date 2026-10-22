@@ -10,59 +10,83 @@
 </head>
 <body>
 <header class="site">
-  <a class="brand" href="index.html">ada-media</a>
+  <a class="brand" href="#top">ada-media</a>
   <nav>
     <a href="https://github.com/billatgameology/ada-media">repo</a>
     <a href="feed.xml">rss</a>
   </nav>
 </header>
-<h1>ada-media</h1>
-<div class="post-body"><p>Daily build notes from an open-source project in progress.</p></div>
-<ul class="feed">
-<li>
-<a class="thumb-link" href="2026-10-21.html"><img class="thumb" src="media/gifs/2026-10-21.jpg" alt="The case of the phantom panels" loading="lazy"></a><div class="day-text">
-<span class="date">2026-10-21</span>
-<a class="title" href="2026-10-21.html">The case of the phantom panels</a>
-<p>An empty note and a media window appeared without being asked, and neither could be dismissed. Today&#x27;s fix: panels that only exist when requested — and the start of note deletion.</p>
+<div class="layout">
+<aside class="timeline-nav" aria-label="Jump to a day">
+<p class="nav-label">Jump to</p>
+<details class="nav-month" open><summary>October 2026</summary><ul><li><a href="#2026-10-21">Oct 21</a></li><li><a href="#2026-10-19">Oct 19</a></li><li><a href="#2026-10-18">Oct 18</a></li><li><a href="#2026-10-17">Oct 17</a></li><li><a href="#2026-10-16">Oct 16</a></li><li><a href="#2026-10-15">Oct 15</a></li><li><a href="#2026-10-14">Oct 14</a></li></ul></details>
+<a class="nav-top" href="#top">Back to top</a>
+</aside>
+<div class="intro">
+<h1 id="top">ada-media</h1>
+<p class="tagline">Daily build notes from an open-source project in progress.</p>
 </div>
-</li><li>
-<a class="thumb-link" href="2026-10-19.html"><img class="thumb" src="media/gifs/2026-10-19.jpg" alt="Ada drives Chrome from inside the headset" loading="lazy"></a><div class="day-text">
-<span class="date">2026-10-19</span>
-<a class="title" href="2026-10-19.html">Ada drives Chrome from inside the headset</a>
-<p>From VR, Ada switches Chrome tabs on the Mac, fills our YC draft and helps write the answers — while wireless ADB reconnects itself and failures stop going silent.</p>
-</div>
-</li><li>
-<a class="thumb-link" href="2026-10-18.html"><img class="thumb" src="media/gifs/2026-10-18.jpg" alt="Ada gets eyes" loading="lazy"></a><div class="day-text">
-<span class="date">2026-10-18</span>
-<a class="title" href="2026-10-18.html">Ada gets eyes</a>
-<p>Screenshots from the headset land in a movable photo panel, the main window shows vision + ADB + room status at a glance, and Mac screen sharing gets a standalone, billboarded view.</p>
-</div>
-</li><li>
-<a class="thumb-link" href="2026-10-17.html"><img class="thumb" src="media/gifs/2026-10-17.jpg" alt="Keep listening, and Ada learns to move" loading="lazy"></a><div class="day-text">
-<span class="date">2026-10-17</span>
-<a class="title" href="2026-10-17.html">Keep listening, and Ada learns to move</a>
-<p>Hold an index finger up and pauses stop cutting my speech off; by evening Ada glides to the whiteboard on command with her ducklings trailing — and the daily log gets a repo that turns one note into posts for six platforms.</p>
-</div>
-</li><li>
-<a class="thumb-link" href="2026-10-16.html"><img class="thumb" src="media/gifs/2026-10-16.jpg" alt="The room becomes editable" loading="lazy"></a><div class="day-text">
-<span class="date">2026-10-16</span>
-<a class="title" href="2026-10-16.html">The room becomes editable</a>
-<p>Naming, relabeling and deleting the room around me — 8 surfaces deleted, 5 labels kept, saved as workspace revision 5 — plus worker cubes and speech that finally matches chat.</p>
-</div>
-</li><li>
-<a class="thumb-link" href="2026-10-15.html"><img class="thumb" src="media/gifs/2026-10-15.jpg" alt="Ada grows hands" loading="lazy"></a><div class="day-text">
-<span class="date">2026-10-15</span>
-<a class="title" href="2026-10-15.html">Ada grows hands</a>
-<p>Every WebXR hand overlay on at once — joint markers, radius spheres, aim rays, orientation lines — plus a cyan index-finger ray, the first developer preset, and the browser panel&#x27;s first build.</p>
-</div>
-</li><li>
-<div class="day-text">
-<span class="date">2026-10-14</span>
-<a class="title" href="2026-10-14.html">Ada, take four</a>
-<p>The fourth attempt at Ada starts here: the room imports, anchors and saves as a workspace — and the whole attempt gets logged in the open, one day at a time.</p>
-</div>
+<main class="timeline">
+<ol class="timeline-list">
+<li class="entry" id="2026-10-21">
+<time class="entry-date" datetime="2026-10-21">Wednesday, October 21, 2026</time>
+<h2>The case of the phantom panels</h2>
+<figure class="entry-media"><img src="media/gifs/2026-10-21.gif" alt="The case of the phantom panels" width="640" height="360" loading="eager" decoding="async"></figure>
+<ul class="entry-highlights"><li>An empty “Untitled Note” appeared unrequested and had no delete control; note deletion is now being added.</li><li>The media state said closed while a standalone media window stayed visible; the idle surface is removed so panels only appear on request.</li><li>The panel fix shipped front-end-only, with close, hidden-input and recovery checks and no forced headset refresh.</li></ul>
+</li><li class="entry" id="2026-10-19">
+<time class="entry-date" datetime="2026-10-19">Monday, October 19, 2026</time>
+<h2>Ada drives Chrome from inside the headset</h2>
+<figure class="entry-media"><img src="media/gifs/2026-10-19.gif" alt="Ada drives Chrome from inside the headset" width="640" height="360" loading="lazy" decoding="async"></figure>
+<ul class="entry-highlights"><li>From VR, Ada switches Chrome tabs on the Mac, fills the YC draft and verifies the form after reload without submitting.</li><li>Wireless ADB reconnects by itself at startup, with one bounded attempt and a fresh headset identity check.</li><li>Named movement works — “move Ada to the whiteboard” — while pointing moves fail with an honest explanation instead of silence.</li></ul>
+</li><li class="entry" id="2026-10-18">
+<time class="entry-date" datetime="2026-10-18">Sunday, October 18, 2026</time>
+<h2>Ada gets eyes</h2>
+<figure class="entry-media"><img src="media/gifs/2026-10-18.gif" alt="Ada gets eyes" width="640" height="360" loading="lazy" decoding="async"></figure>
+<ul class="entry-highlights"><li>Ada gets eyes: a fresh Quest capture of the real room, including passthrough and virtual content, in a movable photo panel.</li><li>Vision permission and wireless ADB become separate, measured states that expire when the connection goes stale.</li><li>Mac screen sharing becomes a standalone, billboarded frame with move, resize, close and independent near/far interaction.</li></ul>
+</li><li class="entry" id="2026-10-17">
+<time class="entry-date" datetime="2026-10-17">Saturday, October 17, 2026</time>
+<h2>Keep listening, and Ada learns to move</h2>
+<figure class="entry-media"><img src="media/gifs/2026-10-17.gif" alt="Keep listening, and Ada learns to move" width="640" height="360" loading="lazy" decoding="async"></figure>
+<ul class="entry-highlights"><li>Keep listening: holding a raised index finger through a pause stops Ada cutting speech off.</li><li>Ada relocates on command — “move to the server rack” glides her there with the ducklings following.</li><li>The message queue is now visible and editable, and deletion no longer requires an exact magic phrase.</li></ul>
+</li><li class="entry" id="2026-10-16">
+<time class="entry-date" datetime="2026-10-16">Friday, October 16, 2026</time>
+<h2>The room becomes editable</h2>
+<figure class="entry-media"><img src="media/gifs/2026-10-16.gif" alt="The room becomes editable" width="640" height="360" loading="lazy" decoding="async"></figure>
+<ul class="entry-highlights"><li>The room becomes editable: select, rename, relabel and delete surfaces. Revision 5 kept 5 labels and removed 8 surfaces.</li><li>Worker cubes appear beside Ada as real background tasks, driven by observations rather than animation.</li><li>Speech and chat finally match, streaming updates as they arrive instead of one block at the end.</li></ul>
+</li><li class="entry" id="2026-10-15">
+<time class="entry-date" datetime="2026-10-15">Thursday, October 15, 2026</time>
+<h2>Ada grows hands</h2>
+<figure class="entry-media"><img src="media/gifs/2026-10-15.gif" alt="Ada grows hands" width="640" height="360" loading="lazy" decoding="async"></figure>
+<ul class="entry-highlights"><li>All WebXR hand overlays at once: joint markers, radius spheres, orientation axes and aim rays, plus a cyan index-finger ray.</li><li>The first developer preset saves the hand view to project memory; selectable presets are still missing.</li><li>The browser panel lands in code — Mac Chrome inside XR with video, audio and input — though the first live test still ends with an interruption.</li></ul>
+</li><li class="entry" id="2026-10-14">
+<time class="entry-date" datetime="2026-10-14">Wednesday, October 14, 2026</time>
+<h2>Ada, take four</h2>
+
+<ul class="entry-highlights"><li>First working room workspace: import the scanned room, align it, place a persistent anchor and save the layout.</li><li>A full reload restores the same room, with up to 64 named surfaces and 50 spatial notes.</li><li>Fresh-only capture: historical replay omitted, payloads capped at 48 KB, secrets redacted and the private outbox enforced.</li></ul>
 </li>
-</ul>
+</ol>
+</main>
+</div>
+<script>
+(() => {
+  const sync = () => {
+    const hash = location.hash;
+    document.querySelectorAll(".timeline-nav a").forEach((link) => {
+      const active = link.getAttribute("href") === hash;
+      link.classList.toggle("active", active);
+      if (active) {
+        link.setAttribute("aria-current", "location");
+        const month = link.closest("details");
+        if (month) month.open = true;
+      } else {
+        link.removeAttribute("aria-current");
+      }
+    });
+  };
+  addEventListener("hashchange", sync);
+  sync();
+})();
+</script>
 <footer class="site">
   <p>Daily build notes from an open-source project in progress.</p>
 </footer>

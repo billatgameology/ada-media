@@ -16,6 +16,6 @@ In the headset:
 - A spatial working note for the application — creates "YC Working Discussion"; asks follow-up questions, captures decisions, keeps brainstorming separate from approved wording, saves on request, fills the form only after approval, and never submits.
 - First-pass answer, drafted from the build — "Gamology Space is building a context-aware interface for working with AI... AdaXR brings an AI collaborator into a mixed reality workspace, where people can talk through a problem, point to relevant objects, and develop ideas using spatial notes, physical whiteboards, and their existing software."
 
-Full notes: https://billatgameology.github.io/ada-media/2026-10-19.html
+Timeline: https://billatgameology.github.io/ada-media/#2026-10-19
 
 #devlog #buildinpublic #opensource #xr

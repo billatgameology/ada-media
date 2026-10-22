@@ -20,6 +20,6 @@ In the headset:
 - Movement bugs classified — released ducklings snap into a line; a change in the other hand cancels a valid drag; the queue won't scroll past three; Combine stops working past three queued cues.
 - The silent failure — "move to second desk" failed, and the explanation appeared on the Mac but not in XR dialogue. Cause: the action-verification gate swallowed the entire final reply. Repair staged with 1,547 tests.
 
-Full notes: https://billatgameology.github.io/ada-media/2026-10-18.html
+Timeline: https://billatgameology.github.io/ada-media/#2026-10-18
 
 #devlog #buildinpublic #opensource #xr

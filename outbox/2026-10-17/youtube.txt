@@ -20,6 +20,6 @@ In the headset:
 - Relocation, palm target, ducklings — "move to the server rack" → smooth glide with the children following; palm targeting "worked beautifully." The move's internal confirmation still failed.
 - Combine + worker close — "I can confirm the combined speech queue works... mark that complete." One finished cube disappeared; others stayed stuck.
 
-Full notes: https://billatgameology.github.io/ada-media/2026-10-17.html
+Timeline: https://billatgameology.github.io/ada-media/#2026-10-17
 
 #devlog #buildinpublic #opensource #xr

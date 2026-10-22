@@ -1,5 +1,5 @@
 ada-media — posts for 2026-10-21
-site post: https://billatgameology.github.io/ada-media/2026-10-21.html
+site post: https://billatgameology.github.io/ada-media/#2026-10-21
 
 copy each file into its platform's composer, attach the listed media, post.
 per-platform details: guide/POSTING.md
@@ -11,7 +11,7 @@ Threads — threads.txt  ·  media post  ·  350/500 chars
 Instagram — instagram.txt  ·  JPEG cover  ·  caption 578/2200 chars
   attach JPEG cover: gifs/2026-10-21.jpg  ·  from phone: https://billatgameology.github.io/ada-media/media/gifs/2026-10-21.jpg
   GIF for other platforms: gifs/2026-10-21.gif
-Facebook — facebook.txt  ·  1546 chars  ·  site link included
+Facebook — facebook.txt  ·  1542 chars  ·  site link included
   attach GIF: gifs/2026-10-21.gif  ·  from phone: https://billatgameology.github.io/ada-media/media/gifs/2026-10-21.gif
 TikTok — tiktok.txt  ·  caption ready, but there is no video
 YouTube — youtube.txt  ·  title/description ready, but there is no video

@@ -1,10 +1,10 @@
 # ada-media — a daily build log, and a content studio
 
 One repo for the whole social side of the project. Write **one markdown note a day**;
-the repo turns it into the public page (GitHub Pages) plus copy-paste-ready posts for
-**X, Threads, Instagram, Facebook, TikTok and YouTube**. You post them yourself —
-no API keys, tokens, audits, per-post fees or rate limits to babysit. The content is
-the hard part; the plumbing shouldn't be.
+the repo turns it into a single-page public timeline (GitHub Pages) plus
+copy-paste-ready posts for **X, Threads, Instagram, Facebook, TikTok and YouTube**.
+You post them yourself — no API keys, tokens, audits, per-post fees or rate limits
+to babysit. The content is the hard part; the plumbing shouldn't be.
 
 ## How a day works
 
@@ -12,7 +12,7 @@ the hard part; the plumbing shouldn't be.
 source .venv/bin/activate
 
 python scripts/ada.py daily          # 1. create content/daily/YYYY-MM-DD.md (prefilled with recent code commits)
-# ...edit it: title, summary, "In code" and "In the headset" bullets...
+# ...edit it: title, summary, 3 highlights, "In code" and "In the headset" bullets...
 #    code:     python scripts/ada.py code --date YYYY-MM-DD --stat
 #    evidence: python scripts/ada.py find --date YYYY-MM-DD --grep "phrase"
 #    preview:  python scripts/ada.py gif --date YYYY-MM-DD  (5-10s loop from content/gifs.yaml)
@@ -50,7 +50,7 @@ python3 -m venv .venv
 | `scripts/transcribe.py` | Local Whisper transcription of cataloged recordings |
 | `catalog/` | Video catalog + transcripts (local, gitignored — `guide/MEDIA.md`) |
 | `outbox/` | Generated posts, one folder per day — copy-paste-ready (+ manifest) |
-| `docs/` | The built site + RSS (served by GitHub Pages) |
+| `docs/` | The built single-page timeline + RSS (served by GitHub Pages) |
 | `site_assets/` | Stylesheet for the built site |
 | `guide/` | `PLAYBOOK.md` (what to write), `POSTING.md` (how to post), `PLAN.md` (roadmap), `MEDIA.md` (video library) |
 
@@ -60,25 +60,27 @@ The outbox derives everything from the note's frontmatter and bullets:
 
 | Field | Feeds |
 | --- | --- |
-| `title` | Site headline, YouTube title, Facebook intro |
+| `title` | Timeline headline, YouTube title, Facebook intro |
 | `summary` | The hook — X, Threads, Instagram caption, YouTube description |
+| `highlights` | Exactly three bullets on the timeline for that day |
 | `## In the headset` bullets | First two are cooked into X / Threads / Instagram |
 | `## In code` + `## In the headset` bullets | Facebook and YouTube descriptions, grouped; X thread mixes the first two of each |
 | `tags` | Hashtags (Instagram/TikTok/YouTube) |
-| `media.gif` | Site preview and index thumbnail; X / Threads / Facebook attachment; Instagram gets the JPEG cover |
+| `media.gif` | Timeline GIF; X / Threads / Facebook attachment; Instagram gets the JPEG cover |
 | `media.images` / `media.video` | What to attach on each platform |
 | `overrides.<platform>` | Exact per-platform text, when auto-derived isn't right |
 
-Evidence lines (`*Evidence: `file` @ 1:23.*`) stay out of every post — they're only
-for the site and for finding the footage again.
+Evidence lines (`*Evidence: `file` @ 1:23.*`) stay out of every post and the
+timeline — they're only for finding the footage again.
 
-Link policy: Threads and Facebook posts include the day's page link automatically;
-X leaves it out by default (links reduce reach — flip `x.include_link` to change);
-Instagram captions can't have clickable links ("link in bio").
+Link policy: Threads text posts and every Facebook post include the day's timeline
+anchor; Threads media posts use the GIF instead. X leaves links out by default
+(links reduce reach — flip `x.include_link` to change); Instagram captions can't
+have clickable links ("link in bio").
 
 ## Site
 
-<https://billatgameology.github.io/ada-media> · RSS: <https://billatgameology.github.io/ada-media/feed.xml>
+One page, newest first: <https://billatgameology.github.io/ada-media> · RSS: <https://billatgameology.github.io/ada-media/feed.xml>
 
 ## Video library (catalog + transcripts)
 

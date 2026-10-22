@@ -14,4 +14,4 @@ In the headset:
 - Three mystery panels — identified the room panel, capability catalog and browser-sharing panel: "It lets you view and control a Mac Chrome tab inside XR." Asked to collapse them into Developer settings.
 - Speech bug logged — Ada answered a sentence I never said: "I didn't say any of that. Let's book that as a bug."
 
-https://billatgameology.github.io/ada-media/2026-10-15.html
+https://billatgameology.github.io/ada-media/#2026-10-15

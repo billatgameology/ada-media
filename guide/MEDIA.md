@@ -79,7 +79,7 @@ Outputs (in `catalog/clips/`, gitignored):
 
 ## Short GIF previews (`gif`)
 
-A 5–10 second loop for the top of a daily note and for posts that accept GIFs.
+A 5–10 second loop for the top of a timeline entry and for posts that accept GIFs.
 The chosen moments live in `content/gifs.yaml`: date, recording name, start time
 and duration. That keeps the cut reproducible and easy to re-aim.
 
@@ -90,18 +90,18 @@ python scripts/ada.py gif --date 2026-10-18 --duration 6 --width 640 --fps 10
 ```
 
 Output goes to `content/media/gifs/<date>.gif`, plus a matching `.jpg` cover for
-platforms that don't animate GIF uploads. Defaults are 480 px wide, 8 fps and a
-64-color palette — roughly 2–3 MB for eight seconds. Wire it into a note with:
+platforms that don't animate GIF uploads. Defaults are 640 px wide, 10 fps and a
+64-color palette — roughly 4–8 MB for eight seconds. Wire it into a note with:
 
 ```yaml
 media:
   gif: "gifs/2026-10-18.gif"
 ```
 
-`build` displays it at the top of the page and uses the JPEG cover as the index
-thumbnail. `outbox` attaches the GIF to X, Threads and Facebook; Instagram gets the
-JPEG cover instead, since it doesn't animate GIF uploads. There is deliberately no
-2026-10-14 clip: that session wasn't recorded.
+`build` displays it at the top of the timeline entry. `outbox` attaches the GIF to
+X, Threads and Facebook; Instagram gets the JPEG cover instead, since it doesn't
+animate GIF uploads. There is deliberately no 2026-10-14 clip: that session wasn't
+recorded.
 
 ## Daily stories (all clips → one journal + reel)
 

@@ -15,6 +15,6 @@ In the headset:
 - Always paired? — "I don't remember if I paired... Is there a way to always have it paired?" Screen mirroring should remember, not rely on me.
 - Front-end-only deploy — removed in code, first checks pass, testing close/hidden input/recovery; no service restart and no forced headset refresh.
 
-Full notes: https://billatgameology.github.io/ada-media/2026-10-21.html
+Timeline: https://billatgameology.github.io/ada-media/#2026-10-21
 
 #devlog #buildinpublic #opensource #xr

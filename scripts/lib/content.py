@@ -44,6 +44,7 @@ class Day:
     date: str
     title: str = ""
     summary: str = ""
+    highlights: list = field(default_factory=list)
     tags: list = field(default_factory=list)
     gif: str = ""
     images: list = field(default_factory=list)
@@ -90,12 +91,9 @@ class Day:
         # "What I did" keeps the older single-section notes working.
         return self._section("in the headset", "what the headset showed", "what i did")
 
-    def site_filename(self) -> str:
-        return f"{self.date}.html"
-
     def site_url(self) -> str:
         base = str(config.project().get("site_url") or "").rstrip("/")
-        return f"{base}/{self.site_filename()}"
+        return f"{base}/#{self.date}"
 
     def media_url(self, rel: str) -> str:
         base = str(config.project().get("site_url") or "").rstrip("/")
@@ -216,7 +214,7 @@ class Day:
             bullets = self.bullets()
             if bullets:
                 parts.append("\n".join(f"- {b}" for b in bullets))
-        parts.append(f"Full notes: {self.site_url()}")
+        parts.append(f"Timeline: {self.site_url()}")
         tags = self.hashtags()
         if tags:
             parts.append(tags)
@@ -236,6 +234,7 @@ def load_day(date: str | None = None) -> Day:
         date=date,
         title=front.get("title") or "",
         summary=_plain(str(front.get("summary") or "")),
+        highlights=[_plain(str(item)) for item in (front.get("highlights") or [])],
         tags=list(front.get("tags") or []),
         gif=media.get("gif") or "",
         images=list(media.get("images") or []),

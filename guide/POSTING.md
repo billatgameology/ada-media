@@ -18,7 +18,7 @@ URL — open it on the phone to save/attach.
 
 ## Threads — `threads.txt`
 
-- Text posts get a link preview card to the day's page automatically.
+- Text posts get a link preview card to the day's timeline anchor automatically.
 - Attach the single image/video/GIF if the manifest lists one.
 
 ## Instagram — `instagram.txt`
@@ -32,7 +32,7 @@ URL — open it on the phone to save/attach.
 
 ## Facebook — `facebook.txt`
 
-- The text includes the site link; the preview card appears automatically.
+- The text includes the timeline anchor link; the preview card appears automatically.
 - Attach photos/GIF if listed.
 
 ## TikTok — `tiktok.txt`
@@ -45,7 +45,7 @@ URL — open it on the phone to save/attach.
 
 - Two sections: `TITLE` and `DESCRIPTION`. Upload at studio.youtube.com (or the app).
 - Vertical and ≤3 minutes → it becomes a Short; add `#Shorts` to the description.
-- Links are free here — the description already includes the day's page URL.
+- Links are free here — the description already includes the day's timeline anchor URL.
 
 ---
 

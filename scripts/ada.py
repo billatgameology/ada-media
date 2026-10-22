@@ -374,8 +374,8 @@ def main(argv=None) -> int:
     p.add_argument("--date", help="YYYY-MM-DD from content/gifs.yaml")
     p.add_argument("--all", action="store_true", help="cut every clip in content/gifs.yaml")
     p.add_argument("--duration", type=float, help="override seconds (5-10)")
-    p.add_argument("--width", type=int, default=480, help="pixel width (default 480)")
-    p.add_argument("--fps", type=int, default=8, help="frames per second (default 8)")
+    p.add_argument("--width", type=int, default=640, help="pixel width (default 640)")
+    p.add_argument("--fps", type=int, default=10, help="frames per second (default 10)")
     p.add_argument("--colors", type=int, default=64, help="palette colors (default 64)")
     p.set_defaults(func=cmd_gif)
 
