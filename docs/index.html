@@ -19,7 +19,6 @@
 <main class="layout">
 <aside class="timeline-nav" aria-label="Timeline navigation">
 <a class="nav-overview" href="#latest">Latest progress</a>
-<a class="nav-overview" href="#current-log">The current log</a>
 <p class="nav-label">Daily log</p>
 <details class="nav-month" open><summary>October 2026</summary><ul><li><a href="#2026-10-19">Oct 19</a></li><li><a href="#2026-10-18">Oct 18</a></li><li><a href="#2026-10-17">Oct 17</a></li><li><a href="#2026-10-16">Oct 16</a></li><li><a href="#2026-10-15">Oct 15</a></li><li><a href="#2026-10-14">Oct 14</a></li></ul></details>
 <p class="nav-label">Previous attempts</p><ul class="nav-attempts"><li><a href="#attempt-3">03 · OpenClaw and computer use</a></li><li><a href="#attempt-2">02 · Camera access</a></li><li><a href="#attempt-1">01 · Hackathon prototype</a></li></ul>
@@ -33,54 +32,41 @@
 <p class="project-introduction">What if working with computers felt less like operating software and more like collaborating with another presence? This is Ada&#x27;s development journal — experiments, breakthroughs, failures, and everything in between.</p>
 <div class="intro-actions"><a href="#latest">Latest progress ↓</a><a href="#attempts">Previous attempts ↓</a></div>
 </div>
-<div class="timeline">
-<section class="featured" id="latest" aria-labelledby="latest-title">
-<div class="featured-heading">
-<h2 class="eyebrow" id="latest-title">Latest prototype</h2>
-<time datetime="2026-10-19">Oct 19, 2026</time>
-</div>
-<h3>Ada drives Chrome from inside the headset</h3>
-<figure class="entry-media"><img src="media/gifs/2026-10-19.gif" alt="Ada drives Chrome from inside the headset" width="640" height="360" loading="eager" decoding="async"></figure>
-<p class="featured-summary">From VR, Ada switches Chrome tabs on the Mac, fills our YC draft and helps write the answers — while wireless ADB reconnects itself and failures stop going silent.</p>
-<p class="entry-why"><span>Why it matters</span> Working together starts to mean using the same tools: I can talk through a task from the headset while Ada operates Chrome on the Mac, with the final submission still in my hands.</p>
-<a class="attempt-link" href="#2026-10-19">Read this build note ↓</a>
-</section>
-<h2 class="log-title" id="current-log">The current log <span class="log-attempt">Attempt 4</span></h2>
-<p class="log-intro">The fourth attempt is the current log: a real room, hands, voice, vision and Chrome control, one day at a time.</p>
-<ol class="timeline-list">
+<div class="timeline" id="latest">
+<ol class="timeline-list" id="current-log" aria-label="Daily log">
 <li class="entry" id="2026-10-19">
 <time class="entry-date" datetime="2026-10-19">Monday, October 19, 2026</time>
-<h3>Ada drives Chrome from inside the headset</h3>
+<h2>Ada drives Chrome from inside the headset</h2>
 <figure class="entry-media"><img src="media/gifs/2026-10-19.gif" alt="Ada drives Chrome from inside the headset" width="640" height="360" loading="eager" decoding="async"></figure>
 <ul class="entry-highlights"><li>From VR, Ada switches Chrome tabs on the Mac, fills the YC draft and verifies the form after reload without submitting.</li><li>Wireless ADB reconnects by itself at startup, with one bounded attempt and a fresh headset identity check.</li><li>Named movement works — “move Ada to the whiteboard” — while pointing moves fail with an honest explanation instead of silence.</li></ul>
 <p class="entry-why"><span>Why it matters</span> Working together starts to mean using the same tools: I can talk through a task from the headset while Ada operates Chrome on the Mac, with the final submission still in my hands.</p>
 </li><li class="entry" id="2026-10-18">
 <time class="entry-date" datetime="2026-10-18">Sunday, October 18, 2026</time>
-<h3>Ada gets eyes</h3>
+<h2>Ada gets eyes</h2>
 <figure class="entry-media"><img src="media/gifs/2026-10-18.gif" alt="Ada gets eyes" width="640" height="360" loading="lazy" decoding="async"></figure>
 <ul class="entry-highlights"><li>Ada gets eyes: a fresh Quest capture of the real room, including passthrough and virtual content, in a movable photo panel.</li><li>Vision permission and wireless ADB become separate, measured states that expire when the connection goes stale.</li><li>Mac screen sharing becomes a standalone, billboarded frame with move, resize, close and independent near/far interaction.</li></ul>
 <p class="entry-why"><span>Why it matters</span> A fresh headset capture gives Ada visual context from the room I&#x27;m in, so our conversation can refer to what I&#x27;m seeing as well as what I&#x27;m saying.</p>
 </li><li class="entry" id="2026-10-17">
 <time class="entry-date" datetime="2026-10-17">Saturday, October 17, 2026</time>
-<h3>Keep listening, and Ada learns to move</h3>
+<h2>Keep listening, and Ada learns to move</h2>
 <figure class="entry-media"><img src="media/gifs/2026-10-17.gif" alt="Keep listening, and Ada learns to move" width="640" height="360" loading="lazy" decoding="async"></figure>
 <ul class="entry-highlights"><li>Keep listening: holding a raised index finger through a pause stops Ada cutting speech off.</li><li>Ada relocates on command — “move to the server rack” glides her there with the ducklings following.</li><li>The message queue is now visible and editable, and deletion no longer requires an exact magic phrase.</li></ul>
 
 </li><li class="entry" id="2026-10-16">
 <time class="entry-date" datetime="2026-10-16">Friday, October 16, 2026</time>
-<h3>The room becomes editable</h3>
+<h2>The room becomes editable</h2>
 <figure class="entry-media"><img src="media/gifs/2026-10-16.gif" alt="The room becomes editable" width="640" height="360" loading="lazy" decoding="async"></figure>
 <ul class="entry-highlights"><li>The room becomes editable: select, rename, relabel and delete surfaces. Revision 5 kept 5 labels and removed 8 surfaces.</li><li>Worker cubes appear beside Ada as real background tasks, driven by observations rather than animation.</li><li>Speech and chat finally match, streaming updates as they arrive instead of one block at the end.</li></ul>
 
 </li><li class="entry" id="2026-10-15">
 <time class="entry-date" datetime="2026-10-15">Thursday, October 15, 2026</time>
-<h3>Ada grows hands</h3>
+<h2>Ada grows hands</h2>
 <figure class="entry-media"><img src="media/gifs/2026-10-15.gif" alt="Ada grows hands" width="640" height="360" loading="lazy" decoding="async"></figure>
 <ul class="entry-highlights"><li>All WebXR hand overlays at once: joint markers, radius spheres, orientation axes and aim rays, plus a cyan index-finger ray.</li><li>The first developer preset saves the hand view to project memory; selectable presets are still missing.</li><li>The browser panel lands in code — Mac Chrome inside XR with video, audio and input — though the first live test still ends with an interruption.</li></ul>
 <p class="entry-why"><span>Why it matters</span> Hands make the room addressable: pointing at a surface is a step toward sharing what I mean with Ada, without translating everything into words.</p>
 </li><li class="entry" id="2026-10-14">
 <time class="entry-date" datetime="2026-10-14">Wednesday, October 14, 2026</time>
-<h3>Ada, take four</h3>
+<h2>Ada, take four</h2>
 
 <ul class="entry-highlights"><li>First working room workspace: import the scanned room, align it, place a persistent anchor and save the layout.</li><li>A full reload restores the same room, with up to 64 named surfaces and 50 spatial notes.</li><li>Fresh-only capture: historical replay omitted, payloads capped at 48 KB, secrets redacted and the private outbox enforced.</li></ul>
 

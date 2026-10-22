@@ -43,7 +43,7 @@ python3 -m venv .venv
 | `content/daily/` | One markdown file per day — the single source of truth |
 | `content/media/` | Images, short videos and generated GIF previews referenced by daily notes |
 | `content/gifs.yaml` | The chosen 2–10s GIF moment for each day (recording + start + duration) |
-| `content/attempts.yaml` | Current-build context and previous attempts, with YouTube links |
+| `content/attempts.yaml` | Attempt history and YouTube links |
 | `content/templates/` | The daily note template |
 | `scripts/ada.py` | CLI: `daily`, `outbox`, `build`, `preview`, `status`, `catalog`, `transcribe`, `watch`, `clip`, `gif`, `story`, `code`, `find` |
 | `scripts/outbox.py` | Turns a note into the per-platform post files |
@@ -82,16 +82,14 @@ have clickable links ("link in bio").
 
 ## Site
 
-One page: Ada's vision, the latest recorded prototype, the current daily log,
-then previous attempts from newest to oldest (3 → 2 → 1):
+One page: Ada's vision, daily entries from newest to oldest, then previous
+attempts from newest to oldest (3 → 2 → 1):
 <https://billatgameology.github.io/ada-media> · RSS: <https://billatgameology.github.io/ada-media/feed.xml>
 
 The project name, tagline and introduction live in `config.yaml` under `project`.
-The featured prototype follows the newest published note with media automatically;
-if no notes have media, it shows the latest progress instead. Drafts stay unpublished.
+The newest published daily entry comes first. Drafts stay unpublished.
 The history copy and embeds live in `content/attempts.yaml`; rebuild after editing it.
-The current attempt introduces the daily log; earlier attempts appear at the bottom
-with individual links in the left navigation.
+Earlier attempts appear at the bottom with individual links in the left navigation.
 Add an optional `why` sentence to selected daily notes to explain what the milestone
 changes about the interaction, alongside the three technical highlights.
 

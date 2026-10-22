@@ -157,8 +157,6 @@ def _timeline_nav(days: list[content.Day], attempts: list[dict]) -> str:
         )
 
     overview = '<a class="nav-overview" href="#latest">Latest progress</a>\n' if days else ""
-    if days:
-        overview += '<a class="nav-overview" href="#current-log">The current log</a>\n'
     history = ""
     if attempts:
         links = "".join(
@@ -220,33 +218,12 @@ def _why(day: content.Day) -> str:
     )
 
 
-def _featured_progress(days: list[content.Day]) -> str:
-    if not days:
-        return ""
-    # Keep the newest recorded demo visible even when a later note has no media.
-    day = next((d for d in days if d.gif or d.video or d.images), days[0])
-    title = html.escape(day.title or day.date)
-    date = html.escape(day.date)
-    label = "Latest prototype" if day.gif or day.video or day.images else "Latest progress"
-    return f"""<section class="featured" id="latest" aria-labelledby="latest-title">
-<div class="featured-heading">
-<h2 class="eyebrow" id="latest-title">{label}</h2>
-<time datetime="{date}">{html.escape(_short_date(day.date))}, {html.escape(day.date[:4])}</time>
-</div>
-<h3>{title}</h3>
-{_entry_media(day, True)}
-<p class="featured-summary">{html.escape(day.summary)}</p>
-{_why(day)}
-<a class="attempt-link" href="#{date}">Read this build note ↓</a>
-</section>"""
-
-
 def _entry(day: content.Day, first: bool) -> str:
     title = html.escape(day.title or day.date)
     points = "".join(f"<li>{html.escape(item)}</li>" for item in _highlights(day))
     return f"""<li class="entry" id="{html.escape(day.date)}">
 <time class="entry-date" datetime="{html.escape(day.date)}">{html.escape(_pretty_date(day.date))}</time>
-<h3>{title}</h3>
+<h2>{title}</h2>
 {_entry_media(day, first)}
 <ul class="entry-highlights">{points}</ul>
 {_why(day)}
@@ -261,15 +238,6 @@ def _timeline_page(days: list[content.Day], proj: dict) -> str:
     attempts_data = content.load_attempts()
     previous = _previous_attempts(attempts_data)
     attempts_html = _attempts_section(attempts_data, previous)
-    current = next((item for item in attempts_data.get("attempts", []) if item.get("current")), {})
-    current_label = (
-        f'<span class="log-attempt">Attempt {html.escape(str(current["number"]))}</span>'
-        if current.get("number") else ""
-    )
-    current_intro = (
-        f'<p class="log-intro">{html.escape(str(current["text"]))}</p>'
-        if current.get("text") else ""
-    )
     actions = '<a href="#latest">Latest progress ↓</a>' if days else ""
     if attempts_html:
         actions += '<a href="#attempts">Previous attempts ↓</a>'
@@ -284,11 +252,8 @@ def _timeline_page(days: list[content.Day], proj: dict) -> str:
 <p class="project-introduction">{introduction}</p>
 <div class="intro-actions">{actions}</div>
 </div>
-<div class="timeline">
-{_featured_progress(days)}
-<h2 class="log-title" id="current-log">The current log {current_label}</h2>
-{current_intro}
-<ol class="timeline-list">
+<div class="timeline" id="latest">
+<ol class="timeline-list" id="current-log" aria-label="Daily log">
 {entries}
 </ol>
 {attempts_html}

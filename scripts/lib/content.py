@@ -258,7 +258,7 @@ def all_days() -> list[Day]:
 
 
 def load_attempts() -> dict:
-    """Current-build context and the previous-attempt history below the daily timeline."""
+    """Attempt history; previous attempts appear below the daily timeline."""
     if not ATTEMPTS_FILE.exists():
         return {}
     data = yaml.safe_load(ATTEMPTS_FILE.read_text(encoding="utf-8")) or {}
