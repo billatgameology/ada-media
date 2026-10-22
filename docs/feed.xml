@@ -5,13 +5,6 @@
 <link>https://billatgameology.github.io/ada-media/</link>
 <description>Daily build notes from an open-source project in progress.</description>
 <item>
-<title>The case of the phantom panels</title>
-<link>https://billatgameology.github.io/ada-media/#2026-10-21</link>
-<guid>https://billatgameology.github.io/ada-media/#2026-10-21</guid>
-<pubDate>Wed, 21 Oct 2026 00:00:00 +0000</pubDate>
-<description>An empty note and a media window appeared without being asked, and neither could be dismissed. Today&#x27;s fix: panels that only exist when requested — and the start of note deletion.</description>
-<content:encoded><![CDATA[<p>An empty note and a media window appeared without being asked, and neither could be dismissed. Today&#x27;s fix: panels that only exist when requested — and the start of note deletion.</p><ul><li>An empty “Untitled Note” appeared unrequested and had no delete control; note deletion is now being added.</li><li>The media state said closed while a standalone media window stayed visible; the idle surface is removed so panels only appear on request.</li><li>The panel fix shipped front-end-only, with close, hidden-input and recovery checks and no forced headset refresh.</li></ul>]]></content:encoded>
-</item><item>
 <title>Ada drives Chrome from inside the headset</title>
 <link>https://billatgameology.github.io/ada-media/#2026-10-19</link>
 <guid>https://billatgameology.github.io/ada-media/#2026-10-19</guid>

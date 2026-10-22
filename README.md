@@ -15,7 +15,7 @@ python scripts/ada.py daily          # 1. create content/daily/YYYY-MM-DD.md (pr
 # ...edit it: title, summary, 3 highlights, "In code" and "In the headset" bullets...
 #    code:     python scripts/ada.py code --date YYYY-MM-DD --stat
 #    evidence: python scripts/ada.py find --date YYYY-MM-DD --grep "phrase"
-#    preview:  python scripts/ada.py gif --date YYYY-MM-DD  (5-10s loop from content/gifs.yaml)
+#    preview:  python scripts/ada.py gif --date YYYY-MM-DD  (2-10s loop from content/gifs.yaml)
 # ...drop media in content/media/ if you have it...
 
 python scripts/ada.py outbox         # 2. write copy-paste-ready posts to outbox/<date>/
@@ -42,7 +42,7 @@ python3 -m venv .venv
 | --- | --- |
 | `content/daily/` | One markdown file per day — the single source of truth |
 | `content/media/` | Images, short videos and generated GIF previews referenced by daily notes |
-| `content/gifs.yaml` | The chosen 5–10s GIF moment for each day (recording + start + duration) |
+| `content/gifs.yaml` | The chosen 2–10s GIF moment for each day (recording + start + duration) |
 | `content/templates/` | The daily note template |
 | `scripts/ada.py` | CLI: `daily`, `outbox`, `build`, `preview`, `status`, `catalog`, `transcribe`, `watch`, `clip`, `gif`, `story`, `code`, `find` |
 | `scripts/outbox.py` | Turns a note into the per-platform post files |
@@ -92,7 +92,7 @@ python scripts/ada.py catalog       # scan → catalog/index.json + catalog/cata
 python scripts/ada.py transcribe    # local whisper → catalog/transcripts/<id>.{txt,srt,json}
 python scripts/ada.py watch         # do both on a loop — hands-off monitoring
 python scripts/ada.py clip --id <id>  # auto highlight reel (transcript-scored) → catalog/clips/
-python scripts/ada.py gif --all      # 5-10s loops from content/gifs.yaml → content/media/gifs/
+python scripts/ada.py gif --all      # 2-10s loops from content/gifs.yaml → content/media/gifs/
 python scripts/ada.py story --date <day>  # all of a day's clips → script, journal draft, day reel
 ```
 

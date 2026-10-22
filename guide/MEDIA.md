@@ -79,7 +79,7 @@ Outputs (in `catalog/clips/`, gitignored):
 
 ## Short GIF previews (`gif`)
 
-A 5–10 second loop for the top of a timeline entry and for posts that accept GIFs.
+A 2–10 second loop for the top of a timeline entry and for posts that accept GIFs.
 The chosen moments live in `content/gifs.yaml`: date, recording name, start time
 and duration. That keeps the cut reproducible and easy to re-aim.
 

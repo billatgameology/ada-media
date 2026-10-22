@@ -370,10 +370,10 @@ def main(argv=None) -> int:
     p.add_argument("--burn", action="store_true", help="burn the subtitles into the video")
     p.set_defaults(func=cmd_clip)
 
-    p = sub.add_parser("gif", help="cut a 5-10s looping GIF preview from a recording")
+    p = sub.add_parser("gif", help="cut a 2-10s looping GIF preview from a recording")
     p.add_argument("--date", help="YYYY-MM-DD from content/gifs.yaml")
     p.add_argument("--all", action="store_true", help="cut every clip in content/gifs.yaml")
-    p.add_argument("--duration", type=float, help="override seconds (5-10)")
+    p.add_argument("--duration", type=float, help="override seconds (2-10)")
     p.add_argument("--width", type=int, default=640, help="pixel width (default 640)")
     p.add_argument("--fps", type=int, default=10, help="frames per second (default 10)")
     p.add_argument("--colors", type=int, default=64, help="palette colors (default 64)")

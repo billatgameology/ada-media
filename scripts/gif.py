@@ -67,7 +67,7 @@ def cut(entry: dict, start: float, duration: float, out: Path,
 
     total = float(entry.get("duration") or 0)
     start = max(0.0, float(start))
-    duration = max(5.0, min(float(duration), 10.0))
+    duration = max(2.0, min(float(duration), 10.0))
     if total:
         start = min(start, max(0.0, total - 0.5))
         duration = min(duration, max(0.5, total - start))
