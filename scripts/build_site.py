@@ -139,6 +139,11 @@ def _attempts_section(data: dict, attempts: list[dict]) -> str:
 </section>"""
 
 
+def _ordinal(number: int) -> str:
+    suffix = "th" if 10 <= number % 100 <= 20 else {1: "st", 2: "nd", 3: "rd"}.get(number % 10, "th")
+    return f"{number}{suffix}"
+
+
 def _timeline_nav(days: list[content.Day], attempts: list[dict]) -> str:
     groups: dict[str, list[content.Day]] = {}
     for day in days:
@@ -163,7 +168,8 @@ def _timeline_nav(days: list[content.Day], attempts: list[dict]) -> str:
     if attempts:
         links = "".join(
             f'<li><a href="#attempt-{html.escape(str(item["number"]))}">'
-            f'{html.escape(str(item["number"]).zfill(2))} · '
+            f'{html.escape(_ordinal(int(item["number"])))} '
+            f'({html.escape(str(item.get("when") or "").rsplit(" ", 1)[-1])}) - '
             f'{html.escape(str(item.get("title") or ""))}</a></li>'
             for item in attempts
         )
