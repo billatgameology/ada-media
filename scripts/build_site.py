@@ -175,10 +175,15 @@ def _timeline_nav(days: list[content.Day], attempts: list[dict]) -> str:
         )
         history = f'<p class="nav-label">Previous attempts</p><ul class="nav-attempts">{links}</ul>'
     return f"""<aside class="timeline-nav" aria-label="Timeline navigation">
+<details class="nav-browser" open>
+<summary class="nav-toggle">Browse the log</summary>
+<div class="nav-content">
 {overview}<p class="nav-label">Daily log</p>
 {''.join(months)}
 {history}
 <a class="nav-top" href="#top">Back to top</a>
+</div>
+</details>
 </aside>"""
 
 
@@ -265,6 +270,14 @@ def _timeline_page(days: list[content.Day], proj: dict) -> str:
 </main>
 <script>
 (() => {{
+  const browser = document.querySelector(".nav-browser");
+  const mobile = matchMedia("(max-width: 820px)");
+  const syncBrowser = () => {{ browser.open = !mobile.matches; }};
+  mobile.addEventListener("change", syncBrowser);
+  syncBrowser();
+  browser.addEventListener("click", (event) => {{
+    if (mobile.matches && event.target.closest("a[href^='#']")) browser.open = false;
+  }});
   const sync = () => {{
     const hash = location.hash;
     document.querySelectorAll(".timeline-nav a").forEach((link) => {{
@@ -272,7 +285,7 @@ def _timeline_page(days: list[content.Day], proj: dict) -> str:
       link.classList.toggle("active", active);
       if (active) {{
         link.setAttribute("aria-current", "location");
-        const month = link.closest("details");
+        const month = link.closest(".nav-month");
         if (month) month.open = true;
       }} else {{
         link.removeAttribute("aria-current");

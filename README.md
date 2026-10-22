@@ -90,6 +90,7 @@ The project name, tagline and introduction live in `config.yaml` under `project`
 The newest published daily entry comes first. Drafts stay unpublished.
 The history copy and embeds live in `content/attempts.yaml`; rebuild after editing it.
 Earlier attempts appear at the bottom with individual links in the left navigation.
+On mobile, navigation folds into a "Browse the log" row; choosing an entry closes it.
 Add an optional `why` sentence to selected daily notes to explain what the milestone
 changes about the interaction, alongside the three technical highlights.
 

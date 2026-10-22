@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Ada — Rethinking how we interact with computers.</title>
 <meta name="description" content="An open exploration of spatial computing, AI, and human-computer interaction.">
-<link rel="stylesheet" href="style.css?v=f95f55865f69">
+<link rel="stylesheet" href="style.css?v=39e1df05e3bc">
 <link rel="alternate" type="application/rss+xml" title="Ada feed" href="feed.xml">
 </head>
 <body>
@@ -18,11 +18,16 @@
 </header>
 <main class="layout">
 <aside class="timeline-nav" aria-label="Timeline navigation">
+<details class="nav-browser" open>
+<summary class="nav-toggle">Browse the log</summary>
+<div class="nav-content">
 <a class="nav-overview" href="#latest">Latest progress</a>
 <p class="nav-label">Daily log</p>
 <details class="nav-month" open><summary>October 2026</summary><ul><li><a href="#2026-10-19">Oct 19</a></li><li><a href="#2026-10-18">Oct 18</a></li><li><a href="#2026-10-17">Oct 17</a></li><li><a href="#2026-10-16">Oct 16</a></li><li><a href="#2026-10-15">Oct 15</a></li><li><a href="#2026-10-14">Oct 14</a></li></ul></details>
 <p class="nav-label">Previous attempts</p><ul class="nav-attempts"><li><a href="#attempt-3">3rd (2026) - OpenClaw and computer use</a></li><li><a href="#attempt-2">2nd (2025) - Camera access</a></li><li><a href="#attempt-1">1st (2024) - Hackathon prototype</a></li></ul>
 <a class="nav-top" href="#top">Back to top</a>
+</div>
+</details>
 </aside>
 <div class="intro">
 <p class="eyebrow">An open experiment · Development journal</p>
@@ -83,6 +88,14 @@
 </main>
 <script>
 (() => {
+  const browser = document.querySelector(".nav-browser");
+  const mobile = matchMedia("(max-width: 820px)");
+  const syncBrowser = () => { browser.open = !mobile.matches; };
+  mobile.addEventListener("change", syncBrowser);
+  syncBrowser();
+  browser.addEventListener("click", (event) => {
+    if (mobile.matches && event.target.closest("a[href^='#']")) browser.open = false;
+  });
   const sync = () => {
     const hash = location.hash;
     document.querySelectorAll(".timeline-nav a").forEach((link) => {
@@ -90,7 +103,7 @@
       link.classList.toggle("active", active);
       if (active) {
         link.setAttribute("aria-current", "location");
-        const month = link.closest("details");
+        const month = link.closest(".nav-month");
         if (month) month.open = true;
       } else {
         link.removeAttribute("aria-current");
