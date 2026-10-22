@@ -246,9 +246,6 @@ def _timeline_page(days: list[content.Day], proj: dict) -> str:
     attempts_data = content.load_attempts()
     previous = _previous_attempts(attempts_data)
     attempts_html = _attempts_section(attempts_data, previous)
-    actions = '<a href="#latest">Latest progress ↓</a>' if days else ""
-    if attempts_html:
-        actions += '<a href="#attempts">Previous attempts ↓</a>'
     entries = "".join(_entry(day, index == 0) for index, day in enumerate(days))
     body = f"""<main class="layout">
 {_timeline_nav(days, previous)}
@@ -258,7 +255,6 @@ def _timeline_page(days: list[content.Day], proj: dict) -> str:
 <p class="tagline">{tagline}</p>
 <p class="project-description">{description}</p>
 <p class="project-introduction">{introduction}</p>
-<div class="intro-actions">{actions}</div>
 </div>
 <div class="timeline" id="latest">
 <ol class="timeline-list" id="current-log" aria-label="Daily log">
