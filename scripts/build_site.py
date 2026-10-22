@@ -70,28 +70,37 @@ def _month_label(value: str) -> str:
     return f"{day.strftime('%B')} {day.year}"
 
 
-def _attempts_section(data: dict) -> str:
+def _previous_attempts(data: dict) -> list[dict]:
     attempts = data.get("attempts") or []
-    if not isinstance(attempts, list) or not attempts:
+    if not isinstance(attempts, list):
+        return []
+    previous = [
+        {**item, "number": item.get("number") or index}
+        for index, item in enumerate(attempts, 1)
+        if not item.get("current")
+    ]
+    return sorted(previous, key=lambda item: int(item["number"]), reverse=True)
+
+
+def _attempts_section(data: dict, attempts: list[dict]) -> str:
+    if not attempts:
         return ""
     intro = data.get("intro") or {}
     eyebrow = html.escape(str(intro.get("eyebrow") or ""))
-    title = html.escape(str(intro.get("title") or "Four starts"))
+    title = html.escape(str(intro.get("title") or "Previous attempts"))
     body = html.escape(str(intro.get("body") or ""))
     eyebrow_html = f'<p class="eyebrow">{eyebrow}</p>' if eyebrow else ""
     body_html = f'<p class="attempts-intro">{body}</p>' if body else ""
 
     items = []
-    for index, item in enumerate(attempts, 1):
-        number = str(item.get("number") or index).zfill(2)
+    for item in attempts:
+        number = str(item["number"]).zfill(2)
         when = html.escape(str(item.get("when") or ""))
         name = html.escape(str(item.get("title") or ""))
         text = html.escape(str(item.get("text") or ""))
         video = str(item.get("youtube") or "").strip()
         video_url = html.escape(str(item.get("youtube_url") or f"https://youtu.be/{video}"))
         classes = "attempt"
-        if item.get("current"):
-            classes += " current"
         if item.get("vertical"):
             classes += " has-short"
         media = ""
@@ -109,15 +118,12 @@ def _attempts_section(data: dict) -> str:
                 f'<p class="video-link"><a href="{video_url}" target="_blank" rel="noopener">'
                 f'Watch on YouTube ↗</a></p>'
             )
-        action = ""
-        if item.get("current"):
-            action = '<a class="attempt-link" href="#current-log">Read the current log ↓</a>'
         items.append(
-            f'<li class="{classes}">'
+            f'<li class="{classes}" id="attempt-{html.escape(str(item["number"]))}">'
             f'<div class="attempt-copy">'
             f'<div class="attempt-head"><span class="attempt-number">{html.escape(number)}</span>'
             f'<span class="attempt-when">{when}</span></div>'
-            f'<h3>{name}</h3><p class="attempt-text">{text}</p>{action}</div>'
+            f'<h3>{name}</h3><p class="attempt-text">{text}</p></div>'
             f'{media}{video_link}</li>'
         )
 
@@ -125,13 +131,13 @@ def _attempts_section(data: dict) -> str:
 {eyebrow_html}
 <h2>{title}</h2>
 {body_html}
-<ol class="attempt-list">
+<ol class="attempt-list" reversed start="{html.escape(str(attempts[0]['number']))}">
 {''.join(items)}
 </ol>
 </section>"""
 
 
-def _timeline_nav(days: list[content.Day], has_attempts: bool = False) -> str:
+def _timeline_nav(days: list[content.Day], attempts: list[dict]) -> str:
     groups: dict[str, list[content.Day]] = {}
     for day in days:
         groups.setdefault(day.date[:7], []).append(day)
@@ -151,12 +157,21 @@ def _timeline_nav(days: list[content.Day], has_attempts: bool = False) -> str:
         )
 
     overview = '<a class="nav-overview" href="#latest">Latest progress</a>\n' if days else ""
-    if has_attempts:
-        overview += '<a class="nav-overview" href="#attempts">The four attempts</a>\n'
-    label = "Daily log" if has_attempts else "Jump to"
+    if days:
+        overview += '<a class="nav-overview" href="#current-log">The current log</a>\n'
+    history = ""
+    if attempts:
+        links = "".join(
+            f'<li><a href="#attempt-{html.escape(str(item["number"]))}">'
+            f'{html.escape(str(item["number"]).zfill(2))} · '
+            f'{html.escape(str(item.get("title") or ""))}</a></li>'
+            for item in attempts
+        )
+        history = f'<p class="nav-label">Previous attempts</p><ul class="nav-attempts">{links}</ul>'
     return f"""<aside class="timeline-nav" aria-label="Timeline navigation">
-{overview}<p class="nav-label">{label}</p>
+{overview}<p class="nav-label">Daily log</p>
 {''.join(months)}
+{history}
 <a class="nav-top" href="#top">Back to top</a>
 </aside>"""
 
@@ -243,13 +258,24 @@ def _timeline_page(days: list[content.Day], proj: dict) -> str:
     tagline = html.escape(str(proj.get("tagline") or ""))
     description = html.escape(str(proj.get("description") or ""))
     introduction = html.escape(str(proj.get("introduction") or ""))
-    attempts_html = _attempts_section(content.load_attempts())
+    attempts_data = content.load_attempts()
+    previous = _previous_attempts(attempts_data)
+    attempts_html = _attempts_section(attempts_data, previous)
+    current = next((item for item in attempts_data.get("attempts", []) if item.get("current")), {})
+    current_label = (
+        f'<span class="log-attempt">Attempt {html.escape(str(current["number"]))}</span>'
+        if current.get("number") else ""
+    )
+    current_intro = (
+        f'<p class="log-intro">{html.escape(str(current["text"]))}</p>'
+        if current.get("text") else ""
+    )
     actions = '<a href="#latest">Latest progress ↓</a>' if days else ""
     if attempts_html:
-        actions += '<a href="#attempts">The four attempts ↓</a>'
+        actions += '<a href="#attempts">Previous attempts ↓</a>'
     entries = "".join(_entry(day, index == 0) for index, day in enumerate(days))
     body = f"""<main class="layout">
-{_timeline_nav(days, bool(attempts_html))}
+{_timeline_nav(days, previous)}
 <div class="intro">
 <p class="eyebrow">An open experiment · Development journal</p>
 <h1 id="top">{name}</h1>
@@ -260,11 +286,12 @@ def _timeline_page(days: list[content.Day], proj: dict) -> str:
 </div>
 <div class="timeline">
 {_featured_progress(days)}
-{attempts_html}
-<h2 class="log-title" id="current-log">The current log</h2>
+<h2 class="log-title" id="current-log">The current log {current_label}</h2>
+{current_intro}
 <ol class="timeline-list">
 {entries}
 </ol>
+{attempts_html}
 </div>
 </main>
 <script>

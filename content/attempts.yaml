@@ -1,6 +1,6 @@
 intro:
-  eyebrow: "Before the daily log"
-  title: "Four starts over two years"
+  eyebrow: "Before the current build"
+  title: "Previous attempts"
   body: "I've started Ada four times over two years — roughly two months of actual building. Each attempt was unlocked by a new tool, and this is the first time the technology and timing feel right."
 attempts:
   - number: 1
