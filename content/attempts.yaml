@@ -19,7 +19,7 @@ attempts:
   - number: 3
     when: "May 2026"
     title: "OpenClaw and computer use"
-    text: "The third attempt built a complicated WebXR-to-OpenClaw communication layer and made the first try at computer use."
+    text: "The third attempt started in May 2026, building a complicated WebXR-to-OpenClaw communication layer and making the first attempt at computer use."
   - number: 4
     when: "October 2026"
     title: "The current build"
