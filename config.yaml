@@ -3,9 +3,9 @@
 
 project:
   name: "Ada"
-  tagline: "Rethinking how we interact with computers."
-  description: "An open exploration of spatial computing, AI, and human-computer interaction."
-  introduction: "What if working with computers felt less like operating software and more like collaborating with another presence? This is Ada's development journal — experiments, breakthroughs, failures, and everything in between."
+  tagline: "A new interface with technology."
+  description: "An AI collaborator that shares your workspace and helps you think, create, and get things done."
+  introduction: "What if getting things done didn’t feel like operating software? I’m exploring how conversation, gestures, and interactive visuals can make working alongside AI feel natural. This journal follows the experiments, setbacks, and discoveries as Ada takes shape."
   site_url: "https://billatgameology.github.io/ada-media"
   repo_url: "https://github.com/billatgameology/ada-media"
   code_url: "https://github.com/billatgameology/project-ada-xr"   # repo the "In code" section cites

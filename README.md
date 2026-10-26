@@ -65,6 +65,7 @@ The outbox derives everything from the note's frontmatter and bullets:
 | `summary` | The hook — X, Threads, Instagram caption, YouTube description |
 | `highlights` | Exactly three bullets on the timeline for that day |
 | `why` | Optional "Why it matters" context on the site and in RSS |
+| `demo_url` | Links the timeline headline to the demo; adds a "Watch the demo" link in RSS |
 | `## In the headset` bullets | First two are cooked into X / Threads / Instagram |
 | `## In code` + `## In the headset` bullets | Facebook and YouTube descriptions, grouped; X thread mixes the first two of each |
 | `tags` | Hashtags (Instagram/TikTok/YouTube) |

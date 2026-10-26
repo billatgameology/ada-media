@@ -214,6 +214,15 @@ def _entry_media(day: content.Day, first: bool) -> str:
     return ""
 
 
+def _demo_link(day: content.Day) -> str:
+    if not day.demo_url:
+        return ""
+    return (
+        f'<p class="video-link"><a href="{html.escape(day.demo_url)}" target="_blank" rel="noopener">'
+        'Watch the demo ↗</a></p>'
+    )
+
+
 def _highlights(day: content.Day) -> list[str]:
     if day.highlights:
         return day.highlights[:3]
@@ -234,6 +243,11 @@ def _why(day: content.Day) -> str:
 
 def _entry(day: content.Day, first: bool) -> str:
     title = html.escape(day.title or day.date)
+    if day.demo_url:
+        title = (
+            f'<a href="{html.escape(day.demo_url)}" target="_blank" rel="noopener">'
+            f'{title}</a>'
+        )
     points = "".join(f"<li>{html.escape(item)}</li>" for item in _highlights(day))
     return f"""<li class="entry" id="{html.escape(day.date)}">
 <time class="entry-date" datetime="{html.escape(day.date)}">{html.escape(_pretty_date(day.date))}</time>
@@ -256,7 +270,6 @@ def _timeline_page(days: list[content.Day], proj: dict) -> str:
     body = f"""<main class="layout">
 {_timeline_nav(days, previous)}
 <div class="intro">
-<p class="eyebrow">An open experiment · Development journal</p>
 <h1 id="top">{name}</h1>
 <p class="tagline">{tagline}</p>
 <p class="project-description">{description}</p>
@@ -310,7 +323,7 @@ def _feed_xml(days: list[content.Day], proj: dict) -> str:
         except ValueError:
             when = dt.datetime.now(dt.timezone.utc)
         points = "".join(f"<li>{html.escape(item)}</li>" for item in _highlights(day))
-        body_html = f"<p>{html.escape(day.summary)}</p><ul>{points}</ul>{_why(day)}".replace("]]>", "]]&gt;")
+        body_html = f"<p>{html.escape(day.summary)}</p>{_demo_link(day)}<ul>{points}</ul>{_why(day)}".replace("]]>", "]]&gt;")
         items.append(
             f"""<item>
 <title>{html.escape(day.title or day.date)}</title>

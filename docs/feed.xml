@@ -3,14 +3,14 @@
 <channel>
 <title>Ada</title>
 <link>https://billatgameology.github.io/ada-media/</link>
-<description>Rethinking how we interact with computers.</description>
+<description>A new interface with technology.</description>
 <item>
 <title>The demo is the test</title>
 <link>https://billatgameology.github.io/ada-media/#2026-10-25</link>
 <guid>https://billatgameology.github.io/ada-media/#2026-10-25</guid>
 <pubDate>Sun, 25 Oct 2026 00:00:00 +0000</pubDate>
 <description>A complete YC demo — load the 30mm marker holder, send it to the printer, open the application, fill the tech-stack answer from a photo — plus the seams that only show up when the camera is rolling.</description>
-<content:encoded><![CDATA[<p>A complete YC demo — load the 30mm marker holder, send it to the printer, open the application, fill the tech-stack answer from a photo — plus the seams that only show up when the camera is rolling.</p><ul><li>The demo runs end to end: Ada loads the 30mm holder, sends a print sub-agent, opens the YC application, writes and saves the description, fills the tech-stack section from a capture, and does not submit.</li><li>The object becomes a print: the 20mm holder is too shallow, so the 30mm design gets a center divider, exports to STL, and reaches the printer in white PLA with a three-hour estimate.</li><li>The seams show under pressure: contact-grab jitter, ambiguity and conflict guards rejecting valid loads and resizes, and stale worker cards force restarts before the final take.</li></ul><p class="entry-why"><span>Why it matters</span> The demo is the integration test. Features that survive a live run with a camera and a person waiting are the ones that count.</p>]]></content:encoded>
+<content:encoded><![CDATA[<p>A complete YC demo — load the 30mm marker holder, send it to the printer, open the application, fill the tech-stack answer from a photo — plus the seams that only show up when the camera is rolling.</p><p class="video-link"><a href="https://youtu.be/lzUh0MnksgU" target="_blank" rel="noopener">Watch the demo ↗</a></p><ul><li>The demo runs end to end: Ada loads the 30mm holder, sends a print sub-agent, opens the YC application, writes and saves the description, fills the tech-stack section from a capture, and does not submit.</li><li>The object becomes a print: the 20mm holder is too shallow, so the 30mm design gets a center divider, exports to STL, and reaches the printer in white PLA with a three-hour estimate.</li><li>The seams show under pressure: contact-grab jitter, ambiguity and conflict guards rejecting valid loads and resizes, and stale worker cards force restarts before the final take.</li></ul><p class="entry-why"><span>Why it matters</span> The demo is the integration test. Features that survive a live run with a camera and a person waiting are the ones that count.</p>]]></content:encoded>
 </item><item>
 <title>The object should remember</title>
 <link>https://billatgameology.github.io/ada-media/#2026-10-24</link>

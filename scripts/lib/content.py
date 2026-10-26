@@ -54,6 +54,7 @@ class Day:
     draft: bool = False
     body_md: str = ""
     why: str = ""
+    demo_url: str = ""
 
     # ── helpers ────────────────────────────────────────────────────────
     def bullets(self) -> list[str]:
@@ -245,6 +246,7 @@ def load_day(date: str | None = None) -> Day:
         draft=bool(front.get("draft")),
         body_md=body,
         why=_plain(str(front.get("why") or "")),
+        demo_url=str(front.get("demo_url") or "").strip(),
     )
 
 
