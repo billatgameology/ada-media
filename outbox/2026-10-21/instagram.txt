@@ -1,0 +1,6 @@
+The media panel lost its frames, a failed request stayed visible instead of vanishing, and a screen mirror interpreted “second desk” as the ceiling.
+
+• The media library, cleaned up — the photo and video previews lose their backing frames and persistent labels. File names appear only while hovered or grabbed, the huge “AdaXR Media / Close Media” header goes away, and video gets manual play/pause plus the correct aspect ratio immediately. The first rendered pass cleared 41 checks.
+• The photo moves — “move this photo to second desk” worked, after “second desktop” was rejected as an unmapped destination. The original instruction was clear; the translation into an executable action was the fragile part. A failed row now shows “failed, message kept,” but remove/resend are still missing.
+
+#devlog #buildinpublic #opensource #xr #spatialcomputing

@@ -1,0 +1,1 @@
+Ada moved the photo and four videos to the whiteboard in one request, then exposed the next layer: objects need to share the board’s plane, and commands need to act on more than one target.

@@ -1,0 +1,6 @@
+Ada moved the photo and four videos to the whiteboard in one request, then exposed the next layer: objects need to share the board’s plane, and commands need to act on more than one target.
+
+• The first group move — “move them to the whiteboard” moved all five media items. The position worked; the orientation did not. They kept their old viewing angles and stuck out of the board instead of lying flat against it. The fix is a board-relative placement: use the rectangle’s own left/right and up/down axes, rotate each face parallel to that plane, and keep it slightly in front to avoid clipping.
+• Multi-select belongs in the shared model — the limitation was not that group move needs a special feature. The voice path required one selected or named file. The better model: understand which objects are meant, then apply their existing actions to the whole compatible set. A selection is not a permanent group.
+
+#devlog #buildinpublic #opensource #xr #spatialcomputing

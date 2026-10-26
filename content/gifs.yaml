@@ -31,3 +31,28 @@ clips:
     start: "14:24"
     duration: 8
     label: "Chrome, controlled from VR"
+  "2026-10-21":
+    recording: com.oculus.browser-20261021-172306-0.mp4
+    start: "4:03"
+    duration: 7
+    label: "The screen mirror finds the ceiling"
+  "2026-10-22":
+    recording: com.oculus.browser-20261022-202414-0.mp4
+    start: "1:38"
+    duration: 8
+    label: "All five media items move to the whiteboard"
+  "2026-10-23":
+    recording: com.oculus.vrshell-20261023-181632-0.mp4
+    start: "6:25"
+    duration: 8
+    label: "Cyan means Ada recognized the pose"
+  "2026-10-24":
+    recording: com.oculus.browser-20261024-193309-0.mp4
+    start: "1:45"
+    duration: 8
+    label: "The 50mm cube arrives transparent"
+  "2026-10-25":
+    recording: demo video yc.mp4
+    start: "0:08"
+    duration: 8
+    label: "The final YC demo"

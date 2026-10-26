@@ -1,0 +1,3 @@
+The whiteboard move finally landed flat, and Ada’s hand outline turns cyan when she recognizes a pose — a small signal that changes how the interaction feels.
+
+The whiteboard finally agrees — in the morning the five media items were better but still stuck behind the board. By the evening test they were flush, flat and stable. Keeping them fixed to the whiteboard is intentional: they should not billboard back toward the headset once placed.

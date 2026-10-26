@@ -1,0 +1,6 @@
+The whiteboard move finally landed flat, and Ada’s hand outline turns cyan when she recognizes a pose — a small signal that changes how the interaction feels.
+
+• The whiteboard finally agrees — in the morning the five media items were better but still stuck behind the board. By the evening test they were flush, flat and stable. Keeping them fixed to the whiteboard is intentional: they should not billboard back toward the headset once placed.
+• Cyan is the new “I see you” — the index-up keep-talking pose and the open palm both turn the hand outline cyan. Moving out of the pose returns it to white. The palm-up does not arm without a summon target, which is the intended idle behavior. The color separates “recognized” from “idle” without adding another panel.
+
+#devlog #buildinpublic #opensource #xr #spatialcomputing

@@ -1,0 +1,15 @@
+TITLE
+The message was kept
+
+DESCRIPTION
+The media panel lost its frames, a failed request stayed visible instead of vanishing, and a screen mirror interpreted “second desk” as the ceiling.
+
+In the headset:
+- The media library, cleaned up — the photo and video previews lose their backing frames and persistent labels. File names appear only while hovered or grabbed, the huge “AdaXR Media / Close Media” header goes away, and video gets manual play/pause plus the correct aspect ratio immediately. The first rendered pass cleared 41 checks.
+- The photo moves — “move this photo to second desk” worked, after “second desktop” was rejected as an unmapped destination. The original instruction was clear; the translation into an executable action was the fragile part. A failed row now shows “failed, message kept,” but remove/resend are still missing.
+- The queue was never empty — a combined request failed gateway validation and the queue hid failed entries, so it looked cleared. The requests were still retained, including media, screen share, share status and dialogue-history movement. The failure display and replay path are being repaired.
+- Close the loop — seven finished workers were still counted as open because review closeout was not enforced. Separately, the screen mirror’s voice relocation sent it to the ceiling, and the dialogue-history panel reported busy while nothing was touching it.
+
+Timeline: https://billatgameology.github.io/ada-media/#2026-10-21
+
+#devlog #buildinpublic #opensource #xr #spatialcomputing

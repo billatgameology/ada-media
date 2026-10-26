@@ -1,0 +1,3 @@
+The gestures started landing; the harder problem became continuity — a selected face, a held intention, and a multi-step edit that survives the next sentence.
+
+The whiteboard retest — video pickup, play-while-held, pause-on-release and stay-put all pass. The five media items move flush onto the whiteboard. Hover-to-arm and the two-curl summon both work, but the curl does not trigger consistently, and hover-to-arm gets unreliable when an item is locked to the wall grid.

@@ -5,6 +5,41 @@
 <link>https://billatgameology.github.io/ada-media/</link>
 <description>Rethinking how we interact with computers.</description>
 <item>
+<title>The demo is the test</title>
+<link>https://billatgameology.github.io/ada-media/#2026-10-25</link>
+<guid>https://billatgameology.github.io/ada-media/#2026-10-25</guid>
+<pubDate>Sun, 25 Oct 2026 00:00:00 +0000</pubDate>
+<description>A complete YC demo — load the 30mm marker holder, send it to the printer, open the application, fill the tech-stack answer from a photo — plus the seams that only show up when the camera is rolling.</description>
+<content:encoded><![CDATA[<p>A complete YC demo — load the 30mm marker holder, send it to the printer, open the application, fill the tech-stack answer from a photo — plus the seams that only show up when the camera is rolling.</p><ul><li>The demo runs end to end: Ada loads the 30mm holder, sends a print sub-agent, opens the YC application, writes and saves the description, fills the tech-stack section from a capture, and does not submit.</li><li>The object becomes a print: the 20mm holder is too shallow, so the 30mm design gets a center divider, exports to STL, and reaches the printer in white PLA with a three-hour estimate.</li><li>The seams show under pressure: contact-grab jitter, ambiguity and conflict guards rejecting valid loads and resizes, and stale worker cards force restarts before the final take.</li></ul><p class="entry-why"><span>Why it matters</span> The demo is the integration test. Features that survive a live run with a camera and a person waiting are the ones that count.</p>]]></content:encoded>
+</item><item>
+<title>The object should remember</title>
+<link>https://billatgameology.github.io/ada-media/#2026-10-24</link>
+<guid>https://billatgameology.github.io/ada-media/#2026-10-24</guid>
+<pubDate>Sat, 24 Oct 2026 00:00:00 +0000</pubDate>
+<description>The gestures started landing; the harder problem became continuity — a selected face, a held intention, and a multi-step edit that survives the next sentence.</description>
+<content:encoded><![CDATA[<p>The gestures started landing; the harder problem became continuity — a selected face, a held intention, and a multi-step edit that survives the next sentence.</p><ul><li>The whiteboard holds: all five media items move flush, video pickup passes, and hover-arm plus the two-curl summon work, though the gesture is still inconsistent.</li><li>The cube becomes transparent: solid edges, see-through faces, and contact, hover and distance grab; the preview style becomes the default after 2,382 tests and 84 native checks.</li><li>Selection does not survive the next turn: the app knows the Z-face and the 50mm extension, but rejects the resize because the face was not selected in the new message.</li></ul><p class="entry-why"><span>Why it matters</span> A collaborator should carry the thread of a task. If every follow-up command has to re-prove its target, the conversation turns into a form.</p>]]></content:encoded>
+</item><item>
+<title>Cyan means she saw you</title>
+<link>https://billatgameology.github.io/ada-media/#2026-10-23</link>
+<guid>https://billatgameology.github.io/ada-media/#2026-10-23</guid>
+<pubDate>Fri, 23 Oct 2026 00:00:00 +0000</pubDate>
+<description>The whiteboard move finally landed flat, and Ada’s hand outline turns cyan when she recognizes a pose — a small signal that changes how the interaction feels.</description>
+<content:encoded><![CDATA[<p>The whiteboard move finally landed flat, and Ada’s hand outline turns cyan when she recognizes a pose — a small signal that changes how the interaction feels.</p><ul><li>The whiteboard click: all five media items land flat and stay fixed to the board; the evening test confirms the fix.</li><li>Cyan feedback: a raised index finger or an open palm turns the hand outline cyan, then back to white when the pose ends.</li><li>The summon window is too short: the hover cue gives about two seconds to beckon, the curl does not reliably count, and the progress bar covers the media.</li></ul><p class="entry-why"><span>Why it matters</span> Recognition needs a visible yes before it asks for the next gesture. The cyan outline is the handshake.</p>]]></content:encoded>
+</item><item>
+<title>All five, but not flat</title>
+<link>https://billatgameology.github.io/ada-media/#2026-10-22</link>
+<guid>https://billatgameology.github.io/ada-media/#2026-10-22</guid>
+<pubDate>Thu, 22 Oct 2026 00:00:00 +0000</pubDate>
+<description>Ada moved the photo and four videos to the whiteboard in one request, then exposed the next layer: objects need to share the board’s plane, and commands need to act on more than one target.</description>
+<content:encoded><![CDATA[<p>Ada moved the photo and four videos to the whiteboard in one request, then exposed the next layer: objects need to share the board’s plane, and commands need to act on more than one target.</p><ul><li>One request, five objects: Ada moved the photo and four videos to the whiteboard in one go, but they kept their old viewing angles and stuck out of the board.</li><li>Multi-select is a foundation, not a feature: select one or more objects, say one command, and reuse the same move, resize and hide actions for the set.</li><li>The summon gesture takes shape: hover to arm, then curl and reopen four fingers twice; the object arrives near your hand, unheld. Video playback and two-hand resize pass.</li></ul><p class="entry-why"><span>Why it matters</span> The interesting problem is not one group-move command. It is an object model that can select a set, preserve each item’s relationship to a surface, and accept the same verbs in a group.</p>]]></content:encoded>
+</item><item>
+<title>The message was kept</title>
+<link>https://billatgameology.github.io/ada-media/#2026-10-21</link>
+<guid>https://billatgameology.github.io/ada-media/#2026-10-21</guid>
+<pubDate>Wed, 21 Oct 2026 00:00:00 +0000</pubDate>
+<description>The media panel lost its frames, a failed request stayed visible instead of vanishing, and a screen mirror interpreted “second desk” as the ceiling.</description>
+<content:encoded><![CDATA[<p>The media panel lost its frames, a failed request stayed visible instead of vanishing, and a screen mirror interpreted “second desk” as the ceiling.</p><ul><li>Media, minus the chrome: the photo/video library drops its backing frames, persistent filenames and giant header; play/pause and labels appear only on hover or grab.</li><li>Failure gets a row: a rejected request stays visible as “failed, message kept” instead of disappearing from the queue; remove and resend are the next controls.</li><li>Finished is not closed: seven finished workers still counted as open, and voice-moving the screen mirror or dialogue history still needs work — the mirror found the ceiling.</li></ul><p class="entry-why"><span>Why it matters</span> A trustworthy assistant has to make failure legible. The work that mattered today was keeping the failed request, the unclosed worker and the bad move visible enough to repair.</p>]]></content:encoded>
+</item><item>
 <title>Ada drives Chrome from inside the headset</title>
 <link>https://billatgameology.github.io/ada-media/#2026-10-19</link>
 <guid>https://billatgameology.github.io/ada-media/#2026-10-19</guid>

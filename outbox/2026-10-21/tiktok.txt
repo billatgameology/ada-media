@@ -1,0 +1,1 @@
+The media panel lost its frames, a failed request stayed visible instead of vanishing, and a screen mirror interpreted “second desk” as the ceiling.

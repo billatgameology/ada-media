@@ -1,0 +1,15 @@
+TITLE
+All five, but not flat
+
+DESCRIPTION
+Ada moved the photo and four videos to the whiteboard in one request, then exposed the next layer: objects need to share the board’s plane, and commands need to act on more than one target.
+
+In the headset:
+- The first group move — “move them to the whiteboard” moved all five media items. The position worked; the orientation did not. They kept their old viewing angles and stuck out of the board instead of lying flat against it. The fix is a board-relative placement: use the rectangle’s own left/right and up/down axes, rotate each face parallel to that plane, and keep it slightly in front to avoid clipping.
+- Multi-select belongs in the shared model — the limitation was not that group move needs a special feature. The voice path required one selected or named file. The better model: understand which objects are meant, then apply their existing actions to the whole compatible set. A selection is not a permanent group.
+- The summon gesture — hover to arm, then hold an open palm and curl/reopen the four non-thumb fingers twice in a come-here motion. The target arrives near the hand but is not auto-grabbed; it hovers until I take it. Selection and activation are separate, which should keep ordinary pointing from triggering a summon.
+- What already passes — video playback starts while held and pauses on release, two-hand resizing keeps its proportions, and the per-item play/pause and close buttons work. Multi-select is still design-only, and the summon gesture itself did not respond in testing.
+
+Timeline: https://billatgameology.github.io/ada-media/#2026-10-22
+
+#devlog #buildinpublic #opensource #xr #spatialcomputing

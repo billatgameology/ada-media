@@ -1,0 +1,11 @@
+Cyan means she saw you
+
+The whiteboard move finally landed flat, and Ada’s hand outline turns cyan when she recognizes a pose — a small signal that changes how the interaction feels.
+
+In the headset:
+- The whiteboard finally agrees — in the morning the five media items were better but still stuck behind the board. By the evening test they were flush, flat and stable. Keeping them fixed to the whiteboard is intentional: they should not billboard back toward the headset once placed.
+- Cyan is the new “I see you” — the index-up keep-talking pose and the open palm both turn the hand outline cyan. Moving out of the pose returns it to white. The palm-up does not arm without a summon target, which is the intended idle behavior. The color separates “recognized” from “idle” without adding another panel.
+- The summon window is too fast — the hover progress bar appears, but it leaves roughly two seconds to complete the beckon. The progress cue also sits on top of the media, and the curl-and-reopen motion is not counted reliably. The proposed repair: a two-second hover, an eight-second completion window, and a small edge cue instead of an instruction block.
+- Passes and one new bug — grabbing a video plays it, releasing pauses it, and it stays where it is left. The per-item controls still work. A new bug: a video jumps larger as soon as it is pinched, before the second hand joins.
+
+https://billatgameology.github.io/ada-media/#2026-10-23
