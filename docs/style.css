@@ -319,6 +319,18 @@ h1 { font-size: 3rem; line-height: 1.1; letter-spacing: -0.04em; margin: 0.65rem
 }
 
 .timeline { grid-area: timeline; min-width: 0; scroll-margin-top: 1.5rem; }
+.devlog-head {
+  margin: 0 0 1.75rem;
+  padding-top: 2.25rem;
+  border-top: 1px solid var(--border);
+}
+.devlog-head h2 {
+  margin: 0 0 0.55rem;
+  font-size: 1.45rem;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+.devlog-intro { margin: 0; color: var(--muted); }
 .timeline-list {
   list-style: none;
   margin: 0;

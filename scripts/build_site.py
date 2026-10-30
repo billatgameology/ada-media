@@ -151,14 +151,13 @@ def _timeline_nav(days: list[content.Day], attempts: list[dict]) -> str:
         groups.setdefault(day.date[:7], []).append(day)
 
     months = []
-    for index, (_month, entries) in enumerate(groups.items()):
+    for _month, entries in groups.items():
         links = "".join(
             f'<li><a href="#{html.escape(day.date)}">{html.escape(_short_date(day.date))}</a></li>'
             for day in entries
         )
-        opened = " open" if index == 0 else ""
         months.append(
-            f'<details class="nav-month"{opened}>'
+            f'<details class="nav-month">'
             f'<summary>{html.escape(_month_label(entries[0].date))}</summary>'
             f'<ul>{links}</ul>'
             f'</details>'
@@ -377,6 +376,11 @@ def _timeline_page(days: list[content.Day], proj: dict) -> str:
 </div>
 {_roadmap_section()}
 <div class="timeline" id="latest">
+<header class="devlog-head">
+<p class="eyebrow">Devlog</p>
+<h2>Latest progress</h2>
+<p class="devlog-intro">What changed, what broke, and what comes next — newest first.</p>
+</header>
 <ol class="timeline-list" id="current-log" aria-label="Daily log">
 {entries}
 </ol>
