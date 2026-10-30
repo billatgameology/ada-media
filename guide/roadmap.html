@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ada — Project development timeline</title>
+<style>
+  :root {
+    --bg: #fbfbf9;
+    --fg: #1c2228;
+    --muted: #65707b;
+    --card: #ffffff;
+    --border: #e1e5e9;
+    --line: #9fb4c9;
+    --accent: #1a56c4;
+    --accent-soft: rgba(26, 86, 196, 0.10);
+    --now: rgba(26, 86, 196, 0.05);
+    --shadow: 0 1px 2px rgba(16, 24, 40, 0.04), 0 12px 32px rgba(16, 24, 40, 0.05);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0d1013;
+      --fg: #e7eaee;
+      --muted: #96a1ac;
+      --card: #14191e;
+      --border: #262e36;
+      --line: #405b74;
+      --accent: #78aaff;
+      --accent-soft: rgba(120, 170, 255, 0.13);
+      --now: rgba(120, 170, 255, 0.06);
+      --shadow: 0 1px 2px rgba(0, 0, 0, 0.25), 0 18px 40px rgba(0, 0, 0, 0.28);
+    }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: ui-sans-serif, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  main {
+    max-width: 80rem;
+    margin: 0 auto;
+    padding: 3.5rem 1.5rem 4.5rem;
+  }
+  .hero { max-width: 55rem; margin-bottom: 3.5rem; }
+  .eyebrow, .kicker {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+  }
+  .eyebrow { color: var(--accent); }
+  h1 {
+    margin: 0.7rem 0 1rem;
+    font-size: clamp(2.5rem, 5.2vw, 4.6rem);
+    line-height: 1.02;
+    letter-spacing: -0.055em;
+    font-weight: 680;
+  }
+  .lede {
+    max-width: 47rem;
+    margin: 0;
+    color: var(--muted);
+    font-size: clamp(1rem, 1.4vw, 1.16rem);
+    line-height: 1.65;
+  }
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.55rem 1.4rem;
+    margin-top: 1.6rem;
+    color: var(--muted);
+    font-size: 0.78rem;
+  }
+  .legend span { display: inline-flex; align-items: center; gap: 0.45rem; }
+  .legend .dot {
+    width: 0.6rem;
+    height: 0.6rem;
+    border: 2px solid var(--line);
+    border-radius: 50%;
+    background: var(--card);
+  }
+  .legend .dot.now { border-color: var(--accent); background: var(--accent); }
+  .legend .aside { margin-left: auto; font-style: italic; }
+
+  .map {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) 4.5rem minmax(0, 1.04fr);
+    align-items: stretch;
+    column-gap: 0;
+  }
+  .spine {
+    grid-column: 1 / 4;
+    grid-row: 1;
+    align-self: center;
+    height: 0;
+    border-top: 2px solid var(--line);
+    z-index: 0;
+  }
+  .phase, .branch {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    padding: 1.3rem 1.25rem 1.2rem;
+    box-shadow: var(--shadow);
+  }
+  .phase { margin-right: 1.5rem; align-self: center; }
+  .phase-1 { grid-column: 1; grid-row: 1; }
+  .phase-2 { grid-column: 2; grid-row: 1; }
+  .phase-3 { grid-column: 3; grid-row: 1; margin-right: 0; }
+  .phase.now {
+    border-color: color-mix(in srgb, var(--accent) 42%, var(--border));
+    background:
+      linear-gradient(var(--now), var(--now)),
+      var(--card);
+  }
+  .phase::after {
+    content: "›";
+    position: absolute;
+    top: 50%;
+    right: -1.28rem;
+    transform: translateY(-52%);
+    color: var(--line);
+    font-size: 1.5rem;
+    font-weight: 500;
+    line-height: 1;
+  }
+  .phase-3::after { content: none; }
+  .phase h2, .branch h2 {
+    margin: 0.4rem 0 0.45rem;
+    font-size: 1.22rem;
+    line-height: 1.22;
+    letter-spacing: -0.025em;
+  }
+  .goal { margin: 0 0 0.95rem; color: var(--fg); font-size: 0.94rem; }
+  .checks {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 0.5rem;
+    color: var(--muted);
+    font-size: 0.82rem;
+    line-height: 1.45;
+  }
+  .checks li { position: relative; padding-left: 0.95rem; }
+  .checks li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.48em;
+    width: 0.34rem;
+    height: 0.34rem;
+    border-radius: 50%;
+    background: var(--accent);
+    opacity: 0.65;
+  }
+  .focus {
+    margin: 1rem 0 0;
+    padding-top: 0.8rem;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 0.72rem;
+    line-height: 1.45;
+  }
+  .here {
+    display: inline-block;
+    margin-right: 0.45rem;
+    padding: 0.12rem 0.42rem;
+    border-radius: 999px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: 0.63rem;
+    letter-spacing: 0.08em;
+    vertical-align: 0.08em;
+  }
+
+  .fork { position: relative; grid-column: 4; grid-row: 1; }
+  .fork::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 50%;
+    border-top: 2px solid var(--line);
+  }
+  .fork::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 25%;
+    bottom: 25%;
+    border-left: 2px solid var(--line);
+  }
+  .fork .arm {
+    position: absolute;
+    left: 50%;
+    width: 50%;
+    border-top: 2px solid var(--line);
+  }
+  .fork .arm-a { top: 25%; }
+  .fork .arm-b { top: 75%; }
+  .fork .joint {
+    position: absolute;
+    left: calc(50% - 0.22rem);
+    width: 0.44rem;
+    height: 0.44rem;
+    border-radius: 50%;
+    background: var(--card);
+    border: 2px solid var(--line);
+  }
+  .fork .joint.a { top: calc(25% - 0.22rem); }
+  .fork .joint.b { top: calc(75% - 0.22rem); }
+
+  .branches {
+    grid-column: 5;
+    grid-row: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+  .branch {
+    flex: 1;
+    justify-content: center;
+    border-style: dashed;
+    background:
+      linear-gradient(var(--accent-soft), var(--accent-soft)),
+      var(--card);
+  }
+  .branch h2 { font-size: 1.12rem; }
+  .branch .goal { font-size: 0.88rem; }
+  .branch .checks { font-size: 0.78rem; }
+  .open {
+    margin: 0.9rem 0 0;
+    color: var(--accent);
+    font-size: 0.7rem;
+    font-weight: 650;
+    letter-spacing: 0.01em;
+  }
+
+  .principles {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.25rem;
+    margin-top: 4.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+  .principles h2 {
+    margin: 0.35rem 0 0.4rem;
+    font-size: 1rem;
+    letter-spacing: -0.015em;
+  }
+  .principles p:not(.kicker) {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.84rem;
+    line-height: 1.55;
+  }
+  .footnote {
+    margin: 2.5rem 0 0;
+    color: var(--muted);
+    font-size: 0.75rem;
+    font-style: italic;
+  }
+
+  @media (max-width: 1080px) {
+    .map {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .spine, .fork, .phase::after { display: none; }
+    .phase { margin-right: 0; }
+    .branches { display: flex; flex-direction: column; gap: 1rem; }
+    .branch { flex: none; }
+    .map::after {
+      content: "After the MVP gate — the roadmap splits";
+      order: 3;
+      margin: 0.9rem 0 0.2rem;
+      color: var(--muted);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+    }
+    .branches { order: 4; }
+    .principles { grid-template-columns: 1fr; gap: 1.5rem; }
+  }
+  @media (max-width: 620px) {
+    main { padding: 2.5rem 1rem 3.5rem; }
+    .legend .aside { margin-left: 0; }
+    .phase, .branch { padding: 1.15rem 1.1rem; border-radius: 0.85rem; }
+  }
+  @media print {
+    body { background: #fff; color: #111; }
+    main { max-width: none; padding: 0.5in; }
+    .phase, .branch { box-shadow: none; break-inside: avoid; }
+    .map { grid-template-columns: repeat(3, 1fr) 2.5rem 1.15fr; }
+    .legend .aside { display: none; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <header class="hero">
+    <p class="eyebrow">Project development timeline · 30 October 2026</p>
+    <h1>From a room that works to a product that ships.</h1>
+    <p class="lede">
+      The next stretch is a sequence of gates, not a calendar. Basic operations come first.
+      The content workflow and the MVP are earned on top of that foundation. After the MVP,
+      the roadmap deliberately splits.
+    </p>
+    <div class="legend" aria-label="Legend">
+      <span><i class="dot now"></i> We are here</span>
+      <span><i class="dot"></i> Phase gate</span>
+      <span class="aside">No dates are assigned until the first gate is measured.</span>
+    </div>
+  </header>
+
+  <section class="map" aria-label="Development phases and fork">
+    <div class="spine" aria-hidden="true"></div>
+
+    <article class="phase phase-1 now">
+      <p class="kicker"><span class="here">We are here</span>Phase 1</p>
+      <h2>Basic operations</h2>
+      <p class="goal">Make the room dependable enough to build on.</p>
+      <ul class="checks">
+        <li>Voice, panels, media and gestures work without developer rescue.</li>
+        <li>Layouts, notes and positions survive save, reload and restore.</li>
+        <li>Failures are explicit and recoverable — no silent success.</li>
+      </ul>
+      <p class="focus">Current focus: panel save/restore · voice overlap · whiteboard placement</p>
+    </article>
+
+    <article class="phase phase-2">
+      <p class="kicker">Phase 2</p>
+      <h2>Content creation workflow</h2>
+      <p class="goal">Complete one real creative job inside the room.</p>
+      <ul class="checks">
+        <li>Collect references, arrange them, and create the artifact in place.</li>
+        <li>The full loop survives interruption, save and reload.</li>
+        <li>The result is shareable without another tool doing the real work.</li>
+      </ul>
+    </article>
+
+    <article class="phase phase-3">
+      <p class="kicker">Phase 3</p>
+      <h2>MVP</h2>
+      <p class="goal">A first-time user can finish the core job in one session.</p>
+      <ul class="checks">
+        <li>One workflow runs end-to-end at acceptable speed.</li>
+        <li>Setup, onboarding and recovery no longer need the builder.</li>
+        <li>Real users can try it and show us where it breaks.</li>
+      </ul>
+    </article>
+
+    <div class="fork" aria-hidden="true">
+      <span class="arm arm-a"></span>
+      <span class="arm arm-b"></span>
+      <span class="joint a"></span>
+      <span class="joint b"></span>
+    </div>
+
+    <div class="branches">
+      <article class="branch">
+        <p class="kicker">After MVP · Track A</p>
+        <h2>Refine content creation</h2>
+        <p class="goal">Make the proven workflow deeper, faster and worth returning to.</p>
+        <ul class="checks">
+          <li>Fix the friction real usage exposes.</li>
+          <li>Add templates, deeper editing and durable projects.</li>
+        </ul>
+      </article>
+
+      <article class="branch">
+        <p class="kicker">After MVP · Track B</p>
+        <h2>Use case #2 workflow</h2>
+        <p class="goal">Test whether the same core can carry a second job.</p>
+        <ul class="checks">
+          <li>Name the use case and its success criteria.</li>
+          <li>Reuse the primitives; build a separate end-to-end workflow.</li>
+        </ul>
+        <p class="open">Open decision: use case to be named.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="principles" aria-label="How to read the timeline">
+    <div>
+      <p class="kicker">Sequencing</p>
+      <h2>Gates, not dates</h2>
+      <p>A phase ends when its exit criteria are true, not when a calendar page turns. The order is stable; the dates are earned.</p>
+    </div>
+    <div>
+      <p class="kicker">Architecture</p>
+      <h2>One core, many workflows</h2>
+      <p>The split happens above the platform. Voice, panels, media, memory and save/restore stay shared.</p>
+    </div>
+    <div>
+      <p class="kicker">Evidence</p>
+      <h2>Real sessions, real reloads</h2>
+      <p>Every gate needs a real headset session, a real reload and a result that survives both. A demo is not the gate.</p>
+    </div>
+  </section>
+
+  <p class="footnote">Working outline, 30 October 2026. No calendar estimates are shown because the basic-operations gate is still open.</p>
+</main>
+</body>
+</html>
