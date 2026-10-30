@@ -92,60 +92,66 @@
 
   .map {
     position: relative;
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr)) 4.5rem minmax(0, 1.04fr);
-    align-items: stretch;
-    column-gap: 0;
-  }
-  .spine {
-    grid-column: 1 / 4;
-    grid-row: 1;
-    align-self: center;
-    height: 0;
-    border-top: 2px solid var(--line);
-    z-index: 0;
+    max-width: 64rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+    padding-left: 2.5rem;
+    border-left: 2px solid var(--line);
   }
   .phase, .branch {
     position: relative;
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
     background: var(--card);
     border: 1px solid var(--border);
     border-radius: 1rem;
-    padding: 1.3rem 1.25rem 1.2rem;
+    padding: 1.3rem 1.4rem 1.25rem;
     box-shadow: var(--shadow);
   }
-  .phase { margin-right: 1.5rem; align-self: center; }
-  .phase-1 { grid-column: 1; grid-row: 1; }
-  .phase-2 { grid-column: 2; grid-row: 1; }
-  .phase-3 { grid-column: 3; grid-row: 1; margin-right: 0; }
+  .phase::before, .branch::before {
+    content: "";
+    position: absolute;
+    top: 1.75rem;
+    left: calc(-2.5rem - 0.36rem);
+    width: 0.7rem;
+    height: 0.7rem;
+    border-radius: 50%;
+    border: 2px solid var(--line);
+    background: var(--card);
+    z-index: 1;
+  }
+  .phase::after, .branch::after {
+    content: "";
+    position: absolute;
+    top: 2.08rem;
+    left: -2.5rem;
+    width: 2.5rem;
+    border-top: 1px solid var(--line);
+  }
   .phase.now {
     border-color: color-mix(in srgb, var(--accent) 42%, var(--border));
     background:
       linear-gradient(var(--now), var(--now)),
       var(--card);
   }
-  .phase::after {
-    content: "›";
-    position: absolute;
-    top: 50%;
-    right: -1.28rem;
-    transform: translateY(-52%);
-    color: var(--line);
-    font-size: 1.5rem;
-    font-weight: 500;
-    line-height: 1;
+  .phase.now::before {
+    border-color: var(--accent);
+    background: var(--accent);
+    box-shadow: 0 0 0 4px var(--bg);
   }
-  .phase-3::after { content: none; }
   .phase h2, .branch h2 {
     margin: 0.4rem 0 0.45rem;
     font-size: 1.22rem;
     line-height: 1.22;
     letter-spacing: -0.025em;
   }
-  .goal { margin: 0 0 0.95rem; color: var(--fg); font-size: 0.94rem; }
+  .goal {
+    max-width: 52rem;
+    margin: 0 0 0.95rem;
+    color: var(--fg);
+    font-size: 0.94rem;
+  }
   .checks {
+    max-width: 52rem;
     margin: 0;
     padding: 0;
     list-style: none;
@@ -168,6 +174,7 @@
     opacity: 0.65;
   }
   .focus {
+    max-width: 52rem;
     margin: 1rem 0 0;
     padding-top: 0.8rem;
     border-top: 1px solid var(--border);
@@ -187,61 +194,28 @@
     vertical-align: 0.08em;
   }
 
-  .fork { position: relative; grid-column: 4; grid-row: 1; }
-  .fork::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 50%;
-    width: 50%;
-    border-top: 2px solid var(--line);
+  .split-label {
+    margin: 0.8rem 0 0.15rem;
+    color: var(--muted);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
   }
-  .fork::after {
-    content: "";
-    position: absolute;
-    left: 50%;
-    top: 25%;
-    bottom: 25%;
-    border-left: 2px solid var(--line);
-  }
-  .fork .arm {
-    position: absolute;
-    left: 50%;
-    width: 50%;
-    border-top: 2px solid var(--line);
-  }
-  .fork .arm-a { top: 25%; }
-  .fork .arm-b { top: 75%; }
-  .fork .joint {
-    position: absolute;
-    left: calc(50% - 0.22rem);
-    width: 0.44rem;
-    height: 0.44rem;
-    border-radius: 50%;
-    background: var(--card);
-    border: 2px solid var(--line);
-  }
-  .fork .joint.a { top: calc(25% - 0.22rem); }
-  .fork .joint.b { top: calc(75% - 0.22rem); }
-
   .branches {
-    grid-column: 5;
-    grid-row: 1;
     display: flex;
     flex-direction: column;
-    gap: 1.25rem;
+    gap: 1.1rem;
   }
   .branch {
-    flex: 1;
-    justify-content: center;
     border-style: dashed;
     background:
       linear-gradient(var(--accent-soft), var(--accent-soft)),
       var(--card);
   }
   .branch h2 { font-size: 1.12rem; }
-  .branch .goal { font-size: 0.88rem; }
-  .branch .checks { font-size: 0.78rem; }
+  .branch .goal { font-size: 0.9rem; }
+  .branch .checks { font-size: 0.8rem; }
   .open {
     margin: 0.9rem 0 0;
     color: var(--accent);
@@ -277,38 +251,20 @@
   }
 
   @media (max-width: 1080px) {
-    .map {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-    .spine, .fork, .phase::after { display: none; }
-    .phase { margin-right: 0; }
-    .branches { display: flex; flex-direction: column; gap: 1rem; }
-    .branch { flex: none; }
-    .map::after {
-      content: "After the MVP gate — the roadmap splits";
-      order: 3;
-      margin: 0.9rem 0 0.2rem;
-      color: var(--muted);
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.11em;
-      text-transform: uppercase;
-    }
-    .branches { order: 4; }
     .principles { grid-template-columns: 1fr; gap: 1.5rem; }
   }
   @media (max-width: 620px) {
     main { padding: 2.5rem 1rem 3.5rem; }
     .legend .aside { margin-left: 0; }
+    .map { padding-left: 1.5rem; }
     .phase, .branch { padding: 1.15rem 1.1rem; border-radius: 0.85rem; }
+    .phase::before, .branch::before { left: calc(-1.5rem - 0.36rem); }
+    .phase::after, .branch::after { left: -1.5rem; width: 1.5rem; }
   }
   @media print {
     body { background: #fff; color: #111; }
     main { max-width: none; padding: 0.5in; }
     .phase, .branch { box-shadow: none; break-inside: avoid; }
-    .map { grid-template-columns: repeat(3, 1fr) 2.5rem 1.15fr; }
     .legend .aside { display: none; }
   }
 </style>
@@ -321,7 +277,7 @@
     <p class="lede">
       The next stretch is a sequence of gates, not a calendar. Basic operations come first.
       The content workflow and the MVP are earned on top of that foundation. After the MVP,
-      the roadmap deliberately splits.
+      the roadmap splits into three parallel tracks.
     </p>
     <div class="legend" aria-label="Legend">
       <span><i class="dot now"></i> We are here</span>
@@ -330,10 +286,8 @@
     </div>
   </header>
 
-  <section class="map" aria-label="Development phases and fork">
-    <div class="spine" aria-hidden="true"></div>
-
-    <article class="phase phase-1 now">
+  <section class="map" aria-label="Development phases and tracks">
+    <article class="phase now">
       <p class="kicker"><span class="here">We are here</span>Phase 1</p>
       <h2>Basic operations</h2>
       <p class="goal">Make the room dependable enough to build on.</p>
@@ -345,7 +299,7 @@
       <p class="focus">Current focus: panel save/restore · voice overlap · whiteboard placement</p>
     </article>
 
-    <article class="phase phase-2">
+    <article class="phase">
       <p class="kicker">Phase 2</p>
       <h2>Content creation workflow</h2>
       <p class="goal">Complete one real creative job inside the room.</p>
@@ -356,7 +310,7 @@
       </ul>
     </article>
 
-    <article class="phase phase-3">
+    <article class="phase">
       <p class="kicker">Phase 3</p>
       <h2>MVP</h2>
       <p class="goal">A first-time user can finish the core job in one session.</p>
@@ -367,12 +321,7 @@
       </ul>
     </article>
 
-    <div class="fork" aria-hidden="true">
-      <span class="arm arm-a"></span>
-      <span class="arm arm-b"></span>
-      <span class="joint a"></span>
-      <span class="joint b"></span>
-    </div>
+    <p class="split-label">After the MVP gate — three parallel tracks</p>
 
     <div class="branches">
       <article class="branch">
@@ -394,6 +343,18 @@
           <li>Reuse the primitives; build a separate end-to-end workflow.</li>
         </ul>
         <p class="open">Open decision: use case to be named.</p>
+      </article>
+
+      <article class="branch">
+        <p class="kicker">After MVP · Track C</p>
+        <h2>Multi-user room</h2>
+        <p class="goal">Let several people join the same room and work with Ada together.</p>
+        <ul class="checks">
+          <li>Shared presence, panels, media and Ada state.</li>
+          <li>Per-person voice and controls without collisions.</li>
+          <li>Join permissions, identity and recovery when someone drops.</li>
+        </ul>
+        <p class="open">Builds on the single-user room gate.</p>
       </article>
     </div>
   </section>

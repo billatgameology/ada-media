@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Ada — A new interface with technology.</title>
 <meta name="description" content="An AI collaborator that shares your workspace and helps you think, create, and get things done.">
-<link rel="stylesheet" href="style.css?v=39e1df05e3bc">
+<link rel="stylesheet" href="style.css?v=88470acc71af">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="alternate" type="application/rss+xml" title="Ada feed" href="feed.xml">
 </head>
@@ -22,6 +22,7 @@
 <details class="nav-browser" open>
 <summary class="nav-toggle">Browse the log</summary>
 <div class="nav-content">
+<a class="nav-overview" href="#roadmap">Development timeline</a>
 <a class="nav-overview" href="#latest">Latest progress</a>
 <p class="nav-label">Daily log</p>
 <details class="nav-month" open><summary>October 2026</summary><ul><li><a href="#2026-10-29">Oct 29</a></li><li><a href="#2026-10-28">Oct 28</a></li><li><a href="#2026-10-27">Oct 27</a></li><li><a href="#2026-10-26">Oct 26</a></li><li><a href="#2026-10-25">Oct 25</a></li><li><a href="#2026-10-24">Oct 24</a></li><li><a href="#2026-10-23">Oct 23</a></li><li><a href="#2026-10-22">Oct 22</a></li><li><a href="#2026-10-21">Oct 21</a></li><li><a href="#2026-10-19">Oct 19</a></li><li><a href="#2026-10-18">Oct 18</a></li><li><a href="#2026-10-17">Oct 17</a></li><li><a href="#2026-10-16">Oct 16</a></li><li><a href="#2026-10-15">Oct 15</a></li><li><a href="#2026-10-14">Oct 14</a></li></ul></details>
@@ -36,6 +37,100 @@
 <p class="project-description">An AI collaborator that shares your workspace and helps you think, create, and get things done.</p>
 <p class="project-introduction">What if getting things done didn’t feel like operating software? I’m exploring how conversation, gestures, and interactive visuals can make working alongside AI feel natural. This journal follows the experiments, setbacks, and discoveries as Ada takes shape.</p>
 </div>
+<section class="roadmap" id="roadmap" aria-labelledby="roadmap-title">
+<div class="roadmap-head">
+<p class="eyebrow">Development timeline</p>
+<h2 id="roadmap-title">Where this is going</h2>
+<p class="roadmap-intro">A sequence of gates, not a calendar. Basic operations come first; the content workflow and MVP are earned on top. After the MVP, the roadmap splits into three parallel tracks.</p>
+</div>
+<ol class="roadmap-list">
+<li class="roadmap-step is-now">
+<div class="roadmap-card">
+<p class="roadmap-kicker">Phase 1 · We are here</p>
+<h3>Basic operations</h3>
+<p class="roadmap-goal">Make the room dependable enough to build on.</p>
+<ul class="roadmap-points">
+<li>Voice, panels, media and gestures work without developer rescue.</li>
+<li>Layouts, notes and positions survive save, reload and restore.</li>
+<li>Failures are explicit and recoverable — no silent success.</li>
+</ul>
+<p class="roadmap-focus">Current focus: panel save/restore · voice overlap · whiteboard placement</p>
+</div>
+</li>
+<li class="roadmap-step">
+<div class="roadmap-card">
+<p class="roadmap-kicker">Phase 2</p>
+<h3>Content creation workflow</h3>
+<p class="roadmap-goal">Complete one real creative job inside the room.</p>
+<ul class="roadmap-points">
+<li>Collect references, arrange them, and create the artifact in place.</li>
+<li>The full loop survives interruption, save and reload.</li>
+<li>The result is shareable without another tool doing the real work.</li>
+</ul>
+</div>
+</li>
+<li class="roadmap-step">
+<div class="roadmap-card">
+<p class="roadmap-kicker">Phase 3</p>
+<h3>MVP</h3>
+<p class="roadmap-goal">A first-time user can finish the core job in one session.</p>
+<ul class="roadmap-points">
+<li>One workflow runs end-to-end at acceptable speed.</li>
+<li>Setup, onboarding and recovery no longer need the builder.</li>
+<li>Real users can try it and show us where it breaks.</li>
+</ul>
+</div>
+</li>
+</ol>
+<div class="roadmap-split">
+<p class="roadmap-split-label">After the MVP gate — three parallel tracks</p>
+<div class="roadmap-tracks">
+<article class="roadmap-track">
+<div class="roadmap-track-head">
+<p class="roadmap-kicker">Track A</p>
+<h3>Refine content creation</h3>
+</div>
+<div class="roadmap-track-body">
+<p class="roadmap-goal">Make the proven workflow deeper, faster and worth returning to.</p>
+<ul class="roadmap-points">
+<li>Fix the friction real usage exposes.</li>
+<li>Add templates, deeper editing and durable projects.</li>
+</ul>
+</div>
+</article>
+<article class="roadmap-track">
+<div class="roadmap-track-head">
+<p class="roadmap-kicker">Track B</p>
+<h3>Use case #2 workflow</h3>
+</div>
+<div class="roadmap-track-body">
+<p class="roadmap-goal">Test whether the same core can carry a second job.</p>
+<ul class="roadmap-points">
+<li>Name the use case and its success criteria.</li>
+<li>Reuse the primitives; build a separate end-to-end workflow.</li>
+</ul>
+<p class="roadmap-open">Open decision: use case to be named.</p>
+</div>
+</article>
+<article class="roadmap-track">
+<div class="roadmap-track-head">
+<p class="roadmap-kicker">Track C</p>
+<h3>Multi-user room</h3>
+</div>
+<div class="roadmap-track-body">
+<p class="roadmap-goal">Let several people join the same room and work with Ada together.</p>
+<ul class="roadmap-points">
+<li>Shared presence, panels, media and Ada state.</li>
+<li>Per-person voice and controls without collisions.</li>
+<li>Join permissions, identity and recovery when someone drops.</li>
+</ul>
+<p class="roadmap-open">Builds on the single-user room gate.</p>
+</div>
+</article>
+</div>
+</div>
+<p class="roadmap-note">Working outline, 30 October 2026. No calendar estimates are shown because the basic-operations gate is still open.</p>
+</section>
 <div class="timeline" id="latest">
 <ol class="timeline-list" id="current-log" aria-label="Daily log">
 <li class="entry" id="2026-10-29">
