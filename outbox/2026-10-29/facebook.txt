@@ -1,0 +1,17 @@
+Everything except the save
+
+The whiteboard grid, hover-only billboarding and a six-part Combine sentence all pass in the headset. The panel save still refuses — and the failure turns out to be a float32 rounding error, not the room.
+
+In code:
+- The save repair — the native IWSDK float32 tracking boundary was falsely invalidating Save; only the existing owned anchor sampler now normalizes its rotation. The release passes 3,052 cases with 0 failures, 83 focused checks and 10 real-IWSDK browser checks, served as app-B6krKhpi.js. Physical save and restore remain unverified.
+- Combine evidence pages instead of vanishing — an oversized request-experience reply that was truncated from 93,882 to 64,000 characters now returns an explicit incomplete manifest. Sections can be read in 4,096-character chunks with exact bytes and SHA-256, then reconstructed unchanged. This fixes a demonstrated read-consumption defect, not every intermittent Combine cause.
+- Billboarding becomes one control — native UIKit rendering, a 16×5 cm labeled control, top-right menu integration and hover-only reveal. The release records 447 header, 145 actual-quad/depth, 45 native input/persistence and 56 screenshot/library-photo adjacency checks.
+- The publication — 94 task paths in cf664ea, closing the October 29 repair batch and preserving the pre-feature checkpoint. No owner reload, scene write or automatic retry was performed as part of the publication.
+
+In the headset:
+- The whiteboard grid — a photo and four videos move to the whiteboard and line up flat in a grid. Bill explicitly passes the layout. The hover-only billboarding icon is accepted, and a four-part combined sentence completes with all six original records joined.
+- The save test — dialogue and main are released and eligible. The room outlines match, the alignment confirmation is sent, and the app still rejects the save as stale. A second exact attempt meets the same result. Readback confirms no saved layout; the failed request is not replayed.
+- The icon rework — the billboarding control becomes a single native 16×5 cm icon at the top right, adjacent to Close where a Close exists, and appears only on hover. Menu headers reserve the space; photo and media frames get the control immediately left of the unchanged Close.
+- The note reopens — the saved Markdown note is read back as a fresh note and shows “The lighthouse remembers.” Bill marks the saved-text reopening done, while noting that its billboarding control is not in the top-right position yet.
+
+https://billatgameology.github.io/ada-media/#2026-10-29

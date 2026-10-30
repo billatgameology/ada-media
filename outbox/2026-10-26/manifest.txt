@@ -1,0 +1,17 @@
+ada-media — posts for 2026-10-26
+site post: https://billatgameology.github.io/ada-media/#2026-10-26
+
+copy each file into its platform's composer, attach the listed media, post.
+per-platform details: guide/POSTING.md
+
+X / Twitter — x.txt  ·  single post  ·  longest 244/280 chars  ·  no link (x.include_link in config.yaml)
+Threads — threads.txt  ·  text post (link preview card)  ·  301/500 chars
+Instagram — instagram.txt  ·  caption ready, but NO media
+Facebook — facebook.txt  ·  1459 chars  ·  site link included
+TikTok — tiktok.txt  ·  caption ready, but there is no video
+YouTube — youtube.txt  ·  title/description ready, but there is no video
+
+warnings:
+  - Instagram has no text-only posts — add media.images (JPEG) or media.video, then re-run outbox
+  - TikTok needs a video — add media.video and re-run outbox, or skip it today
+  - YouTube needs a video — add media.video and re-run outbox, or skip it today

@@ -1,0 +1,14 @@
+Seven takes, one stricter room
+
+Five full takes of the founder story, plus the unglamorous work of making every existing feature explain itself: ten domains now publish evidence, and the room can no longer be confirmed by accident.
+
+In code:
+- Adoption is bounded by owners — the 224-row catalogue covers 24 classes, 196 parts and 161 construction expressions across 23 files. Thirty-nine rows have finite scoped consumer assertions; nine remain source-only, and that distinction stays visible.
+- Original evidence survives the round trip — 35 original normalized events across six observed families pass through the installed capture SDK, real HTTP and a disposable PostgreSQL instance, then come back through actual recent and durable Ada queries with 71 assertions.
+- The release — assets/app-uaAcZr9V.js, matched frontend/backend, 2,693 reconciled cases with 2,686 passing, 0 remaining failures and 7 optional skips. The room repair's 276-case affected run passed 273 with 3 optional skips.
+
+In the headset:
+- Five full takes, two false starts — the founder story got shorter and more specific with each pass. The final take names the four iterations: a round-trip voice with Gemini 1.5, camera access, the first OpenClaw attempt, and the current build where the pieces finally fit.
+- The room verification gap — Import → Help → Verify was admitted under the old validator even though the original input had been interrupted. The repair keeps the relevant decision history across retained intentions and adds native custody for room geometry, anchor generation, tracking loss and owner identity. A fresh explicit input can still verify; navigation cannot.
+
+https://billatgameology.github.io/ada-media/#2026-10-27

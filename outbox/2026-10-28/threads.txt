@@ -1,0 +1,1 @@
+A bar chart and its table appear in the room, the microphone stays open while Ada speaks, and the headset asks for the two things the interface still lacks: a memory for panel positions and a per-panel billboarding control.

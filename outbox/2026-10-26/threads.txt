@@ -1,0 +1,3 @@
+The foundation moved from single commands to retained intentions: a note stays editable through a clarification, one request can carry two confirmed steps, models clone and place as reusable pieces, and headset actions become queryable history.
+
+https://billatgameology.github.io/ada-media/#2026-10-26

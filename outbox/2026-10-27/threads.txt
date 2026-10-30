@@ -1,0 +1,3 @@
+Five full takes of the founder story, plus the unglamorous work of making every existing feature explain itself: ten domains now publish evidence, and the room can no longer be confirmed by accident.
+
+Five full takes, two false starts — the founder story got shorter and more specific with each pass. The final take names the four iterations: a round-trip voice with Gemini 1.5, camera access, the first OpenClaw attempt, and the current build where the pieces finally fit.

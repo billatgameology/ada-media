@@ -1,0 +1,3 @@
+The whiteboard grid, hover-only billboarding and a six-part Combine sentence all pass in the headset. The panel save still refuses — and the failure turns out to be a float32 rounding error, not the room.
+
+The whiteboard grid — a photo and four videos move to the whiteboard and line up flat in a grid. Bill explicitly passes the layout. The hover-only billboarding icon is accepted, and a four-part combined sentence completes with all six original records joined.

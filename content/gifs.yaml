@@ -56,3 +56,18 @@ clips:
     start: "0:08"
     duration: 8
     label: "The final YC demo"
+  "2026-10-27":
+    recording: "2026-10-27 20-48-49.mov"
+    start: "1:46"
+    duration: 6
+    label: "The fourth iteration, all the pieces in place"
+  "2026-10-28":
+    recording: com.oculus.vrshell-20261028-160105-0.mp4
+    start: "6:30"
+    duration: 8
+    label: "The first statistical exhibit"
+  "2026-10-29":
+    recording: com.oculus.vrshell-20261029-144413-0.mp4
+    start: "3:14"
+    duration: 8
+    label: "Photo and four videos flush on the whiteboard"

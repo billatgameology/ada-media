@@ -24,7 +24,7 @@
 <div class="nav-content">
 <a class="nav-overview" href="#latest">Latest progress</a>
 <p class="nav-label">Daily log</p>
-<details class="nav-month" open><summary>October 2026</summary><ul><li><a href="#2026-10-25">Oct 25</a></li><li><a href="#2026-10-24">Oct 24</a></li><li><a href="#2026-10-23">Oct 23</a></li><li><a href="#2026-10-22">Oct 22</a></li><li><a href="#2026-10-21">Oct 21</a></li><li><a href="#2026-10-19">Oct 19</a></li><li><a href="#2026-10-18">Oct 18</a></li><li><a href="#2026-10-17">Oct 17</a></li><li><a href="#2026-10-16">Oct 16</a></li><li><a href="#2026-10-15">Oct 15</a></li><li><a href="#2026-10-14">Oct 14</a></li></ul></details>
+<details class="nav-month" open><summary>October 2026</summary><ul><li><a href="#2026-10-29">Oct 29</a></li><li><a href="#2026-10-28">Oct 28</a></li><li><a href="#2026-10-27">Oct 27</a></li><li><a href="#2026-10-26">Oct 26</a></li><li><a href="#2026-10-25">Oct 25</a></li><li><a href="#2026-10-24">Oct 24</a></li><li><a href="#2026-10-23">Oct 23</a></li><li><a href="#2026-10-22">Oct 22</a></li><li><a href="#2026-10-21">Oct 21</a></li><li><a href="#2026-10-19">Oct 19</a></li><li><a href="#2026-10-18">Oct 18</a></li><li><a href="#2026-10-17">Oct 17</a></li><li><a href="#2026-10-16">Oct 16</a></li><li><a href="#2026-10-15">Oct 15</a></li><li><a href="#2026-10-14">Oct 14</a></li></ul></details>
 <p class="nav-label">Previous attempts</p><ul class="nav-attempts"><li><a href="#attempt-3">3rd (2026) - OpenClaw and computer use</a></li><li><a href="#attempt-2">2nd (2025) - Camera access</a></li><li><a href="#attempt-1">1st (2024) - Hackathon prototype</a></li></ul>
 <a class="nav-top" href="#top">Back to top</a>
 </div>
@@ -38,10 +38,34 @@
 </div>
 <div class="timeline" id="latest">
 <ol class="timeline-list" id="current-log" aria-label="Daily log">
-<li class="entry" id="2026-10-25">
+<li class="entry" id="2026-10-29">
+<time class="entry-date" datetime="2026-10-29">Thursday, October 29, 2026</time>
+<h2>Everything except the save</h2>
+<figure class="entry-media"><img src="media/gifs/2026-10-29.gif" alt="Everything except the save" width="640" height="360" loading="eager" decoding="async"></figure>
+<ul class="entry-highlights"><li>The grid holds: a photo and four videos land flush on the whiteboard, the hover-only billboarding icon passes, a six-original Combine sentence passes, and the saved note reopens with “The lighthouse remembers.”</li><li>The save slips again: dialogue and main are present and eligible, the room outlines match, and the Save still returns WORKSPACE_ACTION_STALE; readback stays layout 0, saved null, and no position is written.</li><li>A float32 rounding error: two native quaternion samples produce a 4.2e-8 apparent scale change, tripping a 1e-8 fence; normalizing only the owned anchor sample fixes the false stale, and the 16:06 build is deployed.</li></ul>
+<p class="entry-why"><span>Why it matters</span> A saved layout is only useful if the save survives the room it was saved in. The bug was 4.2e-8; the workflow failure was much larger.</p>
+</li><li class="entry" id="2026-10-28">
+<time class="entry-date" datetime="2026-10-28">Wednesday, October 28, 2026</time>
+<h2>The room asks for memory</h2>
+<figure class="entry-media"><img src="media/gifs/2026-10-28.gif" alt="The room asks for memory" width="640" height="360" loading="lazy" decoding="async"></figure>
+<ul class="entry-highlights"><li>The first chart in the room: a sample weekly-visitors bar chart arrives with a matching table, and selecting a bar highlights the row; the first attempt is rejected as stale, the retry creates it, and Hide and Close turn out to do the same thing.</li><li>The microphone stays open: ordinary speech no longer stops Ada mid-sentence, and the spoken Stop command proves too entangled with the conversation queue; an open palm becomes the only audio stop, with the wrist tolerance widened after the first physical test.</li><li>The room asks for memory: panel positions and per-panel billboarding become the next build, but the live Save returns NO_ACTIVE_SCENE and nothing is written — the request is preserved, not pretended.</li></ul>
+<p class="entry-why"><span>Why it matters</span> The interface is becoming a place, not a panel. A place needs a chart, a voice that can overlap, and a memory for where things belong.</p>
+</li><li class="entry" id="2026-10-27">
+<time class="entry-date" datetime="2026-10-27">Tuesday, October 27, 2026</time>
+<h2>Seven takes, one stricter room</h2>
+<figure class="entry-media"><img src="media/gifs/2026-10-27.gif" alt="Seven takes, one stricter room" width="640" height="360" loading="lazy" decoding="async"></figure>
+<ul class="entry-highlights"><li>The room cannot be confirmed by accident: Import, Help and Verify no longer launder a stale visual check; the same original input, scene and room geometry must still be current.</li><li>Ten domains learn to explain themselves: models, notes, media, capabilities, workspace, sharing, photos, queue, workers and body actions publish original evidence through the existing owners.</li><li>Seven takes to say why: five full recordings and two false starts between 19:59 and 20:48, ending with the four iterations of Ada and the reason to build the interface.</li></ul>
+<p class="entry-why"><span>Why it matters</span> A feature is not really adopted until it can explain what happened without a special case. The same is true of a story.</p>
+</li><li class="entry" id="2026-10-26">
+<time class="entry-date" datetime="2026-10-26">Monday, October 26, 2026</time>
+<h2>The request survives the turn</h2>
+
+<ul class="entry-highlights"><li>A note survives the next turn: touch A, ask to rename it, clear the selection or select B, and the follow-up still edits A — not whatever happens to be selected now.</li><li>Models become reusable pieces: independent copies, resolved-set placement and exact output references; twelve copies keep their own identities and edits, and forty-two models stay addressable across pages.</li><li>The headset&#x27;s actions become history: media touch, grab, hover, playback and placement publish as normalized evidence, and Ada can query the recent or durable record without a special narration step.</li></ul>
+<p class="entry-why"><span>Why it matters</span> The assistant&#x27;s unit of work is not a command. It is an intention with evidence that survives the next sentence.</p>
+</li><li class="entry" id="2026-10-25">
 <time class="entry-date" datetime="2026-10-25">Sunday, October 25, 2026</time>
 <h2><a href="https://youtu.be/lzUh0MnksgU" target="_blank" rel="noopener">The demo is the test</a></h2>
-<figure class="entry-media"><img src="media/gifs/2026-10-25.gif" alt="The demo is the test" width="640" height="360" loading="eager" decoding="async"></figure>
+<figure class="entry-media"><img src="media/gifs/2026-10-25.gif" alt="The demo is the test" width="640" height="360" loading="lazy" decoding="async"></figure>
 <ul class="entry-highlights"><li>The demo runs end to end: Ada loads the 30mm holder, sends a print sub-agent, opens the YC application, writes and saves the description, fills the tech-stack section from a capture, and does not submit.</li><li>The object becomes a print: the 20mm holder is too shallow, so the 30mm design gets a center divider, exports to STL, and reaches the printer in white PLA with a three-hour estimate.</li><li>The seams show under pressure: contact-grab jitter, ambiguity and conflict guards rejecting valid loads and resizes, and stale worker cards force restarts before the final take.</li></ul>
 <p class="entry-why"><span>Why it matters</span> The demo is the integration test. Features that survive a live run with a camera and a person waiting are the ones that count.</p>
 </li><li class="entry" id="2026-10-24">

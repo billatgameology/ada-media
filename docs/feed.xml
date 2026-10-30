@@ -5,6 +5,34 @@
 <link>https://billatgameology.github.io/ada-media/</link>
 <description>A new interface with technology.</description>
 <item>
+<title>Everything except the save</title>
+<link>https://billatgameology.github.io/ada-media/#2026-10-29</link>
+<guid>https://billatgameology.github.io/ada-media/#2026-10-29</guid>
+<pubDate>Thu, 29 Oct 2026 00:00:00 +0000</pubDate>
+<description>The whiteboard grid, hover-only billboarding and a six-part Combine sentence all pass in the headset. The panel save still refuses — and the failure turns out to be a float32 rounding error, not the room.</description>
+<content:encoded><![CDATA[<p>The whiteboard grid, hover-only billboarding and a six-part Combine sentence all pass in the headset. The panel save still refuses — and the failure turns out to be a float32 rounding error, not the room.</p><ul><li>The grid holds: a photo and four videos land flush on the whiteboard, the hover-only billboarding icon passes, a six-original Combine sentence passes, and the saved note reopens with “The lighthouse remembers.”</li><li>The save slips again: dialogue and main are present and eligible, the room outlines match, and the Save still returns WORKSPACE_ACTION_STALE; readback stays layout 0, saved null, and no position is written.</li><li>A float32 rounding error: two native quaternion samples produce a 4.2e-8 apparent scale change, tripping a 1e-8 fence; normalizing only the owned anchor sample fixes the false stale, and the 16:06 build is deployed.</li></ul><p class="entry-why"><span>Why it matters</span> A saved layout is only useful if the save survives the room it was saved in. The bug was 4.2e-8; the workflow failure was much larger.</p>]]></content:encoded>
+</item><item>
+<title>The room asks for memory</title>
+<link>https://billatgameology.github.io/ada-media/#2026-10-28</link>
+<guid>https://billatgameology.github.io/ada-media/#2026-10-28</guid>
+<pubDate>Wed, 28 Oct 2026 00:00:00 +0000</pubDate>
+<description>A bar chart and its table appear in the room, the microphone stays open while Ada speaks, and the headset asks for the two things the interface still lacks: a memory for panel positions and a per-panel billboarding control.</description>
+<content:encoded><![CDATA[<p>A bar chart and its table appear in the room, the microphone stays open while Ada speaks, and the headset asks for the two things the interface still lacks: a memory for panel positions and a per-panel billboarding control.</p><ul><li>The first chart in the room: a sample weekly-visitors bar chart arrives with a matching table, and selecting a bar highlights the row; the first attempt is rejected as stale, the retry creates it, and Hide and Close turn out to do the same thing.</li><li>The microphone stays open: ordinary speech no longer stops Ada mid-sentence, and the spoken Stop command proves too entangled with the conversation queue; an open palm becomes the only audio stop, with the wrist tolerance widened after the first physical test.</li><li>The room asks for memory: panel positions and per-panel billboarding become the next build, but the live Save returns NO_ACTIVE_SCENE and nothing is written — the request is preserved, not pretended.</li></ul><p class="entry-why"><span>Why it matters</span> The interface is becoming a place, not a panel. A place needs a chart, a voice that can overlap, and a memory for where things belong.</p>]]></content:encoded>
+</item><item>
+<title>Seven takes, one stricter room</title>
+<link>https://billatgameology.github.io/ada-media/#2026-10-27</link>
+<guid>https://billatgameology.github.io/ada-media/#2026-10-27</guid>
+<pubDate>Tue, 27 Oct 2026 00:00:00 +0000</pubDate>
+<description>Five full takes of the founder story, plus the unglamorous work of making every existing feature explain itself: ten domains now publish evidence, and the room can no longer be confirmed by accident.</description>
+<content:encoded><![CDATA[<p>Five full takes of the founder story, plus the unglamorous work of making every existing feature explain itself: ten domains now publish evidence, and the room can no longer be confirmed by accident.</p><ul><li>The room cannot be confirmed by accident: Import, Help and Verify no longer launder a stale visual check; the same original input, scene and room geometry must still be current.</li><li>Ten domains learn to explain themselves: models, notes, media, capabilities, workspace, sharing, photos, queue, workers and body actions publish original evidence through the existing owners.</li><li>Seven takes to say why: five full recordings and two false starts between 19:59 and 20:48, ending with the four iterations of Ada and the reason to build the interface.</li></ul><p class="entry-why"><span>Why it matters</span> A feature is not really adopted until it can explain what happened without a special case. The same is true of a story.</p>]]></content:encoded>
+</item><item>
+<title>The request survives the turn</title>
+<link>https://billatgameology.github.io/ada-media/#2026-10-26</link>
+<guid>https://billatgameology.github.io/ada-media/#2026-10-26</guid>
+<pubDate>Mon, 26 Oct 2026 00:00:00 +0000</pubDate>
+<description>The foundation moved from single commands to retained intentions: a note stays editable through a clarification, one request can carry two confirmed steps, models clone and place as reusable pieces, and headset actions become queryable history.</description>
+<content:encoded><![CDATA[<p>The foundation moved from single commands to retained intentions: a note stays editable through a clarification, one request can carry two confirmed steps, models clone and place as reusable pieces, and headset actions become queryable history.</p><ul><li>A note survives the next turn: touch A, ask to rename it, clear the selection or select B, and the follow-up still edits A — not whatever happens to be selected now.</li><li>Models become reusable pieces: independent copies, resolved-set placement and exact output references; twelve copies keep their own identities and edits, and forty-two models stay addressable across pages.</li><li>The headset&#x27;s actions become history: media touch, grab, hover, playback and placement publish as normalized evidence, and Ada can query the recent or durable record without a special narration step.</li></ul><p class="entry-why"><span>Why it matters</span> The assistant&#x27;s unit of work is not a command. It is an intention with evidence that survives the next sentence.</p>]]></content:encoded>
+</item><item>
 <title>The demo is the test</title>
 <link>https://billatgameology.github.io/ada-media/#2026-10-25</link>
 <guid>https://billatgameology.github.io/ada-media/#2026-10-25</guid>

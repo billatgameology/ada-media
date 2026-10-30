@@ -1,0 +1,6 @@
+A bar chart and its table appear in the room, the microphone stays open while Ada speaks, and the headset asks for the two things the interface still lacks: a memory for panel positions and a per-panel billboarding control.
+
+• The chart appears — the first sample request is rejected with a stale-state error, so Ada stops instead of replaying it. A second request creates “Sample: weekly visitors,” a bar chart with an exact-values table. Selecting a bar highlights the matching row. Hide and Close both make the exhibit disappear, which is the next control bug.
+• The overlap test — ordinary speech reaches Ada while she is speaking; the microphone and the reply no longer block each other. “Stop speaking” still goes into the conversation queue, so it does not cut audio immediately. Bill rejects voice and noise as the trigger and asks for a deliberate open palm: stop only while Ada is speaking, keep the work and microphone running.
+
+#devlog #buildinpublic #opensource #xr #spatialcomputing

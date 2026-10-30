@@ -1,0 +1,1 @@
+The whiteboard grid, hover-only billboarding and a six-part Combine sentence all pass in the headset. The panel save still refuses — and the failure turns out to be a float32 rounding error, not the room.
